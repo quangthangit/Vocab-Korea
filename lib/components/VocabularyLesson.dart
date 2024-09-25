@@ -31,7 +31,7 @@ class VocabularyLesson extends StatelessWidget {
           ),
           SizedBox(height: 20,),
           Align(
-            alignment: Alignment.centerLeft, // Đặt căn lề bên trái
+            alignment: Alignment.centerLeft,
             child: Text('36 Thuật ngữ', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
           ),
           SizedBox(height: 20,),

@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _onNavBarTap(int index) {
-    if (index == 2) { // Check if "Add" icon is tapped
+    if (index == 2) {
       _showAddForm();
     } else {
       _pageController.jumpToPage(index);
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Icon(Icons.add_chart, color: Colors.white, size: 30),
           Icon(Icons.account_circle, color: Colors.white, size: 30),
         ],
-        onTap: _onNavBarTap, // Make sure to set this
+        onTap: _onNavBarTap,
       ),
     );
   }

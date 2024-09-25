@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-
 class LibraryBar extends StatefulWidget {
-  const LibraryBar({super.key});
+  final Function(int) onItemTapped;
+
+  const LibraryBar({super.key, required this.onItemTapped});
 
   @override
   _LibraryBarState createState() => _LibraryBarState();
 }
 
 class _LibraryBarState extends State<LibraryBar> {
-  int _selectedIndex = 0; // Chỉ số của lựa chọn hiện tại
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class _LibraryBarState extends State<LibraryBar> {
             children: [
               Text(
                 'Thư viện',
-                  style: TextStyle(fontSize: 25,fontFamily: 'Lobster')
+                style: TextStyle(fontSize: 25, fontFamily: 'Lobster'),
               ),
               Icon(Icons.add),
             ],
@@ -32,9 +33,9 @@ class _LibraryBarState extends State<LibraryBar> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               _buildChoice(0, 'Học phần'),
-              const SizedBox(width: 40,),
+              const SizedBox(width: 40),
               _buildChoice(1, 'Thư mục'),
-              const SizedBox(width: 40,),
+              const SizedBox(width: 40),
               _buildChoice(2, 'Lớp học'),
             ],
           ),
@@ -50,6 +51,7 @@ class _LibraryBarState extends State<LibraryBar> {
         setState(() {
           _selectedIndex = index;
         });
+        widget.onItemTapped(index); 
       },
       child: Column(
         children: [

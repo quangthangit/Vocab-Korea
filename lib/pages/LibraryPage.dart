@@ -1,75 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:vocabkpop/components/VocabularyLesson.dart';
+import 'package:vocabkpop/widget/library/ClassRoomList.dart';
+import 'package:vocabkpop/widget/library/FolderList.dart';
 import 'package:vocabkpop/widget/LibraryBar.dart';
+import 'package:vocabkpop/widget/library/VocabularyLessonList.dart';
 
-class LibraryPage extends StatelessWidget {
+class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
 
   @override
+  _LibraryPageState createState() => _LibraryPageState();
+}
+
+class _LibraryPageState extends State<LibraryPage> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Widget content;
+    switch (_selectedIndex) {
+      case 0:
+        content = const VocabularyLessonList();
+        break;
+      case 1:
+        content = const FolderList();
+        break;
+      case 2:
+        content = const ClassRoomList();
+        break;
+      default:
+        content = const VocabularyLessonList();
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            const LibraryBar(),
+            LibraryBar(onItemTapped: _onItemTapped),
             Expanded(
-              child: ListView(
-                children: [
-                  const SizedBox(height: 10,),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 30),
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              labelText: 'Bộ lọc',
-                              floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10,),
-                  const Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-                        ),
-                      ),
-                      VocabularyLesson(),
-                    ],
-                  ),
-                  const Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Tháng 10 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-                        ),
-                      ),
-                      VocabularyLesson(),
-                    ],
-                  ),
-                  const Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Tháng 9 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-                        ),
-                      ),
-                      VocabularyLesson(),
-                    ],
-                  ),
-                ],
-              ),
+              child: content,
             ),
           ],
         ),
