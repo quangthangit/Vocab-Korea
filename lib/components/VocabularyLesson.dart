@@ -24,22 +24,22 @@ class VocabularyLesson extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('Bài 5',style: TextStyle(fontSize: 25,fontFamily: 'Lobster'),),
+              Text('Bài 5',style: TextStyle(fontSize: 20,fontFamily: 'Lobster'),),
               SizedBox(width: 10,),
-              Text('Trung cấp 1',style: TextStyle(fontSize: 25,fontFamily: 'Lobster'))
+              Text('Trung cấp 1',style: TextStyle(fontSize: 20,fontFamily: 'Lobster'))
             ],
           ),
           SizedBox(height: 20,),
           Align(
             alignment: Alignment.centerLeft,
-            child: Text('36 Thuật ngữ', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
+            child: Text('36 Thuật ngữ', style: TextStyle(fontSize: 15, fontFamily: 'Lobster')),
           ),
           SizedBox(height: 20,),
           Row(
             children: [
               Icon(Icons.account_circle_outlined),
-              SizedBox(width: 10,),
-              Text('user09217662',style: TextStyle(fontSize: 20,fontFamily: 'Lobster'))
+              SizedBox(width: 5,),
+              Text('user09217662',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,fontFamily: 'KayPhoDu'))
             ],
           )
         ],

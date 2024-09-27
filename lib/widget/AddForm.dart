@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/widget/form/AddClassRoomForm.dart';
+import 'package:vocabkpop/widget/form/AddFolderForm.dart';
 
 class AddForm extends StatelessWidget {
   const AddForm({super.key});
@@ -24,34 +26,70 @@ class AddForm extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          _buildItem(Icons.bookmarks_outlined, 'Học phần'),
+          _buildItem(context, Icons.bookmarks_outlined, 'Học phần'),
           const SizedBox(height: 16),
-          _buildItem(Icons.folder_copy_outlined, 'Thư mục'),
+          _buildItem(context, Icons.folder_copy_outlined, 'Thư mục'),
           const SizedBox(height: 16),
-          _buildItem(Icons.supervisor_account, 'Tạo lớp học'),
+          _buildItem(context, Icons.supervisor_account, 'Tạo lớp học'),
         ],
       ),
     );
   }
 
-  Widget _buildItem(IconData icon, String title) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Color(0xFFE6E6E6),
-        borderRadius: BorderRadius.circular(20),
+  Widget _buildItem(BuildContext context, IconData icon, String title) {
+    return GestureDetector(
+      onTap: () async {
+        if (ModalRoute.of(context)?.isCurrent == true) {
+          Navigator.of(context).pop();
+        }
+        if (title == "Học phần") {
+          await _showBottomSheet(context);
+        } else if (title == "Tạo lớp học") {
+          await _showBottomSheet2(context);
+        } else if (title == "Thư mục") {
+          await _showBottomSheet(context);
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFFE6E6E6),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(icon),
+            const SizedBox(width: 8),
+            Text(
+              title,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Icon(icon),
-          const SizedBox(width: 8),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
+    );
+  }
+
+  Future<void> _showBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return AddFolderForm();
+      },
+    );
+  }
+
+  Future<void> _showBottomSheet2(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return AddClassRoomForm();
+      },
     );
   }
 }

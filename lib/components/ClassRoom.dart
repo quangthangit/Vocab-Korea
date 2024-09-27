@@ -24,11 +24,11 @@ class ClassRoom extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Text('21KIT',style: TextStyle(fontSize: 20,fontFamily: 'Lobster')),
+            child: Text('21KIT',style: TextStyle(fontSize: 15,fontFamily: 'Lobster')),
           ),
           Align(
             alignment: Alignment.centerLeft,
-            child: Text('Lớp học tiếng hàn VKU',style: TextStyle(fontSize: 20,fontFamily: 'Lobster')),
+            child: Text('Lớp học tiếng hàn VKU',style: TextStyle(fontSize: 12,fontFamily: 'Lobster')),
           ),
           SizedBox(height: 20,),
           Row(
@@ -38,14 +38,14 @@ class ClassRoom extends StatelessWidget {
                 children: [
                   Icon(Icons.collections_bookmark_outlined),
                   SizedBox(width: 10,),
-                  Text('15 học phần',style: TextStyle(fontSize: 18,fontFamily: 'Lobster'))
+                  Text('15 học phần',style: TextStyle(fontSize: 15,fontFamily: 'Lobster'))
                 ],
               ),
               Row(
                 children: [
                   Icon(Icons.supervisor_account),
                   SizedBox(width: 10,),
-                  Text('105 thành viên',style: TextStyle(fontSize: 18,fontFamily: 'Lobster'))
+                  Text('105 thành viên',style: TextStyle(fontSize: 15,fontFamily: 'Lobster'))
                 ],
               )
             ],

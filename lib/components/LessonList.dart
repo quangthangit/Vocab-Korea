@@ -6,7 +6,7 @@ class LessonList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
       margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -24,19 +24,19 @@ class LessonList extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.centerLeft, 
-            child: Icon(Icons.save),
+            child: Icon(Icons.save,size: 20,),
           ),
           SizedBox(height: 20,),
           Align(
             alignment: Alignment.centerLeft,
-            child: Text('Trung cấp 1',style: TextStyle(fontSize: 25,fontFamily: 'Lobster')),
+            child: Text('Trung cấp 1',style: TextStyle(fontSize: 20,fontFamily: 'Lobster')),
           ),
           SizedBox(height: 20,),
           Row(
             children: [
               Icon(Icons.account_circle_outlined),
-              SizedBox(width: 10,),
-              Text('user09217662',style: TextStyle(fontSize: 20,fontFamily: 'Lobster'))
+              SizedBox(width: 5,),
+              Text('user09217662',style: TextStyle(fontSize: 15,fontFamily: 'KayPhoDu',fontWeight: FontWeight.bold))
             ],
           )
         ],

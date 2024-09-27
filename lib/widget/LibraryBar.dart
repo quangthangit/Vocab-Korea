@@ -58,7 +58,7 @@ class _LibraryBarState extends State<LibraryBar> {
           Text(
             title,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
               color: isSelected ? Colors.blue : Colors.black,
             ),

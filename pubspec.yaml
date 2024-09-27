@@ -90,5 +90,20 @@ flutter:
        fonts:
          - asset: fonts/RobotoCondensed/RobotoCondensed-Bold.ttf
            weight: 900
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
+     - family: Anton
+       fonts:
+         - asset: fonts/Anton-Regular.ttf
+
+     - family: Oswald
+       fonts:
+         - asset: fonts/RobotoCondensed/RobotoCondensed-Bold.ttf
+           weight: 900
+
+     - family: Oswald
+       fonts:
+         - asset: fonts/Oswald-VariableFont_wght.ttf
+
+     - family: KayPhoDu
+       fonts:
+         - asset: fonts/KayPhoDu-Medium.ttf
+           weight: 800
