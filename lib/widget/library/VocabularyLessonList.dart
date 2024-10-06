@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/components/VocabularyLesson.dart';
+import 'package:vocabkpop/pages/HomeLesson.dart';
 
 class VocabularyLessonList extends StatelessWidget {
   const VocabularyLessonList({super.key});
@@ -25,17 +26,22 @@ class VocabularyLessonList extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 10),
-        const Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-              ),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/homeLesson');
+          },
+            child: const Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
+                  ),
+                ),
+                VocabularyLesson(),
+              ],
             ),
-            VocabularyLesson(),
-          ],
         ),
         const Column(
           children: [
