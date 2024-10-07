@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flip_card/flip_card.dart';
 import 'package:vocabkpop/data_test/vocabulary_data.dart';
+import 'package:vocabkpop/models/Vocabulary.dart';
 import 'package:vocabkpop/widget/bar/HomeLessonBar.dart';
-import 'package:vocabkpop/app_colors.dart';
 
 class HomeLesson extends StatefulWidget {
   const HomeLesson({super.key});
@@ -12,6 +13,15 @@ class HomeLesson extends StatefulWidget {
 
 class _HomeLessonState extends State<HomeLesson> {
   int selectedContainer = 0;
+  late PageController _pageController;
+  late List<Vocabulary> _vocabularyList;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _vocabularyList = vocabularyList; // Initialize with your vocabulary list
+  }
 
   void _onContainerTap(int index) {
     setState(() {
@@ -38,23 +48,52 @@ class _HomeLessonState extends State<HomeLesson> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: ListView(
           children: [
             const HomeLessonBar(),
             Container(
+              height: 300,
               margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.symmetric(vertical: 100),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Center(
-                child: Text(
-                  '사람',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                ),
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: _vocabularyList.length,
+                itemBuilder: (context, index) {
+                  return Center(
+                    child: FlipCard(
+                      front: Container(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              _vocabularyList[index].korean,
+                              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      back: Container(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              _vocabularyList[index].vietnamese,
+                              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             Container(
@@ -189,7 +228,6 @@ class _HomeLessonState extends State<HomeLesson> {
                 ],
               ),
             ),
-            // Vocabulary List
             ...vocabularyList.map((vocab) {
               bool shouldShowVocab = selectedContainer == 0 || (selectedContainer == 1 && vocab.star == 1);
 
@@ -232,5 +270,11 @@ class _HomeLessonState extends State<HomeLesson> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

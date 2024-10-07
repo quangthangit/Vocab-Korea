@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:vocabkpop/components/FlashCardWithAudio.dart';
 import 'package:vocabkpop/data_test/vocabulary_data.dart';
 import 'package:vocabkpop/models/Vocabulary.dart';
 import 'package:vocabkpop/widget/bar/FlashCardBar.dart';
@@ -88,13 +89,15 @@ class _FlashCardPageState extends State<FlashCardPage> {
                   child: Container(
                     width: 350,
                     child: FlipCard(
-                      front: _buildCard(
-                        _vocabularyList[index].korean,
-                        'Tiếng Hàn',
+                      front: FlashCardWithAudio(
+                        text: _vocabularyList[index].korean,
+                        language: 'Tiếng Hàn',
+                        onSpeak: () => _speak(_vocabularyList[index].korean, 'ko-KR'),
                       ),
-                      back: _buildCard(
-                        _vocabularyList[index].vietnamese,
-                        'Tiếng Việt',
+                      back: FlashCardWithAudio(
+                        text: _vocabularyList[index].vietnamese,
+                        language: 'Tiếng Việt',
+                        onSpeak: () => _speak(_vocabularyList[index].vietnamese, 'vi-VN'),
                       ),
                     ),
                   ),
@@ -116,53 +119,6 @@ class _FlashCardPageState extends State<FlashCardPage> {
                   onPressed: _nextCard,
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCard(String text, String language) {
-    return Container(
-      width: 350,
-      height: 500,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.volume_up, color: AppColors.iconColor, size: 30),
-                  onPressed: () {
-                    String textToSpeak = text;
-                    String langToSpeak = language == 'Tiếng Hàn' ? 'ko-KR' : 'vi-VN';
-                    _speak(textToSpeak, langToSpeak);
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.star_border, color: AppColors.iconColor, size: 30),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
-          Center(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
           ),
         ],
