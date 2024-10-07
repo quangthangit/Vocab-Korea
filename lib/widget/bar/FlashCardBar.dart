@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
-import 'package:vocabkpop/models/Vocabulary.dart';
+import 'package:vocabkpop/models/VocabularyModel.dart';
 
 class FlashCardBar extends StatelessWidget {
   final int currentIndex;
-  final List<Vocabulary> vocabularyList;
+  final List<VocabularyModel> vocabularyList;
   const FlashCardBar({super.key, required this.currentIndex, required this.vocabularyList});
 
   @override

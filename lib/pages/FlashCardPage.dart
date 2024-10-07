@@ -4,7 +4,7 @@ import 'package:vocabkpop/app_colors.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:vocabkpop/components/FlashCardWithAudio.dart';
 import 'package:vocabkpop/data_test/vocabulary_data.dart';
-import 'package:vocabkpop/models/Vocabulary.dart';
+import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/widget/bar/FlashCardBar.dart';
 
 class FlashCardPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class FlashCardPage extends StatefulWidget {
 
 class _FlashCardPageState extends State<FlashCardPage> {
   late PageController _pageController;
-  late List<Vocabulary> _vocabularyList;
+  late List<VocabularyModel> _vocabularyList;
   late FlutterTts flutterTts;
   int currentIndex = 0;
 

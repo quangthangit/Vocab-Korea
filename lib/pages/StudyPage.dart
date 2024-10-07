@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/widget/bar/StudyBar.dart';
 import 'dart:math';
-import 'package:vocabkpop/models/Vocabulary.dart';
+import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/data_test/vocabulary_data.dart';
 
 class StudyPage extends StatelessWidget {
@@ -37,15 +37,15 @@ class QuizWidget extends StatefulWidget {
 }
 
 class _QuizWidgetState extends State<QuizWidget> {
-  late List<Vocabulary> _vocabularyList;
-  late Vocabulary _correctAnswer;
-  late List<Vocabulary> _options;
+  late List<VocabularyModel> _vocabularyList;
+  late VocabularyModel _correctAnswer;
+  late List<VocabularyModel> _options;
   late String _questionText;
   late String _title = 'Chọn câu trả lời';
 
-  Vocabulary? _selectedAnswer;
+  VocabularyModel? _selectedAnswer;
   bool? _isCorrect;
-  Set<Vocabulary> _usedWords = {};
+  Set<VocabularyModel> _usedWords = {};
 
   @override
   void initState() {
@@ -68,10 +68,10 @@ class _QuizWidgetState extends State<QuizWidget> {
     _usedWords.add(_correctAnswer);
     _questionText = _correctAnswer.vietnamese;
 
-    Set<Vocabulary> optionsSet = {_correctAnswer};
+    Set<VocabularyModel> optionsSet = {_correctAnswer};
 
     while (optionsSet.length < 4) {
-      Vocabulary randomOption = _vocabularyList[random.nextInt(_vocabularyList.length)];
+      VocabularyModel randomOption = _vocabularyList[random.nextInt(_vocabularyList.length)];
       if (randomOption != _correctAnswer && !_usedWords.contains(randomOption)) {
         optionsSet.add(randomOption);
       }
@@ -80,7 +80,7 @@ class _QuizWidgetState extends State<QuizWidget> {
     _options = optionsSet.toList()..shuffle();
   }
 
-  void _checkAnswer(Vocabulary selectedAnswer) {
+  void _checkAnswer(VocabularyModel selectedAnswer) {
     setState(() {
       _selectedAnswer = selectedAnswer;
       _isCorrect = selectedAnswer == _correctAnswer;

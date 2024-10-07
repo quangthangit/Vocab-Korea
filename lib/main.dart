@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
       ),
       routes: {
-        '/homeLesson': (context) => const HomeLesson(),
+        '/homeLesson': (context) => const HomeLessonPage(),
         '/gameMatch': (context) => GameMatchPage(),
         '/study': (context) => StudyPage(),
         '/match': (context) => MatchPage(),

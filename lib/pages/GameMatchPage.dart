@@ -3,7 +3,7 @@ import 'package:vocabkpop/app_colors.dart';
 import 'dart:math';
 import 'dart:async';
 import 'package:vocabkpop/data_test/vocabulary_data.dart';
-import 'package:vocabkpop/models/Vocabulary.dart';
+import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 
 class GameMatchPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
   late List<bool> _isCorrect;
   late AnimationController _controller;
   late Animation<double> _shakeAnimation;
-  late List<Vocabulary> _vocabularyList;
+  late List<VocabularyModel> _vocabularyList;
   int numberDone = 0;
   double _seconds = 0.0;
   bool _isRunning = false;
@@ -153,8 +153,8 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
     return false;
   }
 
-  List<String> _handleList(List<Vocabulary> vocabularyList) {
-    List<Vocabulary> selectedWords;
+  List<String> _handleList(List<VocabularyModel> vocabularyList) {
+    List<VocabularyModel> selectedWords;
     if (vocabularyList.length > 6) {
       vocabularyList.shuffle(Random());
       selectedWords = vocabularyList.take(6).toList();

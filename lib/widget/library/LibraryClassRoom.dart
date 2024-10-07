@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/components/ClassRoom.dart';
-import 'package:vocabkpop/components/VocabularyLesson.dart';
+import 'package:vocabkpop/components/Lesson.dart';
 
-class ClassRoomList extends StatelessWidget {
-  const ClassRoomList({super.key});
+class LibraryClassRoom extends StatelessWidget {
+  const LibraryClassRoom({super.key});
 
   @override
   Widget build(BuildContext context) {

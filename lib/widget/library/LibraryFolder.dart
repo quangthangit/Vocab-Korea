@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vocabkpop/components/LessonList.dart';
+import 'package:vocabkpop/components/Folder.dart';
 
-import '../../components/VocabularyLesson.dart';
+import '../../components/Lesson.dart';
 
-class FolderList extends StatelessWidget {
-  const FolderList({super.key});
+class LibraryFolder extends StatelessWidget {
+  const LibraryFolder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class FolderList extends StatelessWidget {
                   child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
                 ),
               ),
-              LessonList()
+              Folder()
             ],
           ),
           const Column(
@@ -49,7 +49,7 @@ class FolderList extends StatelessWidget {
                   child: Text('Tháng 10 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
                 ),
               ),
-              LessonList()
+              Folder()
             ],
           ),
           const Column(
@@ -61,7 +61,7 @@ class FolderList extends StatelessWidget {
                   child: Text('Tháng 9 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
                 ),
               ),
-              LessonList()
+              Folder()
             ],
           ),
         ],

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:vocabkpop/data_test/vocabulary_data.dart';
-import 'package:vocabkpop/models/Vocabulary.dart';
+import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/widget/bar/HomeLessonBar.dart';
 
-class HomeLesson extends StatefulWidget {
-  const HomeLesson({super.key});
+class HomeLessonPage extends StatefulWidget {
+  const HomeLessonPage({super.key});
 
   @override
-  _HomeLessonState createState() => _HomeLessonState();
+  _HomeLessonPageState createState() => _HomeLessonPageState();
 }
 
-class _HomeLessonState extends State<HomeLesson> {
+class _HomeLessonPageState extends State<HomeLessonPage> {
   int selectedContainer = 0;
   late PageController _pageController;
-  late List<Vocabulary> _vocabularyList;
+  late List<VocabularyModel> _vocabularyList;
 
   @override
   void initState() {

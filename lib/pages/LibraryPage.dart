@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/widget/library/LibraryClassRoom.dart';
 import 'package:vocabkpop/widget/library/LibraryFolder.dart';
 import 'package:vocabkpop/widget/bar/LibraryBar.dart';
-import 'package:vocabkpop/widget/library/LibraryVocabulary.dart';
+import 'package:vocabkpop/widget/library/LibraryLesson.dart';
 import 'package:vocabkpop/app_colors.dart';
 
 class LibraryPage extends StatefulWidget {
@@ -26,16 +26,16 @@ class _LibraryPageState extends State<LibraryPage> {
     Widget content;
     switch (_selectedIndex) {
       case 0:
-        content = const VocabularyLessonList();
+        content = LibraryLesson();
         break;
       case 1:
-        content = const FolderList();
+        content = const LibraryFolder();
         break;
       case 2:
-        content = const ClassRoomList();
+        content = const LibraryClassRoom();
         break;
       default:
-        content = const VocabularyLessonList();
+        content = LibraryLesson();
     }
 
     return Scaffold(
