@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vocabkpop/pages/HomeLesson.dart';
+import 'package:vocabkpop/pages/HomeLessonPage.dart';
 import 'package:vocabkpop/pages/HomePage.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
 import "package:curved_navigation_bar/curved_navigation_bar.dart" as curved_navigation_bar;
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/homeLesson': (context) => HomeLesson(),
       },
-      home: const HomeLesson(),
+      home: const MyHomePage(),
     );
   }
 }
