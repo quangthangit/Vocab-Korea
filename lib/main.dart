@@ -9,6 +9,7 @@ import 'package:vocabkpop/pages/GameMatchPage.dart';
 import 'package:vocabkpop/pages/MatchPage.dart';
 import 'package:vocabkpop/pages/StudyPage.dart';
 import 'package:vocabkpop/widget/AddForm.dart';
+import 'package:vocabkpop/pages/GameFlashCardPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,10 +43,11 @@ class MyApp extends StatelessWidget {
       routes: {
         '/homeLesson': (context) => const HomeLesson(),
         '/gameMatch': (context) => GameMatchPage(vocabularyList: vocabularyList),
-      '/homeLesson': (context) => HomeLesson(),
-      '/study': (context) => StudyPage(),
+        '/study': (context) => StudyPage(),
+        '/match': (context) => MatchPage(),
+        '/flashcard' : (context) => FlashCardWidget(vocabularyList: vocabularyList),
       },
-      home: MatchPage(),
+      home: MyHomePage(),
 
     );
   }

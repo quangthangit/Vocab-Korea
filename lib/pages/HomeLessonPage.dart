@@ -18,9 +18,24 @@ class _HomeLessonState extends State<HomeLesson> {
     });
   }
 
+  void _navigateToPage(int index) {
+    switch (index) {
+      case 0:
+        Navigator.pushNamed(context, '/flashcard');
+        break;
+      case 1:
+        Navigator.pushNamed(context, '/study');
+        break;
+      case 2:
+        break;
+      case 3:
+        Navigator.pushNamed(context, '/match');
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
@@ -86,35 +101,37 @@ class _HomeLessonState extends State<HomeLesson> {
             ),
             ...List.generate(4, (index) {
               List<String> titles = ['Thẻ ghi nhớ', 'Học', 'Kiểm tra', 'Ghép thẻ'];
-              return Container(
-                margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                padding: const EdgeInsetsDirectional.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      index == 0
-                          ? Icons.bookmarks
-                          : index == 1
-                          ? Icons.computer
-                          : index == 2
-                          ? Icons.menu_book
-                          : Icons.save_rounded,
-                      color: const Color(0xFF812AEF),
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      titles[index],
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
+              return GestureDetector(
+                onTap: () => _navigateToPage(index),
+                child: Container(
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                  padding: const EdgeInsetsDirectional.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        index == 0
+                            ? Icons.bookmarks
+                            : index == 1
+                            ? Icons.computer
+                            : index == 2
+                            ? Icons.menu_book
+                            : Icons.save_rounded,
+                        color: const Color(0xFF812AEF),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        titles[index],
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
               );
             }),
-            // Container for selecting the learning mode
             Container(
               margin: const EdgeInsets.only(left: 20, top: 20, right: 20),
               padding: const EdgeInsetsDirectional.all(10),
@@ -177,7 +194,7 @@ class _HomeLessonState extends State<HomeLesson> {
 
               return shouldShowVocab
                   ? Container(
-                margin: const EdgeInsets.only(right: 30, top: 20, left: 30,bottom: 10),
+                margin: const EdgeInsets.only(right: 30, top: 20, left: 30, bottom: 10),
                 padding: const EdgeInsets.symmetric(vertical: 40),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),

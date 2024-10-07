@@ -6,12 +6,13 @@ class MatchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             IconButton(
               icon: const Icon(Icons.close, color: AppColors.iconColor, size: 40),
               onPressed: () {
-
+                Navigator.pop(context);
               },
             ),
             const Expanded(
