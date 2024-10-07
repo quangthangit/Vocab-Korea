@@ -10,7 +10,7 @@ class HomeLesson extends StatefulWidget {
 }
 
 class _HomeLessonState extends State<HomeLesson> {
-  int selectedContainer = -1;
+  int selectedContainer = 0;
 
   void _onContainerTap(int index) {
     setState(() {
@@ -20,6 +20,7 @@ class _HomeLessonState extends State<HomeLesson> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
@@ -62,7 +63,7 @@ class _HomeLessonState extends State<HomeLesson> {
                           fontFamily: 'KayPhoDu',
                           fontWeight: FontWeight.bold,
                         ),
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(width: 20),
@@ -113,15 +114,12 @@ class _HomeLessonState extends State<HomeLesson> {
                 ),
               );
             }),
+            // Container for selecting the learning mode
             Container(
               margin: const EdgeInsets.only(left: 20, top: 20, right: 20),
               padding: const EdgeInsetsDirectional.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                // border: Border.all(
-                //   color: Colors.blue,
-                //   width: 2,
-                // ),
               ),
               child: Row(
                 children: [
@@ -161,7 +159,7 @@ class _HomeLessonState extends State<HomeLesson> {
                           child: Text(
                             'Học hết 2',
                             style: TextStyle(
-                              color: selectedContainer == 0 ? Color(0xFF812AEF) : const Color(0xFFFFFFFF),
+                              color: selectedContainer == 1 ? Color(0xFFFFFFFF) : const Color(0xFF812AEF),
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
@@ -173,9 +171,13 @@ class _HomeLessonState extends State<HomeLesson> {
                 ],
               ),
             ),
+            // Vocabulary List
             ...vocabularyList.map((vocab) {
-              return Container(
-                margin: const EdgeInsets.only(right: 30,top: 20,left: 30),
+              bool shouldShowVocab = selectedContainer == 0 || (selectedContainer == 1 && vocab.star == 1);
+
+              return shouldShowVocab
+                  ? Container(
+                margin: const EdgeInsets.only(right: 30, top: 20, left: 30,bottom: 10),
                 padding: const EdgeInsets.symmetric(vertical: 40),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -200,12 +202,13 @@ class _HomeLessonState extends State<HomeLesson> {
                       children: [
                         Icon(Icons.volume_up_rounded),
                         SizedBox(width: 20),
-                        (vocab.star == 1) ? Icon(Icons.star) : Icon(Icons.star_border_rounded)
+                        (vocab.star == 1) ? Icon(Icons.star, color: Colors.black) : Icon(Icons.star_border_rounded),
                       ],
                     ),
                   ],
                 ),
-              );
+              )
+                  : Container();
             }).toList(),
           ],
         ),
