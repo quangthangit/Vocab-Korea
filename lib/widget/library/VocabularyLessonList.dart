@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/components/VocabularyLesson.dart';
-import 'package:vocabkpop/pages/HomeLesson.dart';
+import 'package:vocabkpop/pages/HomeLessonPage.dart';
 
 class VocabularyLessonList extends StatelessWidget {
   const VocabularyLessonList({super.key});

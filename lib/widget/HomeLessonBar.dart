@@ -8,11 +8,16 @@ class HomeLessonBar extends StatelessWidget {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(20),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Icon(Icons.arrow_back_sharp),
-          Row(
+          InkWell(
+            child: const Icon(Icons.arrow_back_sharp),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          const Row(
             children: [
               Icon(Icons.share),
               Icon(Icons.more_vert)
