@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/homeLesson': (context) => HomeLesson(),
       },
-      home: const MyHomePage(),
+      home: const HomeLesson(),
     );
   }
 }
