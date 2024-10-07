@@ -5,6 +5,7 @@ import 'package:vocabkpop/pages/HomePage.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
 import "package:curved_navigation_bar/curved_navigation_bar.dart" as curved_navigation_bar;
 import 'package:vocabkpop/pages/LibraryPage.dart';
+import 'package:vocabkpop/pages/StudyPage.dart';
 import 'package:vocabkpop/widget/AddForm.dart';
 
 void main() {
@@ -27,8 +28,9 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/homeLesson': (context) => HomeLesson(),
+        '/study': (context) => StudyPage(),
       },
-      home: const MyHomePage(),
+      home: const StudyPage(),
     );
   }
 }
