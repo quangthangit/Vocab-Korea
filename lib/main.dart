@@ -5,6 +5,8 @@ import 'package:vocabkpop/pages/HomePage.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
 import "package:curved_navigation_bar/curved_navigation_bar.dart" as curved_navigation_bar;
 import 'package:vocabkpop/pages/LibraryPage.dart';
+import 'package:vocabkpop/pages/GameMatchPage.dart';
+import 'package:vocabkpop/pages/MatchPage.dart';
 import 'package:vocabkpop/widget/AddForm.dart';
 
 void main() {
@@ -21,14 +23,26 @@ class MyApp extends StatelessWidget {
       statusBarIconBrightness: Brightness.light,
     ));
 
+    List<Map<String, String>> vocabularyList = [
+      {'korean': '안녕하세요', 'vietnamese': 'Xin chào'},
+      {'korean': '사랑', 'vietnamese': 'Tình yêu'},
+      {'korean': '학교', 'vietnamese': 'Trường học'},
+      {'korean': '친구', 'vietnamese': 'Bạn bè'},
+      {'korean': '음식', 'vietnamese': 'Thức ăn'},
+      {'korean': '죄송 합니다', 'vietnamese': 'Xin lỗi'},
+      {'korean': '과일', 'vietnamese': 'Trái cây'},
+    ];
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
       routes: {
-        '/homeLesson': (context) => HomeLesson(),
+        '/homeLesson': (context) => const HomeLesson(),
+        '/gameMatch': (context) => GameMatchPage(vocabularyList: vocabularyList),
       },
-      home: const MyHomePage(),
+      home: MatchPage(),
     );
   }
 }

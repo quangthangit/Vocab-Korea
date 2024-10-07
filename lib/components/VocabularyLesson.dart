@@ -20,7 +20,7 @@ class VocabularyLesson extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
+      child: const Column(
         children: [
           Row(
             children: [
