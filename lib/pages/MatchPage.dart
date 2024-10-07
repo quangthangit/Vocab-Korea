@@ -1,47 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
+import 'package:vocabkpop/widget/bar/MatchBar.dart';
+import 'package:vocabkpop/app_colors.dart';
 
 class MatchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
+        backgroundColor: AppColors.background,
         automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.close, color: AppColors.iconColor, size: 40),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            const Expanded(
-              child: Text(
-                'Ghép thẻ',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.iconColor,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.settings, color: AppColors.iconColor, size: 40),
-              onPressed: () {
-                // Hành động khi nhấn nút cài đặt
-              },
-            ),
-          ],
-        ),
+        title: MatchBar(),
       ),
       body: Column(
         children: [
+          const LinearProgressIndicator(
+            value: 100,
+            backgroundColor: AppColors.background,
+            color: AppColors.iconColor,
+          ),
           Expanded(
             child: Center(
               child: Container(
-                child: Column( // Sử dụng Column để chứa nhiều widget bên trong Container
-                  mainAxisAlignment: MainAxisAlignment.center, // Căn giữa nội dung trong Column
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text("Bạn đã sẵn sàng ?", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),),
                     const SizedBox(height: 20),

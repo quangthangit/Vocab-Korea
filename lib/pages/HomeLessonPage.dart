@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/data_test/vocabulary_data.dart';
-import 'package:vocabkpop/widget/HomeLessonBar.dart';
+import 'package:vocabkpop/widget/bar/HomeLessonBar.dart';
+import 'package:vocabkpop/app_colors.dart';
 
 class HomeLesson extends StatefulWidget {
   const HomeLesson({super.key});
@@ -37,7 +38,7 @@ class _HomeLessonState extends State<HomeLesson> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: ListView(
           children: [

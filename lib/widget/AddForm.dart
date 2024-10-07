@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vocabkpop/widget/form/AddClassRoomForm.dart';
-import 'package:vocabkpop/widget/form/AddFolderForm.dart';
+import 'package:vocabkpop/widget/form/ClassRoomForm.dart';
+import 'package:vocabkpop/widget/form/FolderForm.dart';
 
 class AddForm extends StatelessWidget {
   const AddForm({super.key});

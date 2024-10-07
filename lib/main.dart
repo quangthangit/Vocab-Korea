@@ -9,7 +9,8 @@ import 'package:vocabkpop/pages/GameMatchPage.dart';
 import 'package:vocabkpop/pages/MatchPage.dart';
 import 'package:vocabkpop/pages/StudyPage.dart';
 import 'package:vocabkpop/widget/AddForm.dart';
-import 'package:vocabkpop/pages/GameFlashCardPage.dart';
+import 'package:vocabkpop/pages/FlashCardPage.dart';
+import 'package:vocabkpop/pages/FlashCardPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,16 +26,6 @@ class MyApp extends StatelessWidget {
       statusBarIconBrightness: Brightness.light,
     ));
 
-    List<Map<String, String>> vocabularyList = [
-      {'korean': '안녕하세요', 'vietnamese': 'Xin chào'},
-      {'korean': '사랑', 'vietnamese': 'Tình yêu'},
-      {'korean': '학교', 'vietnamese': 'Trường học'},
-      {'korean': '친구', 'vietnamese': 'Bạn bè'},
-      {'korean': '음식', 'vietnamese': 'Thức ăn'},
-      {'korean': '죄송 합니다', 'vietnamese': 'Xin lỗi'},
-      {'korean': '과일', 'vietnamese': 'Trái cây'},
-    ];
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -42,10 +33,10 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/homeLesson': (context) => const HomeLesson(),
-        '/gameMatch': (context) => GameMatchPage(vocabularyList: vocabularyList),
+        '/gameMatch': (context) => GameMatchPage(),
         '/study': (context) => StudyPage(),
         '/match': (context) => MatchPage(),
-        '/flashcard' : (context) => FlashCardWidget(vocabularyList: vocabularyList),
+        '/flashcard' : (context) => FlashCardPage(),
       },
       home: MyHomePage(),
 

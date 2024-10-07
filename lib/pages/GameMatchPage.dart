@@ -2,75 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'dart:math';
 import 'dart:async';
+import 'package:vocabkpop/data_test/vocabulary_data.dart';
+import 'package:vocabkpop/models/Vocabulary.dart';
+import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 
 class GameMatchPage extends StatefulWidget {
-  final List<Map<String, String>> vocabularyList;
-
-  GameMatchPage({required this.vocabularyList});
-
   @override
   _GameMatchState createState() => _GameMatchState();
 }
 
 class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStateMixin {
   late List<String> _listVocabulary;
-  late List<bool> _selectedIndices; // Danh sách theo dõi ô nào được chọn
-  late List<bool> _isCorrect; // Danh sách trạng thái đúng/sai cho các ô
-  late AnimationController _controller; // Điều khiển animation rung lắc
-  late Animation<double> _shakeAnimation; // Animation rung lắc
+  late List<bool> _selectedIndices;
+  late List<bool> _isCorrect;
+  late AnimationController _controller;
+  late Animation<double> _shakeAnimation;
+  late List<Vocabulary> _vocabularyList;
   int numberDone = 0;
-  double _seconds =  0.0;
-
-  bool _isRunning = false;// Biến để theo dõi trạng thái đồng hồ
+  double _seconds = 0.0;
+  bool _isRunning = false;
 
   @override
   void initState() {
     super.initState();
-
-    // Kiểm tra nếu widget.vocabularyList không null
-    if (widget.vocabularyList.isNotEmpty) {
-      _listVocabulary = handelList(widget.vocabularyList);
-    } else {
-      _listVocabulary = [""]; // Hoặc một giá trị mặc định khác
-    }
-
+    _vocabularyList = vocabularyList;
+    _listVocabulary = _handleList(_vocabularyList);
     _startTimer();
 
-    // Khởi tạo danh sách trạng thái
     _selectedIndices = List.generate(_listVocabulary.length, (index) => false);
-    // Khởi tạo trạng thái đúng/sai
     _isCorrect = List.generate(_listVocabulary.length, (index) => false);
 
-    // Khởi tạo animation controller
     _controller = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
 
-    // Khởi tạo animation rung lắc
     _shakeAnimation = Tween<double>(begin: 0.0, end: 10.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.elasticInOut),
     );
   }
 
-  // Hàm để bắt đầu Timer
   void _startTimer() {
-    _isRunning = true; // Đánh dấu rằng đồng hồ đang chạy
+    _isRunning = true;
     Timer.periodic(Duration(milliseconds: 100), (Timer timer) {
       if (_isRunning) {
         setState(() {
-          _seconds += 0.1; // Tăng số giây
+          _seconds += 0.1;
         });
       } else {
-        timer.cancel(); // Dừng Timer nếu đồng hồ không còn chạy
+        timer.cancel();
       }
     });
   }
 
-  // Hàm để dừng Timer
   void _stopTimer() {
     setState(() {
-      _isRunning = false; // Đánh dấu rằng đồng hồ đã dừng
+      _isRunning = false;
     });
   }
 
@@ -82,65 +69,51 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
 
   void _onCardTap(int index) {
     setState(() {
-      // Kiểm tra số lượng ô đã được chọn
       int selectedCount = _selectedIndices.where((isSelected) => isSelected).length;
 
-      // Nếu ô đã được chọn, bỏ chọn ô đó
       if (_selectedIndices[index]) {
-        _selectedIndices[index] = false; // Bỏ chọn ô
-        // Nếu số ô đã chọn ít hơn 2, cho phép chọn ô này
+        _selectedIndices[index] = false;
       } else if (selectedCount < 2) {
-        _selectedIndices[index] = true; // Chọn ô mới
+        _selectedIndices[index] = true;
       }
 
-      // Nếu đã chọn 2 ô
-      if (selectedCount == 1) { // Kiểm tra khi có 1 ô đã chọn
-        List<int> numberSelected = checkNumberSelected(_selectedIndices);
-        // Thực hiện kiểm tra nghĩa chỉ khi có 2 ô được chọn
+      if (selectedCount == 1) {
+        List<int> numberSelected = _checkNumberSelected(_selectedIndices);
         if (numberSelected.length == 2) {
-          bool isCorrect = checkMeaning(
+          bool isCorrect = _checkMeaning(
             _listVocabulary[numberSelected[0]],
             _listVocabulary[numberSelected[1]],
-            widget.vocabularyList,
           );
 
-          // Hiển thị thông báo
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(isCorrect ? "ok" : "sai roi"),
+              content: Text(isCorrect ? "Correct!" : "Try Again!"),
               duration: Duration(seconds: 1),
             ),
           );
 
           if (!isCorrect) {
-            // Bắt đầu animation rung lắc
             _controller.forward().then((value) {
               _controller.reverse();
             });
 
-            // Đánh dấu trạng thái sai cho các ô
-            _isCorrect[numberSelected[0]] = false; // Đánh dấu ô đầu tiên là sai
-            _isCorrect[numberSelected[1]] = false; // Đánh dấu ô thứ hai là sai
+            _isCorrect[numberSelected[0]] = false;
+            _isCorrect[numberSelected[1]] = false;
           } else {
-            // Đúng, đánh dấu trạng thái đúng và xóa các ô đã đúng
-            _isCorrect[numberSelected[0]] = true; // Đánh dấu ô đầu tiên là đúng
-            _isCorrect[numberSelected[1]] = true; // Đánh dấu ô thứ hai là đúng
+            _isCorrect[numberSelected[0]] = true;
+            _isCorrect[numberSelected[1]] = true;
 
-            // Biến mất các ô đã chọn
-            _listVocabulary[numberSelected[0]] = ""; // Hoặc dùng null nếu muốn ô không hiển thị
-            _listVocabulary[numberSelected[1]] = ""; // Hoặc dùng null nếu muốn ô không hiển thị
+            _listVocabulary[numberSelected[0]] = "";
+            _listVocabulary[numberSelected[1]] = "";
 
-            // Tăng số lượng ô đã trả lời đúng
             numberDone += 1;
 
             if (numberDone == 6) {
-              _stopTimer(); // Dừng đồng hồ khi hoàn thành
-              _showCompletionMessage(); // Hiển thị thông báo hoàn thành
+              _stopTimer();
+              _showCompletionMessage();
             }
           }
-
-          // Đặt lại trạng thái lựa chọn
-          _selectedIndices = List<bool>.filled(_selectedIndices.length, false);
+          _selectedIndices.fillRange(0, _selectedIndices.length, false);
         }
       }
     });
@@ -151,14 +124,13 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Hoàn thành!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-          content: Text("Bạn đã hoàn thành trò chơi trong ${_seconds.toStringAsFixed(1)} giây.", style: const TextStyle(fontSize: 16),),
+          title: const Text("Completed!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          content: Text("You completed the game in ${_seconds.toStringAsFixed(1)} seconds.", style: const TextStyle(fontSize: 16)),
           actions: <Widget>[
             TextButton(
-              child: const Text("Kết thúc", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+              child: const Text("Finish", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               onPressed: () {
                 Navigator.of(context).pop();
-                // Bạn có thể thêm logic để quay lại màn hình chính hoặc chơi lại
               },
             ),
           ],
@@ -167,139 +139,81 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
     );
   }
 
-
-  List<int> checkNumberSelected(List<bool> selectedIndices) {
-    List<int> number = [];
-    for (int i = 0; i < selectedIndices.length; i++) {
-      if (selectedIndices[i]) {
-        number.add(i);
-      }
-    }
-    return number;
+  List<int> _checkNumberSelected(List<bool> selectedIndices) {
+    return selectedIndices.asMap().entries.where((entry) => entry.value).map((entry) => entry.key).toList();
   }
 
-  // Hàm kiểm tra nghĩa
-  bool checkMeaning(String a, String b, List<Map<String, String>> vocabularyList) {
-    for (var entry in vocabularyList) {
-      if ((entry['korean'] == a && entry['vietnamese'] == b) ||
-          (entry['korean'] == b && entry['vietnamese'] == a)) {
+  bool _checkMeaning(String a, String b) {
+    for (var entry in _vocabularyList) {
+      if ((entry.korean == a && entry.vietnamese == b) ||
+          (entry.korean == b && entry.vietnamese == a)) {
         return true;
       }
     }
     return false;
   }
 
-  List<String> handelList(List<Map<String, String>> vocabularyList) {
-    // tạo một list chỉ nhận tối đa 6 cặp từ vựng
-    List<Map<String, String>> selectedWords;
+  List<String> _handleList(List<Vocabulary> vocabularyList) {
+    List<Vocabulary> selectedWords;
     if (vocabularyList.length > 6) {
-      // Trộn danh sách
       vocabularyList.shuffle(Random());
-      // Lấy 6 phần tử đầu tiên
       selectedWords = vocabularyList.take(6).toList();
     } else {
-      // Nếu ít hơn hoặc bằng 6 phần tử, giữ nguyên danh sách
       selectedWords = vocabularyList;
     }
-    // Chuyển đổi thành danh sách chỉ chứa từ vựng tiếng Hàn
-    List<String> koreanWords = selectedWords.map((item) => item['korean']!).toList();
-    // Chuyển đổi thành danh sách chỉ chứa từ vựng tiếng Việt
-    List<String> vietnameseWords = selectedWords.map((item) => item['vietnamese']!).toList();
+    List<String> koreanWords = selectedWords.map((item) => item.korean).toList();
+    List<String> vietnameseWords = selectedWords.map((item) => item.vietnamese).toList();
     return koreanWords + vietnameseWords;
   }
 
   @override
   Widget build(BuildContext context) {
-    double progress = (numberDone) / 6;
+    double progress = numberDone / 6;
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
+        backgroundColor: AppColors.background,
         automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.close, color: AppColors.iconColor, size: 40),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-             Expanded(
-              child: Text(
-                '${_seconds.toStringAsFixed(1)}',
-                textAlign: TextAlign.center,
-                style:  const TextStyle(
-                  color: AppColors.iconColor,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.settings, color: AppColors.iconColor, size: 40),
-              onPressed: () {
-                // Hành động khi nhấn nút cài đặt
-              },
-            ),
-          ],
-        ),
+        title: GameMatchBar(seconds: _seconds),
       ),
       body: Column(
         children: [
-          // Thanh tiến độ
           LinearProgressIndicator(
             value: progress,
             backgroundColor: const Color(0xFFD7DEE5),
             color: AppColors.iconColor,
           ),
           const SizedBox(height: 20),
-          const SizedBox(height: 20),
-          // Thẻ từ vựng
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              itemCount: _listVocabulary.length, // Sử dụng độ dài của danh sách từ vựng
+              itemCount: _listVocabulary.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, // Số cột
+                crossAxisCount: 3, // Number of columns
                 childAspectRatio: 120 / 150,
               ),
               itemBuilder: (context, index) {
                 return AnimatedBuilder(
                   animation: _controller,
                   builder: (context, child) {
-                    // Chỉ hiển thị ô nếu từ vựng không rỗng
                     if (_listVocabulary[index] != "") {
                       return Transform.translate(
                         offset: _isCorrect[index]
                             ? Offset.zero
-                            : Offset(
-                            _shakeAnimation.value *
-                                (index % 2 == 0 ? 1 : -1),
-                            0),
-                        // Rung lắc qua lại
+                            : Offset(_shakeAnimation.value * (index % 2 == 0 ? 1 : -1), 0),
                         child: GestureDetector(
                           onTap: () => _onCardTap(index),
                           child: Container(
-                            width: 120,
-                            // Đặt chiều rộng cho từng ô
-                            height: 150,
-                            // Đặt chiều cao cho từng ô
                             margin: const EdgeInsets.symmetric(vertical: 4.0),
-                            // Khoảng cách giữa các ô
                             child: Card(
-                              color: _selectedIndices[index]
-                                  ? Color(0xFFBFC4FC)
-                                  : Colors.white,
+                              color: _selectedIndices[index] ? const Color(0xFFBFC4FC) : Colors.white,
                               shape: RoundedRectangleBorder(
-                                side: const BorderSide(
-                                  color: AppColors.iconColor, // Màu của border
-                                  width: 1, // Độ dày của border
-                                ),
+                                side: const BorderSide(color: AppColors.iconColor, width: 1),
                                 borderRadius: BorderRadius.circular(10.0),
-                                // Độ cong của góc
                               ),
                               child: Center(
                                 child: Text(
                                   _listVocabulary[index],
-                                  // Hiển thị từng từ trong danh sách
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -312,9 +226,7 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
                         ),
                       );
                     } else {
-                      return Container(
-
-                      ); // Không hiển thị gì nếu từ vựng đã được trả lời đúng
+                      return Container();
                     }
                   },
                 );

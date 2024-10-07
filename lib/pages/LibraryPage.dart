@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vocabkpop/widget/library/ClassRoomList.dart';
-import 'package:vocabkpop/widget/library/FolderList.dart';
-import 'package:vocabkpop/widget/LibraryBar.dart';
-import 'package:vocabkpop/widget/library/VocabularyLessonList.dart';
+import 'package:vocabkpop/widget/library/LibraryClassRoom.dart';
+import 'package:vocabkpop/widget/library/LibraryFolder.dart';
+import 'package:vocabkpop/widget/bar/LibraryBar.dart';
+import 'package:vocabkpop/widget/library/LibraryVocabulary.dart';
+import 'package:vocabkpop/app_colors.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
@@ -38,6 +39,7 @@ class _LibraryPageState extends State<LibraryPage> {
     }
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Column(
           children: [
