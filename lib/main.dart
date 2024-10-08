@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vocabkpop/models/LessonModel.dart';
+import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/pages/HomeLessonPage.dart';
 import 'package:vocabkpop/pages/HomePage.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
@@ -32,7 +34,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
       ),
       routes: {
-        '/homeLesson': (context) => const HomeLessonPage(),
+        '/homeLesson': (context) {
+          final List<VocabularyModel> vocabularyModel = ModalRoute.of(context)!.settings.arguments as List<VocabularyModel>;
+          return HomeLessonPage(vocabularyModel: vocabularyModel);
+        },
         '/gameMatch': (context) => GameMatchPage(),
         '/study': (context) => StudyPage(),
         '/match': (context) => MatchPage(),

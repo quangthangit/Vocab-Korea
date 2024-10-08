@@ -5,7 +5,8 @@ import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/widget/bar/HomeLessonBar.dart';
 
 class HomeLessonPage extends StatefulWidget {
-  const HomeLessonPage({super.key});
+  final List<VocabularyModel> vocabularyModel;
+  const HomeLessonPage({super.key, required this.vocabularyModel});
 
   @override
   _HomeLessonPageState createState() => _HomeLessonPageState();
@@ -20,7 +21,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
   void initState() {
     super.initState();
     _pageController = PageController();
-    _vocabularyList = vocabularyList; // Initialize with your vocabulary list
+    _vocabularyList = widget.vocabularyModel;
   }
 
   void _onContainerTap(int index) {
@@ -228,7 +229,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
                 ],
               ),
             ),
-            ...vocabularyList.map((vocab) {
+            ..._vocabularyList.map((vocab) {
               bool shouldShowVocab = selectedContainer == 0 || (selectedContainer == 1 && vocab.star == 1);
 
               return shouldShowVocab

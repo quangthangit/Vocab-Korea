@@ -30,7 +30,11 @@ class LibraryLesson extends StatelessWidget {
         for (var lesson in _listLesson)
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/homeLesson');
+              Navigator.pushNamed(
+                context,
+                '/homeLesson',
+                arguments: lesson.vocabulary,
+              );
             },
             child: Column(
               children: [

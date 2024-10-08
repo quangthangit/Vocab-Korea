@@ -7,21 +7,18 @@ List<VocabularyModel> vocabularyList = [
   VocabularyModel(0, korean: '학교', vietnamese: 'Trường học'),
   VocabularyModel(1, korean: '사랑', vietnamese: 'Tình yêu'),
   VocabularyModel(0, korean: '친구', vietnamese: 'Bạn bè'),
+  VocabularyModel(1, korean: '가족', vietnamese: 'Gia đình'),
+  VocabularyModel(1, korean: '사랑하다', vietnamese: 'Yêu'),
+  // VocabularyModel(0, korean: '음식', vietnamese: 'Thức ăn'),
+  // VocabularyModel(1, korean: '행복', vietnamese: 'Hạnh phúc'),
 ];
 
+
 List<VocabularyModel> vocabularyList2 = [
-  VocabularyModel(1, korean: '사람', vietnamese: 'Người'),
-  VocabularyModel(0, korean: '학교', vietnamese: 'Trường học'),
-  VocabularyModel(1, korean: '사랑', vietnamese: 'Tình yêu'),
-  VocabularyModel(0, korean: '친구', vietnamese: 'Bạn bè'),
-  VocabularyModel(1, korean: '사람', vietnamese: 'Người'),
-  VocabularyModel(0, korean: '학교', vietnamese: 'Trường học'),
-  VocabularyModel(1, korean: '사랑', vietnamese: 'Tình yêu'),
-  VocabularyModel(0, korean: '친구', vietnamese: 'Bạn bè'),
-  VocabularyModel(1, korean: '사람', vietnamese: 'Người'),
-  VocabularyModel(0, korean: '학교', vietnamese: 'Trường học'),
-  VocabularyModel(1, korean: '사랑', vietnamese: 'Tình yêu'),
-  VocabularyModel(0, korean: '친구', vietnamese: 'Bạn bè'),
+  VocabularyModel(1, korean: '1사람', vietnamese: 'Người'),
+  VocabularyModel(0, korean: '2학교', vietnamese: 'Trường học'),
+  VocabularyModel(1, korean: '3사랑', vietnamese: 'Tình yêu'),
+  VocabularyModel(0, korean: '4친구', vietnamese: 'Bạn bè'),
 ];
 
 DateTime dateCreate = DateTime(2003, 12, 4);
