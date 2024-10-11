@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vocabkpop/main.dart';
 import 'package:vocabkpop/pages/LoginPage.dart';
+import 'package:vocabkpop/pages/MyHomePage.dart';
 
 class CheckLoginPage extends StatefulWidget {
   @override
@@ -25,11 +25,14 @@ class _CheckLoginPageState extends State<CheckLoginPage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
-        if (snapshot.hasData) {
-          return MyHomePage();
-        } else {
-          return LoginPage();
-        }
+
+        return AnimatedSwitcher(
+          duration: const Duration(seconds: 1),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          child: snapshot.hasData ? MyHomePage() : LoginPage(),
+        );
       },
     );
   }

@@ -26,18 +26,12 @@ class LoginPage extends StatelessWidget {
     }
 
     if (user != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${user.tenantId}')),
-      );
-      Navigator.pushNamed(context, "/myhomepage");
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Đăng nhập thất bại')),
       );
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
