@@ -7,16 +7,16 @@ import 'package:vocabkpop/services/loginWithSocialNetwork.dart';
 
 class LoginPage extends StatelessWidget {
 
-  final LoginWithSocialNetwork _googleSignInService = LoginWithSocialNetwork();
+  final LoginWithSocialNetwork _auth = LoginWithSocialNetwork();
 
   Future<void> _handleLoginWithSocialNetwork(BuildContext context, String socialNetwork) async {
     User? user;
     switch (socialNetwork) {
       case "Google":
-        user = await _googleSignInService.signInWithGoogle();
+        user = await _auth.signInWithGoogle();
         break;
       case "Facebook":
-         user = await _googleSignInService.signInWithFacebook();
+         user = await _auth.signInWithFacebook();
         break;
       default:
         ScaffoldMessenger.of(context).showSnackBar(
@@ -27,9 +27,9 @@ class LoginPage extends StatelessWidget {
 
     if (user != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Đăng nhập thành công')),
+        SnackBar(content: Text('${user.tenantId}')),
       );
-      // Chuyển hướng đến trang chính (nếu cần)
+      Navigator.pushNamed(context, "/myhomepage");
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Đăng nhập thất bại')),

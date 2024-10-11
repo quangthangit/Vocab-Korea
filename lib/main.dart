@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
+import 'package:vocabkpop/pages/CheckLoginPage.dart';
 import 'package:vocabkpop/pages/HomeLessonPage.dart';
 import 'package:vocabkpop/pages/HomePage.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
 import "package:curved_navigation_bar/curved_navigation_bar.dart" as curved_navigation_bar;
 import 'package:vocabkpop/pages/LibraryPage.dart';
 import 'package:vocabkpop/pages/GameMatchPage.dart';
-import 'package:vocabkpop/pages/LoginPage.dart';
 import 'package:vocabkpop/pages/MatchPage.dart';
 import 'package:vocabkpop/pages/StudyPage.dart';
+import 'package:vocabkpop/pages/UserProfilePage.dart';
 import 'package:vocabkpop/widget/AddForm.dart';
-import 'package:vocabkpop/pages/FlashCardPage.dart';
 import 'package:vocabkpop/pages/FlashCardPage.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -47,9 +46,9 @@ class MyApp extends StatelessWidget {
         '/study': (context) => StudyPage(),
         '/match': (context) => MatchPage(),
         '/flashcard' : (context) => FlashCardPage(),
+        '/myhomepage' : (context) => MyHomePage(),
       },
-      home: LoginPage(),
-
+      home: CheckLoginPage(),
     );
   }
 }
@@ -66,8 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
   final PageController _pageController = PageController();
 
   final List<Widget> _pages = [
-    const HomePages(),
+    HomePages(),
     const LibraryPage(),
+    HomePages(),
+    UserProfilePage(),
   ];
 
   void _onPageChanged(int index) {
