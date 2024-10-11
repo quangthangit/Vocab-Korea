@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id">161874179406-j9s2kk44nc347gl9i5soiud1vrd0uge7.apps.googleusercontent.com</string>
+    <string name="firebase_database_url">https://vocab-korea-default-rtdb.firebaseio.com/</string> <!-- Thay đổi nếu bạn có URL khác -->
+    <string name="google_api_key">AIzaSyC9Tuhf9mbCI_ZpyvWa2Wk73VKXtRZJQFU</string>
+    <string name="gcm_defaultSenderId">161874179406</string>
+    <string name="project_id">vocab-korea</string>
+</resources>

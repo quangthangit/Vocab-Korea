@@ -30,8 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_signin_button: ^2.0.0
 
-
+  firebase_auth: ^5.3.1
+  google_sign_in: ^6.2.1
+  flutter_facebook_auth: ^6.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -40,6 +43,8 @@ dependencies:
   flip_card: ^0.7.0
   flutter_tts: ^4.0.2
   intl: ^0.18.0
+  firebase_core: ^3.6.0
+  cloud_firestore: ^5.4.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -61,6 +66,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -111,3 +117,4 @@ flutter:
        fonts:
          - asset: fonts/KayPhoDu-Medium.ttf
            weight: 800
+
