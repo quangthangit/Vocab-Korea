@@ -36,7 +36,7 @@ class UserProfilePage extends StatelessWidget {
                   ),
                 ),
                 margin: EdgeInsets.all(20),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(

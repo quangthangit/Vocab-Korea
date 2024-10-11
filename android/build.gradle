@@ -1,20 +1,29 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
+    ext.kotlin_version = '1.7.10'
     repositories {
-        google() // Kho lưu trữ Google
-        mavenCentral() // Kho lưu trữ Maven Central
+        google()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.android.tools.build:gradle:8.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.15' // Add this line
     }
 }
 
 allprojects {
     repositories {
-        google() // Kho lưu trữ Google
-        mavenCentral() // Kho lưu trữ Maven Central
+        google()
+        mavenCentral()
+    }
+}
+
+
+
+allprojects {
+    repositories {
+        google() // Google repository
+        mavenCentral() // Maven Central repository
     }
 }
 
@@ -26,10 +35,7 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
-// Đăng ký tác vụ clean
+// Register clean task
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
-
-
-

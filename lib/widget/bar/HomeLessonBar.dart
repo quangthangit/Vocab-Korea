@@ -11,9 +11,9 @@ class HomeLessonBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          InkWell(
-            child: const Icon(Icons.arrow_back_sharp),
-            onTap: () {
+          IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new,),
+            onPressed: () {
               Navigator.pop(context);
             },
           ),

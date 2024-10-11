@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:logging/logging.dart';
 
 
 class LoginWithSocialNetwork {
@@ -38,10 +37,10 @@ class LoginWithSocialNetwork {
 
   Future<User?> signInWithFacebook() async {
     try {
-      await signOut();
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
-        final String? token = result.accessToken?.token;
+        final accessToken = result.accessToken;
+        final String? token = accessToken?.tokenString;
         if (token != null) {
           final OAuthCredential credential = FacebookAuthProvider.credential(token);
           UserCredential userCredential = await _auth.signInWithCredential(credential);
@@ -52,11 +51,11 @@ class LoginWithSocialNetwork {
           return user;
         }
       } else {
-        print('Đăng nhập Facebook thất bại: ${result.status}');
+        print('Facebook login failed: ${result.status}');
         return null;
       }
     } catch (e) {
-      print('Lỗi đăng nhập Facebook: ${e.toString()}');
+      print('Error signing in with Facebook: $e');
       return null;
     }
   }

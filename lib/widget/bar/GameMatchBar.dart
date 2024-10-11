@@ -22,7 +22,7 @@ class GameMatchBar extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: AppColors.iconColor,
-              fontSize: 30,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),

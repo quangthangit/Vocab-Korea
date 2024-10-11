@@ -21,7 +21,7 @@ class MatchBar extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.iconColor,
-              fontSize: 30,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
