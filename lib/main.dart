@@ -8,14 +8,19 @@ import 'package:vocabkpop/app_colors.dart' as app_color;
 import "package:curved_navigation_bar/curved_navigation_bar.dart" as curved_navigation_bar;
 import 'package:vocabkpop/pages/LibraryPage.dart';
 import 'package:vocabkpop/pages/GameMatchPage.dart';
+import 'package:vocabkpop/pages/LoginPage.dart';
 import 'package:vocabkpop/pages/MatchPage.dart';
 import 'package:vocabkpop/pages/StudyPage.dart';
 import 'package:vocabkpop/widget/AddForm.dart';
 import 'package:vocabkpop/pages/FlashCardPage.dart';
 import 'package:vocabkpop/pages/FlashCardPage.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -43,7 +48,7 @@ class MyApp extends StatelessWidget {
         '/match': (context) => MatchPage(),
         '/flashcard' : (context) => FlashCardPage(),
       },
-      home: MyHomePage(),
+      home: LoginPage(),
 
     );
   }

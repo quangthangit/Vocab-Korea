@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "161874179406",
+    "project_id": "vocab-korea",
+    "storage_bucket": "vocab-korea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161874179406:android:e9decb716bb978c4ec1a1f",
+        "android_client_info": {
+          "package_name": "com.example.vocabkpop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161874179406-j9s2kk44nc347gl9i5soiud1vrd0uge7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9Tuhf9mbCI_ZpyvWa2Wk73VKXtRZJQFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161874179406-j9s2kk44nc347gl9i5soiud1vrd0uge7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
