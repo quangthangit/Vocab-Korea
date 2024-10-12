@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/app_colors.dart';
 
 class CreateVocabularyBar extends StatelessWidget {
   const CreateVocabularyBar({super.key});
@@ -9,15 +10,17 @@ class CreateVocabularyBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-            onPressed: () {}, 
-            icon: Icon(Icons.arrow_back_ios_new)
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.close,color: AppColors.iconColor,)
         ),
-        Text('Tạo học phần',style: TextStyle(fontWeight: FontWeight.bold),),
-        Row(
+        const Text('Tạo học phần',style: TextStyle(fontWeight: FontWeight.bold),),
+        const Row(
           children: [
-            Icon(Icons.settings),
+            Icon(Icons.settings,color: AppColors.iconColor,),
             SizedBox(width: 10,),
-            Icon(Icons.check)
+            Icon(Icons.check,color: AppColors.iconColor,)
           ],
         )
       ],

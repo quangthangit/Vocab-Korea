@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         '/match': (context) => MatchPage(),
         '/flashcard' : (context) => FlashCardPage(),
       },
-      home: CreateVocabularyPage(),
+      home: CheckLoginPage(),
     );
   }
 }

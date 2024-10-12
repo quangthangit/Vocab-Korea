@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/pages/CreateVocabularyPage.dart';
 import 'package:vocabkpop/widget/form/ClassRoomForm.dart';
 import 'package:vocabkpop/widget/form/FolderForm.dart';
 
@@ -43,7 +44,7 @@ class AddForm extends StatelessWidget {
           Navigator.of(context).pop();
         }
         if (title == "Học phần") {
-          await _showBottomSheet(context);
+          await _showBottomSheet3(context);
         } else if (title == "Tạo lớp học") {
           await _showBottomSheet2(context);
         } else if (title == "Thư mục") {
@@ -89,6 +90,17 @@ class AddForm extends StatelessWidget {
       useSafeArea: true,
       builder: (BuildContext context) {
         return AddClassRoomForm();
+      },
+    );
+  }
+
+  Future<void> _showBottomSheet3(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return CreateVocabularyPage();
       },
     );
   }
