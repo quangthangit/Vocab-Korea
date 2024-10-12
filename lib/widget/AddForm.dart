@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/pages/CreateClassPage.dart';
 import 'package:vocabkpop/pages/CreateVocabularyPage.dart';
 import 'package:vocabkpop/widget/form/ClassRoomForm.dart';
 import 'package:vocabkpop/widget/form/FolderForm.dart';
@@ -89,7 +90,7 @@ class AddForm extends StatelessWidget {
       isScrollControlled: true,
       useSafeArea: true,
       builder: (BuildContext context) {
-        return AddClassRoomForm();
+        return CreateClassPage();
       },
     );
   }

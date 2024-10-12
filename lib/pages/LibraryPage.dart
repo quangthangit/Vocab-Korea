@@ -32,7 +32,7 @@ class _LibraryPageState extends State<LibraryPage> {
         content = const LibraryFolder();
         break;
       case 2:
-        content = const LibraryClassRoom();
+        content = LibraryClassRoom();
         break;
       default:
         content = LibraryLesson();

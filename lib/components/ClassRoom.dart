@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/models/ClassModel.dart';
 
 class ClassRoom extends StatelessWidget {
-  const ClassRoom({super.key});
+  final ClassModel classModel;
+  const ClassRoom({super.key, required this.classModel});
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +22,21 @@ class ClassRoom extends StatelessWidget {
           ),
         ],
       ),
-      child: const Column(
+      child: Column(
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Text('21KIT',style: TextStyle(fontSize: 15,fontFamily: 'Lobster')),
+            child: Text(classModel.name,style: const TextStyle(fontSize: 15,fontFamily: 'Lobster')),
           ),
-          Align(
+          const Align(
             alignment: Alignment.centerLeft,
             child: Text('Lớp học tiếng hàn VKU',style: TextStyle(fontSize: 12,fontFamily: 'Lobster')),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Row(
+              const Row(
                 children: [
                   Icon(Icons.collections_bookmark_outlined),
                   SizedBox(width: 10,),
@@ -44,8 +46,8 @@ class ClassRoom extends StatelessWidget {
               Row(
                 children: [
                   Icon(Icons.supervisor_account),
-                  SizedBox(width: 10,),
-                  Text('105 thành viên',style: TextStyle(fontSize: 15,fontFamily: 'Lobster'))
+                  const SizedBox(width: 10,),
+                  Text('${classModel.idMember.length}',style: TextStyle(fontSize: 15,fontFamily: 'Lobster'))
                 ],
               )
             ],

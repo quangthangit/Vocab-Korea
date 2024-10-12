@@ -1,12 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/components/ClassRoom.dart';
-import 'package:vocabkpop/components/Lesson.dart';
+import 'package:vocabkpop/services/ClassService.dart';
+import 'package:vocabkpop/models/ClassModel.dart';
+import 'dart:developer' as dev;
 
 class LibraryClassRoom extends StatelessWidget {
-  const LibraryClassRoom({super.key});
+  final ClassService _classService = ClassService();
 
   @override
   Widget build(BuildContext context) {
+    final String? userId = FirebaseAuth.instance.currentUser?.uid;
+
     return ListView(
       children: [
         const SizedBox(height: 10),
@@ -26,41 +31,32 @@ class LibraryClassRoom extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 10),
-        const Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-              ),
-            ),
-            ClassRoom()
-          ],
-        ),
-        const Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Tháng 10 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-              ),
-            ),
-            ClassRoom()
-          ],
-        ),
-        const Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Tháng 9 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-              ),
-            ),
-            ClassRoom()
-          ],
+
+        FutureBuilder<List<ClassModel>>(
+          future: userId != null ? _classService.getClassesExcludingUserId(userId) : Future.value([]),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No classes found.'));
+            }
+            final classes = snapshot.data!;
+
+            return Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
+                  ),
+                ),
+                ...classes.map((classModel) => ClassRoom(classModel: classModel)).toList(),
+              ],
+            );
+          },
         ),
       ],
     );

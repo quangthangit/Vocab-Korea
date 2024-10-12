@@ -16,31 +16,6 @@ class HomePages extends StatelessWidget {
         children: [
           HomeBar(),
           SizedBox(height: 20,),
-          // Container(
-          //   color: AppColors.background,
-          //   child: const Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children:  [
-          //       Padding(
-          //         padding: EdgeInsets.symmetric(horizontal: 30),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             Text(
-          //               'Học phần',
-          //               style: TextStyle(fontSize: 20, fontFamily: 'Lobster',fontWeight: FontWeight.bold),
-          //             ),
-          //             Text(
-          //               'Xem tất cả',
-          //               style: TextStyle(fontSize: 15,color: app_color.AppColors.backgroundColor, fontFamily: 'Lobster',fontWeight: FontWeight.bold),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //       Lesson(),
-          //     ],
-          //   ),
-          // ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:  [
@@ -61,28 +36,6 @@ class HomePages extends StatelessWidget {
                 ),
               ),
               Folder(),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:  [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Lớp học',
-                      style: TextStyle(fontSize: 20, fontFamily: 'Lobster',fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'Xem tất cả',
-                      style: TextStyle(fontSize: 15,color: app_color.AppColors.backgroundColor, fontFamily: 'Lobster',fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              ClassRoom(),
             ],
           ),
         ],
