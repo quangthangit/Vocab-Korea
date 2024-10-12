@@ -156,7 +156,7 @@ class _CreateVocabularyPageState extends State<CreateVocabularyPage> {
           ),
           for (int i = 0; i < numberForms.length; i++)
             Dismissible(
-              key: Key(numberForms[i]['termController'].text + i.toString()), // Use a unique key
+              key: UniqueKey(),
               direction: DismissDirection.endToStart,
               onDismissed: (direction) {
                 setState(() {
