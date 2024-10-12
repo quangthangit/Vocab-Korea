@@ -31,7 +31,7 @@ class _CheckLoginPageState extends State<CheckLoginPage> {
           );
         }
         return AnimatedSwitcher(
-          duration: const Duration(seconds: 3),
+          duration: const Duration(seconds: 2),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return FadeTransition(
               opacity: animation,
@@ -40,10 +40,10 @@ class _CheckLoginPageState extends State<CheckLoginPage> {
           },
           child: snapshot.hasData
               ? FutureBuilder(
-            future: Future.delayed(Duration(milliseconds: 500)),
+            future: Future.delayed(Duration(milliseconds: 1500)),
             builder: (context, futureSnapshot) {
               if (futureSnapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(
                     backgroundColor: Colors.green,
                     color: Colors.white,
