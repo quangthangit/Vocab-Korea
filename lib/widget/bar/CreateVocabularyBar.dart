@@ -15,7 +15,7 @@ class CreateVocabularyBar extends StatelessWidget {
             },
             icon: Icon(Icons.close,color: AppColors.iconColor,)
         ),
-        const Text('Tạo học phần',style: TextStyle(fontWeight: FontWeight.bold),),
+        const Text('Tạo học phần',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
         const Row(
           children: [
             Icon(Icons.settings,color: AppColors.iconColor,),

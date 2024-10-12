@@ -78,6 +78,7 @@ class _CreateVocabularyPageState extends State<CreateVocabularyPage> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: const CreateVocabularyBar(),
       ),
