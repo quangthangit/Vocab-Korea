@@ -23,15 +23,38 @@ class _CheckLoginPageState extends State<CheckLoginPage> {
       stream: _userStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.red,
+              color: Colors.white,
+            ),
+          );
         }
-
         return AnimatedSwitcher(
-          duration: const Duration(seconds: 1),
+          duration: const Duration(seconds: 3),
           transitionBuilder: (Widget child, Animation<double> animation) {
-            return FadeTransition(opacity: animation, child: child);
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
           },
-          child: snapshot.hasData ? MyHomePage() : LoginPage(),
+          child: snapshot.hasData
+              ? FutureBuilder(
+            future: Future.delayed(Duration(milliseconds: 500)),
+            builder: (context, futureSnapshot) {
+              if (futureSnapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.green,
+                    color: Colors.white,
+                  ),
+                );
+              } else {
+                return MyHomePage();
+              }
+            },
+          )
+              : LoginPage(),
         );
       },
     );
