@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/pages/CheckLoginPage.dart';
 import 'package:vocabkpop/pages/CircularProgressIndicator.dart';
+import 'package:vocabkpop/pages/CreateVocabularyPage.dart';
 import 'package:vocabkpop/pages/HomeLessonPage.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
 import 'package:vocabkpop/pages/GameMatchPage.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
     ));
 
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         '/match': (context) => MatchPage(),
         '/flashcard' : (context) => FlashCardPage(),
       },
-      home: CheckLoginPage(),
+      home: CreateVocabularyPage(),
     );
   }
 }
