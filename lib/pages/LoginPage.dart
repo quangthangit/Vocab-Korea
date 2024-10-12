@@ -16,7 +16,6 @@ class LoginPage extends StatelessWidget {
         user = await _auth.signInWithGoogle();
         break;
       case "Facebook":
-         user = await _auth.signInWithFacebook();
         break;
       default:
         ScaffoldMessenger.of(context).showSnackBar(

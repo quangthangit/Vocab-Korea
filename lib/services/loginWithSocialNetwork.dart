@@ -35,32 +35,6 @@ class LoginWithSocialNetwork {
     }
   }
 
-  Future<User?> signInWithFacebook() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        final accessToken = result.accessToken;
-        final String? token = accessToken?.tokenString;
-        if (token != null) {
-          final OAuthCredential credential = FacebookAuthProvider.credential(token);
-          UserCredential userCredential = await _auth.signInWithCredential(credential);
-          User? user = userCredential.user;
-          if (user != null) {
-            await _saveUserToFirestore(user);
-          }
-          return user;
-        }
-      } else {
-        print('Facebook login failed: ${result.status}');
-        return null;
-      }
-    } catch (e) {
-      print('Error signing in with Facebook: $e');
-      return null;
-    }
-  }
-
-
 
   Future<void> _saveUserToFirestore(User user) async {
     final userRef = FirebaseFirestore.instance.collection('users').doc(
