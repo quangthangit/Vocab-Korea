@@ -14,7 +14,7 @@ class Lesson extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomeLessonPage(vocabularyModel: lessonModel.vocabulary),),
+          MaterialPageRoute(builder: (context) => HomeLessonPage(lessonModel: lessonModel),),
         );
       },
       child: Container(

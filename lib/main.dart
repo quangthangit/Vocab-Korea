@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/pages/CheckLoginPage.dart';
 import 'package:vocabkpop/pages/CircularProgressIndicator.dart';
@@ -34,12 +35,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      routes: {
-        '/homeLesson': (context) {
-          final List<VocabularyModel> vocabularyModel = ModalRoute.of(context)!.settings.arguments as List<VocabularyModel>;
-          return HomeLessonPage(vocabularyModel: vocabularyModel);
-        },
-      },
       home: CheckLoginPage(),
     );
   }

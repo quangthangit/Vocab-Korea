@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/pages/FlashCardPage.dart';
 import 'package:vocabkpop/pages/MatchPage.dart';
 import 'package:vocabkpop/pages/StudyPage.dart';
-import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 import 'package:vocabkpop/widget/bar/HomeLessonBar.dart';
 
 class HomeLessonPage extends StatefulWidget {
-  final List<VocabularyModel> vocabularyModel;
-  const HomeLessonPage({super.key, required this.vocabularyModel});
+  final LessonModel lessonModel;
+  const HomeLessonPage({super.key, required this.lessonModel});
 
   @override
   _HomeLessonPageState createState() => _HomeLessonPageState();
@@ -24,7 +24,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
   void initState() {
     super.initState();
     _pageController = PageController();
-    _vocabularyList = widget.vocabularyModel;
+    _vocabularyList = widget.lessonModel.vocabulary;
   }
 
   void _onContainerTap(int index) {
@@ -111,8 +111,8 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
             ),
             Container(
               margin: const EdgeInsets.only(left: 20),
-              child: const Text(
-                'Trung cấp 3',
+              child: Text(
+                widget.lessonModel.title,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
@@ -141,9 +141,9 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
                     color: Colors.black,
                   ),
                   const SizedBox(width: 20),
-                  const Text(
-                    '92 thuật ngữ',
-                    style: TextStyle(
+                  Text(
+                    '${_vocabularyList.length} thuật ngữ',
+                    style: const TextStyle(
                       fontSize: 15,
                       fontFamily: 'KayPhoDu',
                       fontWeight: FontWeight.bold,
