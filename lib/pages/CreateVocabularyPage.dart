@@ -69,6 +69,9 @@ class _CreateVocabularyPageState extends State<CreateVocabularyPage> {
       creator: FirebaseAuth.instance.currentUser!.uid,
       vocabulary: vocabularyList,
       dateCreate: DateTime.now(),
+      idMember: [
+        FirebaseAuth.instance.currentUser!.uid,
+      ]
     );
 
     bool isSuccess = await _lessonService.createLesson(newLesson);

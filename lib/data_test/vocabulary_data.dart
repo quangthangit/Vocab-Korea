@@ -30,6 +30,7 @@ LessonModel sampleLesson = LessonModel(
   creator: 'Giáo viên A',
   dateCreate: DateTime.now(),
   vocabulary: vocabularyList,
+  idMember: [],
 );
 
 List<LessonModel> listLesson = [
@@ -39,6 +40,7 @@ List<LessonModel> listLesson = [
     creator: 'Giáo viên A',
     dateCreate: DateTime.now(),
     vocabulary: vocabularyList,
+    idMember: [],
   ),
   LessonModel(
     title: 'Bài học từ vựng tiếng Hàn',
@@ -46,5 +48,6 @@ List<LessonModel> listLesson = [
     creator: 'Giáo viên A',
     dateCreate: DateTime.now(),
     vocabulary: vocabularyList2,
+    idMember: [],
   ),
 ];

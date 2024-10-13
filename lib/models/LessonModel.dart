@@ -3,11 +3,12 @@ import 'package:vocabkpop/models/VocabularyModel.dart';
 
 class LessonModel {
   String id;
-  final String title;
-  final String description;
-  final String creator;
-  final List<VocabularyModel> vocabulary;
-  final DateTime dateCreate;
+  String title;
+  String description;
+  String creator;
+  List<VocabularyModel> vocabulary;
+  DateTime dateCreate;
+  List<String> idMember;
 
   LessonModel({
     this.id = '',
@@ -16,6 +17,7 @@ class LessonModel {
     required this.creator,
     required this.vocabulary,
     required this.dateCreate,
+    required this.idMember,
   });
 
   factory LessonModel.fromFirestore(DocumentSnapshot doc) {
@@ -29,6 +31,7 @@ class LessonModel {
         (data['vocabulary'] as List<dynamic>).map((v) => VocabularyModel.fromMap(v)),
       ),
       dateCreate: (data['dateCreate'] as Timestamp).toDate(),
+      idMember: List<String>.from(data['idMember'] ?? []),
     );
   }
 
@@ -39,6 +42,7 @@ class LessonModel {
       'creator': creator,
       'vocabulary': vocabulary.map((v) => v.toMap()).toList(),
       'dateCreate': Timestamp.fromDate(dateCreate),
+      'idMember' : idMember
     };
   }
 }
