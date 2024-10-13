@@ -87,7 +87,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
                           children: [
                             Text(
                               _vocabularyList[index].korean,
-                              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -259,11 +259,11 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
                       children: [
                         Text(
                           vocab.korean,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           vocab.vietnamese,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),

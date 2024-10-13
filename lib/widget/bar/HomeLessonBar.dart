@@ -7,7 +7,7 @@ class HomeLessonBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -17,10 +17,17 @@ class HomeLessonBar extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          const Row(
+          Row(
             children: [
-              Icon(Icons.share),
-              Icon(Icons.more_vert)
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.share)
+              ),
+              const SizedBox(width: 10,),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.more_vert)
+              )
             ],
           )
         ],
