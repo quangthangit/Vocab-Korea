@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 
 class CreateVocabularyBar extends StatelessWidget {
-  const CreateVocabularyBar({super.key});
+  final VoidCallback onSave;
+  const CreateVocabularyBar({super.key, required this.onSave});
 
   @override
   Widget build(BuildContext context) {
@@ -10,20 +11,25 @@ class CreateVocabularyBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.close,color: AppColors.iconColor,)
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.close, color: AppColors.iconColor),
         ),
-        const Text('Tạo học phần',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-        const Row(
+        const Text(
+          'Tạo học phần',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        Row(
           children: [
-            Icon(Icons.settings,color: AppColors.iconColor,),
-            SizedBox(width: 10,),
-            Icon(Icons.check,color: AppColors.iconColor,)
+            IconButton(
+              onPressed: onSave,
+              icon: const Icon(Icons.check, color: AppColors.iconColor),
+            ),
           ],
-        )
+        ),
       ],
     );
   }
 }
+
