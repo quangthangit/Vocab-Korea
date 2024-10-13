@@ -3,11 +3,10 @@ import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/widget/bar/StudyBar.dart';
 import 'dart:math';
 import 'package:vocabkpop/models/VocabularyModel.dart';
-import 'package:vocabkpop/data_test/vocabulary_data.dart';
 
 class StudyPage extends StatelessWidget {
-  const StudyPage({super.key});
-
+  final List<VocabularyModel> vocabularyModel;
+  const StudyPage({super.key, required this.vocabularyModel});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +14,7 @@ class StudyPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         automaticallyImplyLeading: false,
-        title: StudyBar(),
+        title: const StudyBar(),
       ),
       body: Column(
         children: [
@@ -24,7 +23,7 @@ class StudyPage extends StatelessWidget {
             backgroundColor: Color(0xFFD7DEE5),
             color: AppColors.iconColor,
           ),
-          QuizWidget(),
+          QuizWidget(vocabularyModel: vocabularyModel,),
         ],
       ),
     );
@@ -32,6 +31,8 @@ class StudyPage extends StatelessWidget {
 }
 
 class QuizWidget extends StatefulWidget {
+  final List<VocabularyModel> vocabularyModel;
+  const QuizWidget({super.key, required this.vocabularyModel});
   @override
   _QuizWidgetState createState() => _QuizWidgetState();
 }
@@ -50,7 +51,7 @@ class _QuizWidgetState extends State<QuizWidget> {
   @override
   void initState() {
     super.initState();
-    _vocabularyList = vocabularyList;
+    _vocabularyList = widget.vocabularyModel;
     _generateQuestion();
   }
 
@@ -88,7 +89,7 @@ class _QuizWidgetState extends State<QuizWidget> {
     });
 
     if (_isCorrect == true) {
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         _nextQuestion();
       });
     }
@@ -111,23 +112,23 @@ class _QuizWidgetState extends State<QuizWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(20),
-              child: Text(_questionText, style: TextStyle(fontSize: 30)),
+              padding: const EdgeInsets.all(20),
+              child: Text(_questionText, style: const TextStyle(fontSize: 30)),
             ),
             _selectedAnswer == null
                 ? Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(_title),
             )
                 : Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: _isCorrect == true
-                  ? Text(_title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.green))
-                  : Text(_title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red)),
+                  ? Text(_title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.green))
+                  : Text(_title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red)),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: _options.map((vocab) {
                   bool isSelected = _selectedAnswer == vocab;
@@ -139,14 +140,14 @@ class _QuizWidgetState extends State<QuizWidget> {
                         border: Border.all(
                           color: isSelected
                               ? (_isCorrect == true ? Colors.green : Colors.red)
-                              : (isCorrectOption && _isCorrect == false ? Colors.green : Color(0xFFD9D9D9)),
+                              : (isCorrectOption && _isCorrect == false ? Colors.green : const Color(0xFFD9D9D9)),
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding: EdgeInsets.symmetric(vertical: 30),
-                      child: Center(child: Text(vocab.korean, style: TextStyle(fontSize: 15))),
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 30),
+                      child: Center(child: Text(vocab.korean, style: const TextStyle(fontSize: 15))),
                     ),
                   );
                 }).toList(),
@@ -165,7 +166,7 @@ class _QuizWidgetState extends State<QuizWidget> {
             ),
             onPressed: _nextQuestion,
             child: Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: const Text(
                 'Câu tiếp theo',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),

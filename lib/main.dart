@@ -39,10 +39,6 @@ class MyApp extends StatelessWidget {
           final List<VocabularyModel> vocabularyModel = ModalRoute.of(context)!.settings.arguments as List<VocabularyModel>;
           return HomeLessonPage(vocabularyModel: vocabularyModel);
         },
-        '/gameMatch': (context) => GameMatchPage(),
-        '/study': (context) => StudyPage(),
-        '/match': (context) => MatchPage(),
-        '/flashcard' : (context) => FlashCardPage(),
       },
       home: CheckLoginPage(),
     );

@@ -25,9 +25,6 @@ class _LibraryPageState extends State<LibraryPage> {
   Widget build(BuildContext context) {
     Widget content;
     switch (_selectedIndex) {
-      case 0:
-        content = LibraryLesson();
-        break;
       case 1:
         content = const LibraryFolder();
         break;
@@ -44,9 +41,7 @@ class _LibraryPageState extends State<LibraryPage> {
         child: Column(
           children: [
             LibraryBar(onItemTapped: _onItemTapped),
-            Expanded(
-              child: content,
-            ),
+            Expanded(child: content),
           ],
         ),
       ),

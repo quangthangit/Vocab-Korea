@@ -4,30 +4,31 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vocabkpop/services/loginWithSocialNetwork.dart';
 
-
 class LoginPage extends StatelessWidget {
-
   final LoginWithSocialNetwork _auth = LoginWithSocialNetwork();
 
-  Future<void> _handleLoginWithSocialNetwork(BuildContext context, String socialNetwork) async {
+  Future<void> _handleLoginWithSocialNetwork(
+      BuildContext context, String socialNetwork) async {
     User? user;
     switch (socialNetwork) {
       case "Google":
         user = await _auth.signInWithGoogle();
         break;
       case "Facebook":
+      // Add Facebook login implementation here if needed
         break;
       default:
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Mạng xã hội không hợp lệ')),
+          const SnackBar(content: Text('Mạng xã hội không hợp lệ')),
         );
         return;
     }
 
     if (user != null) {
+      // Navigate to the next page or perform any additional actions on success
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Đăng nhập thất bại')),
+        const SnackBar(content: Text('Đăng nhập thất bại')),
       );
     }
   }
@@ -37,7 +38,11 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 40, color: AppColors.iconColor,),
+          icon: const Icon(
+            Icons.arrow_back,
+            size: 40,
+            color: AppColors.iconColor,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -49,27 +54,17 @@ class LoginPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 35),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: 370,
-                child: const Text(
-                  'Quickly log in with',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+              const Text(
+                'Quickly log in with',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SocialLoginButton(
                 buttons: Buttons.Google,
-                onPressed: ()  {
-                  _handleLoginWithSocialNetwork(context, "Google");
-                },
-              ),
-              SocialLoginButton(
-                buttons: Buttons.Email,
                 onPressed: () {
-                  // Handle Email login
+                  _handleLoginWithSocialNetwork(context, "Google");
                 },
               ),
               SocialLoginButton(
@@ -98,7 +93,7 @@ class LoginPage extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Align(
                 alignment: Alignment.center,
                 child: TextButton(
@@ -133,15 +128,16 @@ class LoginPage extends StatelessWidget {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.backgroundColor,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 100, vertical: 15),
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                 ),
                 onPressed: () {
-                  // Handle email/password login
+
                 },
                 child: const Text(
                   'Login',
-                  style: TextStyle(color: Colors.white,
+                  style: TextStyle(
+                      color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
@@ -154,11 +150,11 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-  class SocialLoginButton extends StatelessWidget {
+class SocialLoginButton extends StatelessWidget {
   final Buttons buttons;
   final VoidCallback onPressed;
 
-  SocialLoginButton({
+  const SocialLoginButton({
     required this.buttons,
     required this.onPressed,
   });
@@ -177,5 +173,4 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-
 }

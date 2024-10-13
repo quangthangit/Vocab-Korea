@@ -2,35 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'dart:math';
 import 'dart:async';
-import 'package:vocabkpop/data_test/vocabulary_data.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 
 class GameMatchPage extends StatefulWidget {
+  final List<VocabularyModel> vocabularyModel;
+  const GameMatchPage({super.key, required this.vocabularyModel});
+
   @override
   _GameMatchState createState() => _GameMatchState();
 }
 
 class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStateMixin {
   late List<String> _listVocabulary;
-  late List<bool> _selectedIndices;
-  late List<bool> _isCorrect;
+  late List<bool> _selectedIndices, _isCorrect;
   late AnimationController _controller;
   late Animation<double> _shakeAnimation;
   late List<VocabularyModel> _vocabularyList;
-  int numberDone = 0;
+  int _numberDone = 0;
   double _seconds = 0.0;
   bool _isRunning = false;
 
   @override
   void initState() {
     super.initState();
-    _vocabularyList = vocabularyList;
-    _listVocabulary = _handleList(_vocabularyList);
+    _vocabularyList = widget.vocabularyModel;
+    _listVocabulary = _generateVocabularyList(_vocabularyList);
     _startTimer();
 
-    _selectedIndices = List.generate(_listVocabulary.length, (index) => false);
-    _isCorrect = List.generate(_listVocabulary.length, (index) => false);
+    _selectedIndices = List.filled(_listVocabulary.length, false);
+    _isCorrect = List.filled(_listVocabulary.length, false);
 
     _controller = AnimationController(
       duration: const Duration(milliseconds: 300),
@@ -42,76 +43,52 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
     );
   }
 
-  void _startTimer() {
-    _isRunning = true;
-    Timer.periodic(Duration(milliseconds: 100), (Timer timer) {
-      if (_isRunning) {
-        setState(() {
-          _seconds += 0.1;
-        });
-      } else {
-        timer.cancel();
-      }
-    });
-  }
-
-  void _stopTimer() {
-    setState(() {
-      _isRunning = false;
-    });
-  }
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+  void _startTimer() {
+    _isRunning = true;
+    Timer.periodic(const Duration(milliseconds: 100), (timer) {
+      if (_isRunning) {
+        setState(() => _seconds += 0.1);
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  void _stopTimer() => setState(() => _isRunning = false);
+
   void _onCardTap(int index) {
     setState(() {
       int selectedCount = _selectedIndices.where((isSelected) => isSelected).length;
 
-      if (_selectedIndices[index]) {
-        _selectedIndices[index] = false;
-      } else if (selectedCount < 2) {
-        _selectedIndices[index] = true;
-      }
-
+      _selectedIndices[index] = !_selectedIndices[index];
       if (selectedCount == 1) {
-        List<int> numberSelected = _checkNumberSelected(_selectedIndices);
-        if (numberSelected.length == 2) {
-          bool isCorrect = _checkMeaning(
-            _listVocabulary[numberSelected[0]],
-            _listVocabulary[numberSelected[1]],
-          );
+        List<int> selectedIndices = _selectedIndices
+            .asMap()
+            .entries
+            .where((entry) => entry.value)
+            .map((entry) => entry.key)
+            .toList();
+
+        if (selectedIndices.length == 2) {
+          bool isCorrect = _checkPair(_listVocabulary[selectedIndices[0]], _listVocabulary[selectedIndices[1]]);
 
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(isCorrect ? "Correct!" : "Try Again!"),
-              duration: Duration(seconds: 1),
+              duration: const Duration(seconds: 1),
             ),
           );
 
-          if (!isCorrect) {
-            _controller.forward().then((value) {
-              _controller.reverse();
-            });
-
-            _isCorrect[numberSelected[0]] = false;
-            _isCorrect[numberSelected[1]] = false;
+          if (isCorrect) {
+            _markCorrect(selectedIndices);
           } else {
-            _isCorrect[numberSelected[0]] = true;
-            _isCorrect[numberSelected[1]] = true;
-
-            _listVocabulary[numberSelected[0]] = "";
-            _listVocabulary[numberSelected[1]] = "";
-
-            numberDone += 1;
-
-            if (numberDone == 6) {
-              _stopTimer();
-              _showCompletionMessage();
-            }
+            _animateShake();
           }
           _selectedIndices.fillRange(0, _selectedIndices.length, false);
         }
@@ -119,19 +96,51 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
     });
   }
 
+  void _markCorrect(List<int> selectedIndices) {
+    setState(() {
+      _isCorrect[selectedIndices[0]] = true;
+      _isCorrect[selectedIndices[1]] = true;
+      _listVocabulary[selectedIndices[0]] = "";
+      _listVocabulary[selectedIndices[1]] = "";
+      _numberDone++;
+
+      if (_numberDone == 6) {
+        _stopTimer();
+        _showCompletionMessage();
+      }
+    });
+  }
+
+  void _animateShake() {
+    _controller.forward().then((_) => _controller.reverse());
+  }
+
+  bool _checkPair(String a, String b) {
+    return _vocabularyList.any((entry) => (entry.korean == a && entry.vietnamese == b) || (entry.korean == b && entry.vietnamese == a));
+  }
+
+  List<String> _generateVocabularyList(List<VocabularyModel> vocabularyList) {
+    List<VocabularyModel> selectedWords = (vocabularyList.length > 6)
+        ? (vocabularyList..shuffle()).take(6).toList()
+        : vocabularyList;
+
+    List<String> koreanWords = selectedWords.map((item) => item.korean).toList();
+    List<String> vietnameseWords = selectedWords.map((item) => item.vietnamese).toList();
+
+    return koreanWords + vietnameseWords;
+  }
+
   void _showCompletionMessage() {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
           title: const Text("Completed!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           content: Text("You completed the game in ${_seconds.toStringAsFixed(1)} seconds.", style: const TextStyle(fontSize: 16)),
-          actions: <Widget>[
+          actions: [
             TextButton(
               child: const Text("Finish", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ],
         );
@@ -139,36 +148,10 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
     );
   }
 
-  List<int> _checkNumberSelected(List<bool> selectedIndices) {
-    return selectedIndices.asMap().entries.where((entry) => entry.value).map((entry) => entry.key).toList();
-  }
-
-  bool _checkMeaning(String a, String b) {
-    for (var entry in _vocabularyList) {
-      if ((entry.korean == a && entry.vietnamese == b) ||
-          (entry.korean == b && entry.vietnamese == a)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  List<String> _handleList(List<VocabularyModel> vocabularyList) {
-    List<VocabularyModel> selectedWords;
-    if (vocabularyList.length > 6) {
-      vocabularyList.shuffle(Random());
-      selectedWords = vocabularyList.take(6).toList();
-    } else {
-      selectedWords = vocabularyList;
-    }
-    List<String> koreanWords = selectedWords.map((item) => item.korean).toList();
-    List<String> vietnameseWords = selectedWords.map((item) => item.vietnamese).toList();
-    return koreanWords + vietnameseWords;
-  }
-
   @override
   Widget build(BuildContext context) {
-    double progress = numberDone / 6;
+    double progress = _numberDone / 6;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -189,14 +172,14 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               itemCount: _listVocabulary.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, // Number of columns
+                crossAxisCount: 3,
                 childAspectRatio: 120 / 150,
               ),
               itemBuilder: (context, index) {
                 return AnimatedBuilder(
                   animation: _controller,
                   builder: (context, child) {
-                    if (_listVocabulary[index] != "") {
+                    if (_listVocabulary[index].isNotEmpty) {
                       return Transform.translate(
                         offset: _isCorrect[index]
                             ? Offset.zero
@@ -225,9 +208,8 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
                           ),
                         ),
                       );
-                    } else {
-                      return Container();
                     }
+                    return const SizedBox.shrink();
                   },
                 );
               },

@@ -63,12 +63,28 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.transparent,
         height: 50,
         items: const [
-          Icon(Icons.home_filled, color: Colors.white, size: 25),
-          Icon(Icons.folder_copy_rounded, color: Colors.white, size: 25),
-          Icon(Icons.add, color: Colors.white, size: 25),
-          Icon(Icons.add_chart, color: Colors.white, size: 25),
-          Icon(Icons.account_circle, color: Colors.white, size: 25),
+          Tooltip(
+            message: 'Home',
+            child: Icon(Icons.home_filled, color: Colors.white, size: 25),
+          ),
+          Tooltip(
+            message: 'Library',
+            child: Icon(Icons.folder_copy_rounded, color: Colors.white, size: 25),
+          ),
+          Tooltip(
+            message: 'Add',
+            child: Icon(Icons.add, color: Colors.white, size: 25),
+          ),
+          Tooltip(
+            message: 'Stats',
+            child: Icon(Icons.add_chart, color: Colors.white, size: 25),
+          ),
+          Tooltip(
+            message: 'Profile',
+            child: Icon(Icons.account_circle, color: Colors.white, size: 25),
+          ),
         ],
+
         onTap: _onNavBarTap,
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:vocabkpop/data_test/vocabulary_data.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
+import 'package:vocabkpop/pages/FlashCardPage.dart';
+import 'package:vocabkpop/pages/MatchPage.dart';
+import 'package:vocabkpop/pages/StudyPage.dart';
+import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 import 'package:vocabkpop/widget/bar/HomeLessonBar.dart';
 
 class HomeLessonPage extends StatefulWidget {
@@ -33,15 +36,24 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
   void _navigateToPage(int index) {
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, '/flashcard');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => FlashCardPage(vocabularyModel: _vocabularyList)),
+        );
         break;
       case 1:
-        Navigator.pushNamed(context, '/study');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => StudyPage(vocabularyModel: _vocabularyList)),
+        );
         break;
       case 2:
         break;
       case 3:
-        Navigator.pushNamed(context, '/match');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MatchPage(vocabularyModel: _vocabularyList)),
+        );
         break;
     }
   }
@@ -186,15 +198,15 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
                       onTap: () => _onContainerTap(0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: selectedContainer == 0 ? Color(0xFF812AEF) : const Color(0xFFFFFFFF),
+                          color: selectedContainer == 0 ? const Color(0xFF812AEF) : const Color(0xFFFFFFFF),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Center(
                           child: Text(
                             'Học hết 1',
                             style: TextStyle(
-                              color: selectedContainer == 0 ? Color(0xFFFFFFFF) : const Color(0xFF812AEF),
+                              color: selectedContainer == 0 ? const Color(0xFFFFFFFF) : const Color(0xFF812AEF),
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
@@ -209,15 +221,15 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
                       onTap: () => _onContainerTap(1),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: selectedContainer == 1 ? Color(0xFF812AEF) : const Color(0xFFFFFFFF),
+                          color: selectedContainer == 1 ? const Color(0xFF812AEF) : const Color(0xFFFFFFFF),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Center(
                           child: Text(
                             'Học hết 2',
                             style: TextStyle(
-                              color: selectedContainer == 1 ? Color(0xFFFFFFFF) : const Color(0xFF812AEF),
+                              color: selectedContainer == 1 ? const Color(0xFFFFFFFF) : const Color(0xFF812AEF),
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
@@ -257,9 +269,11 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
                     ),
                     Row(
                       children: [
-                        Icon(Icons.volume_up_rounded),
-                        SizedBox(width: 20),
-                        (vocab.star == 1) ? Icon(Icons.star, color: Colors.black) : Icon(Icons.star_border_rounded),
+                        const Icon(Icons.volume_up_rounded),
+                        const SizedBox(width: 20),
+                        vocab.star == 1
+                            ? const Icon(Icons.star, color: Colors.black)
+                            : const Icon(Icons.star_border_rounded),
                       ],
                     ),
                   ],

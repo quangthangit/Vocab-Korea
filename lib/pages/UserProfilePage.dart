@@ -11,7 +11,7 @@ class UserProfilePage extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: Center(
                   child: Column(
                     children: [
@@ -19,23 +19,23 @@ class UserProfilePage extends StatelessWidget {
                         radius: 50,
                         backgroundImage: NetworkImage('${_auth.currentUser?.photoURL}'),
                       ),
-                      SizedBox(height: 10,),
-                      Text('${_auth.currentUser?.displayName}',style: TextStyle(fontWeight: FontWeight.bold),)
+                      const SizedBox(height: 10,),
+                      Text('${_auth.currentUser?.displayName}',style: const TextStyle(fontWeight: FontWeight.bold),)
                     ],
                   ),
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: Color(0xFFD9D9D9),
+                    color: const Color(0xFFD9D9D9),
                     width: 2,
                   ),
                 ),
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -62,7 +62,7 @@ class UserProfilePage extends StatelessWidget {
                   _auth.signOut();
                 },
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: const Text(
                     'Logout',
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
