@@ -18,7 +18,7 @@ class ClassService {
     try {
       DocumentSnapshot docSnapshot = await classCollection.doc(docId).get();
       if (docSnapshot.exists) {
-        return ClassModel.fromFirestore(docSnapshot.data() as Map<String, dynamic>);
+        return ClassModel.fromFirestore(docSnapshot);
       }
     } catch (e) {
       print('Error getting class: $e');
@@ -46,7 +46,7 @@ class ClassService {
     try {
       QuerySnapshot querySnapshot = await classCollection.get();
       return querySnapshot.docs.map((doc) {
-        return ClassModel.fromFirestore(doc.data() as Map<String, dynamic>);
+        return ClassModel.fromFirestore(doc);
       }).toList();
     } catch (e) {
       print('Error getting classes: $e');
@@ -56,35 +56,18 @@ class ClassService {
 
   Future<List<ClassModel>> getClassesExcludingUserId(String userId) async {
     try {
-      QuerySnapshot querySnapshot = await classCollection.get();
-      print('Number of documents retrieved: ${querySnapshot.docs.length}');
+      QuerySnapshot querySnapshot = await classCollection
+          .where('idMember', arrayContains: userId)
+          .get();
 
       List<ClassModel> classes = querySnapshot.docs.map((doc) {
-        print('Document ID: ${doc.id}');
-        print('Document data: ${doc.data()}');
-        return ClassModel.fromFirestore(doc.data() as Map<String, dynamic>);
+        return ClassModel.fromFirestore(doc);
       }).toList();
 
-      print('Classes before filtering: ${classes.map((classModel) => classModel.name).toList()}');
-
-      if (userId.isEmpty) {
-        print('Provided userId is empty. Returning all classes.');
-        return classes;
-      }
-
-      List<ClassModel> filteredClasses = classes.where((classModel) {
-        bool isIncluded = classModel.idMember.contains(userId);
-        print('Checking class: ${classModel.name}, userId: $userId, isIncluded: $isIncluded');
-        return isIncluded;
-      }).toList();
-
-      print('Classes after filtering: ${filteredClasses.map((classModel) => classModel.name).toList()}');
-
-      return filteredClasses;
+      return classes;
     } catch (e) {
       print('Error getting classes: $e');
       return [];
     }
   }
-
 }

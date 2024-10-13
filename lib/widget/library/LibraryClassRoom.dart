@@ -15,23 +15,6 @@ class LibraryClassRoom extends StatelessWidget {
     return ListView(
       children: [
         const SizedBox(height: 10),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 30),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Bộ lọc',
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-
         FutureBuilder<List<ClassModel>>(
           future: userId != null ? _classService.getClassesExcludingUserId(userId) : Future.value([]),
           builder: (context, snapshot) {
@@ -46,13 +29,6 @@ class LibraryClassRoom extends StatelessWidget {
 
             return Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-                  ),
-                ),
                 ...classes.map((classModel) => ClassRoom(classModel: classModel)).toList(),
               ],
             );
