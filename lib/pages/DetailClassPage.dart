@@ -113,7 +113,7 @@ class _DetailClassPageState extends State<DetailClassPage> {
             const SizedBox(width: 8),
             Text(
               '${classData.idMember.length} thành viên',
-              style: const TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 15),
             ),
           ],
         ),
@@ -122,7 +122,7 @@ class _DetailClassPageState extends State<DetailClassPage> {
           children: [
             const Icon(Icons.access_time),
             const SizedBox(width: 5),
-            Text(convertTime(classData.createdAt)),
+            Text('Ngày tạo ${convertTime(classData.createdAt)}'),
           ],
         ),
         const SizedBox(height: 10),
