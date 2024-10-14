@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
 import 'package:vocabkpop/services/ClassService.dart';
-import 'package:vocabkpop/widget/bar/CreateClassBar.dart';
+import 'package:vocabkpop/widget/bar/CreateBar.dart';
 
 class CreateClassPage extends StatefulWidget {
   @override
@@ -106,8 +106,9 @@ class _CreateClassPageState extends State<CreateClassPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.background,
-        title: CreateClassBar(
+        title: CreateBar(
           submit: _submitData,
+          title: 'Tạo lớp học mới',
         ),
       ),
       body: Padding(

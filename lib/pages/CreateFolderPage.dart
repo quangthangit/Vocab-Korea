@@ -4,7 +4,7 @@ import 'package:vocabkpop/models/ClassModel.dart';
 import 'package:vocabkpop/models/FolderModel.dart';
 import 'package:vocabkpop/services/ClassService.dart';
 import 'package:vocabkpop/services/FolderService.dart';
-import 'package:vocabkpop/widget/bar/CreateClassBar.dart';
+import 'package:vocabkpop/widget/bar/CreateBar.dart';
 
 class CreateFolderPage extends StatefulWidget {
   final String idClass;
@@ -20,7 +20,7 @@ class _CreateFolderPageState extends State<CreateFolderPage> {
   final FolderService _folderService = FolderService();
   final ClassService _classService = ClassService();
 
-  void _submitFolder() {
+  void _submitFolder() async {
     String folderName = _folderNameController.text;
     if (folderName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -31,59 +31,30 @@ class _CreateFolderPageState extends State<CreateFolderPage> {
       return;
     }
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          actionsAlignment: MainAxisAlignment.center,
-          title: const Text('Xác nhận thông tin'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Tên thư mục: ${_folderNameController.text}'),
-            ],
-          ),
-          actions: [
-            TextButton(
-              child: const Text('Hủy'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Xác nhận'),
-              onPressed: () async {
-                FolderModel folderModel = FolderModel(
-                  title: folderName,
-                  createdAt: DateTime.now(),
-                  lessonList: [],
-                );
-                Map<String,dynamic> result = await _folderService.createFolder(folderModel);
-
-                if(result['success'] && result['id']!=null) {
-
-                  ClassModel? classCurrent = await _classService.getClassById(widget.idClass);
-
-                  classCurrent?.idFolder.add(result['id']);
-
-                  _classService.updateClass(widget.idClass, classCurrent!);
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Thêm thư mục thành công'),
-                    ),
-                  );
-                }
-                FocusScope.of(context).unfocus();
-                _folderNameController.clear();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
+    FolderModel folderModel = FolderModel(
+      title: folderName,
+      createdAt: DateTime.now(),
+      lessonList: [],
     );
+
+    Map<String, dynamic> result = await _folderService.createFolder(folderModel);
+    if (result['success'] && result['id'] != null) {
+      ClassModel? classCurrent = await _classService.getClassById(widget.idClass);
+
+      classCurrent?.idFolder.add(result['id']);
+      _classService.updateClass(widget.idClass, classCurrent!);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Thêm thư mục thành công'),
+        ),
+      );
+    }
+
+    FocusScope.of(context).unfocus();
+    _folderNameController.clear();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,8 +63,9 @@ class _CreateFolderPageState extends State<CreateFolderPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.background,
-        title: CreateClassBar(
+        title: CreateBar(
           submit: _submitFolder,
+          title: 'Tạo thư mục mới',
         ),
       ),
       body: Padding(

@@ -1,14 +1,14 @@
-import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:vocabkpop/models/UserModel.dart';
+import 'package:vocabkpop/services/UserService.dart';
 
 
 class LoginWithSocialNetwork {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final UserService _userService = UserService();
 
   Future<User?> signInWithGoogle() async {
     try {
@@ -37,22 +37,20 @@ class LoginWithSocialNetwork {
 
 
   Future<void> _saveUserToFirestore(User user) async {
-    final userRef = FirebaseFirestore.instance.collection('users').doc(
-        user.uid);
-    final userSnapshot = await userRef.get();
+    UserModel _userModel = UserModel(
+      id: user.uid,
+      username: user.displayName ?? '',
+      email: user.email ?? '',
+      createdAt: DateTime.now(),
+      lastLogin: DateTime.now(),
+    );
 
-    if (!userSnapshot.exists) {
-      await userRef.set({
-        'username': user.displayName,
-        'email': user.email,
-        'first_login': FieldValue.serverTimestamp(),
-        'created_at': FieldValue.serverTimestamp(),
-      });
-    } else {
-      await userRef.update({
-        'last_login': FieldValue.serverTimestamp(),
-      });
-    }
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+      'username': _userModel.username,
+      'email': _userModel.email,
+      'created_at': _userModel.createdAt,
+      'last_login': _userModel.lastLogin,
+    });
   }
 
   Future<void> signOut() async {

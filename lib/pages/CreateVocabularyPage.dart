@@ -6,7 +6,7 @@ import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/services/LessonService.dart';
 import 'package:vocabkpop/services/TranslationService.dart';
-import 'package:vocabkpop/widget/bar/CreateVocabularyBar.dart';
+import 'package:vocabkpop/widget/bar/CreateBar.dart';
 
 class CreateVocabularyPage extends StatefulWidget {
   const CreateVocabularyPage({super.key});
@@ -119,7 +119,10 @@ class _CreateVocabularyPageState extends State<CreateVocabularyPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        title: CreateVocabularyBar(onSave: _submit),
+        title: CreateBar(
+            submit: _submit,
+            title: 'Tạo bài học',
+        ),
       ),
       body: ListView(
         children: [

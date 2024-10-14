@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 
-class CreateClassBar extends StatelessWidget {
+class CreateBar extends StatelessWidget {
   final VoidCallback submit;
-
-  CreateClassBar({super.key, required this.submit});
+  final String title;
+  CreateBar({super.key, required this.submit,required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,12 @@ class CreateClassBar extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        const Row(
+        Row(
           children: [
             Text(
-              "Tạo lớp học mới",
+              title,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.iconColor,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

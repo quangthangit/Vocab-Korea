@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
-import 'package:vocabkpop/pages/CreateFolderPage.dart';
 
 class DetailClassBar extends StatelessWidget {
-  final String idClass;
-  final String title;
+  final VoidCallback btn_addFolder;
 
-  DetailClassBar({super.key, required this.idClass, required this.title});
+  DetailClassBar({super.key, required this.btn_addFolder});
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +18,12 @@ class DetailClassBar extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        Row(
+        const Row(
           children: [
             Text(
-              title,
+              'Lớp',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.iconColor,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -39,10 +37,7 @@ class DetailClassBar extends StatelessWidget {
           onSelected: (value) {
 
             if (value == 'add_folder') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CreateFolderPage(idClass: idClass)),
-              );
+              btn_addFolder();
             } else if (value == 'add_member') {
 
             }

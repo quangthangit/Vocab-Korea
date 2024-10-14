@@ -4,6 +4,7 @@ import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/components/User.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
 import 'package:vocabkpop/models/UserModel.dart';
+import 'package:vocabkpop/pages/CreateFolderPage.dart';
 import 'package:vocabkpop/services/ClassService.dart';
 import 'package:vocabkpop/services/FolderService.dart';
 import 'package:vocabkpop/services/UserService.dart';
@@ -12,18 +13,50 @@ import 'package:vocabkpop/widget/bar/DetailClassBar.dart';
 import '../components/Folder.dart';
 import '../models/FolderModel.dart';
 
-class DetailClassPage extends StatelessWidget {
+class DetailClassPage extends StatefulWidget {
   final String idClass;
-  final ClassService _classService = ClassService();
-  final FolderService _folderService = FolderService();
-  final UserService _userService = UserService();
 
   DetailClassPage({super.key, required this.idClass});
 
   @override
+  _DetailClassPageState createState() => _DetailClassPageState();
+}
+
+class _DetailClassPageState extends State<DetailClassPage> {
+  final ClassService _classService = ClassService();
+  final FolderService _folderService = FolderService();
+  final UserService _userService = UserService();
+  late Future<ClassModel?> _classDataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _classDataFuture = _classService.getClassById(widget.idClass);
+  }
+
+  Future<void> _refreshData() async {
+    setState(() {
+      _classDataFuture = _classService.getClassById(widget.idClass);
+    });
+  }
+
+  Future<void> showFormCreateFolder(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return CreateFolderPage(idClass: widget.idClass);
+      },
+    ).then((_) {
+      _refreshData();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<ClassModel?>(
-      future: _classService.getClassById(idClass),
+      future: _classDataFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
@@ -43,7 +76,6 @@ class DetailClassPage extends StatelessWidget {
           );
         }
 
-        // Dữ liệu lớp học đã sẵn sàng
         ClassModel classData = snapshot.data!;
 
         return Scaffold(
@@ -51,7 +83,7 @@ class DetailClassPage extends StatelessWidget {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: AppColors.background,
-            title: DetailClassBar(idClass: idClass, title: "Lớp"),
+            title: DetailClassBar(btn_addFolder: () => showFormCreateFolder(context)),
           ),
           body: Padding(
             padding: const EdgeInsets.all(20),
@@ -114,7 +146,7 @@ class DetailClassPage extends StatelessWidget {
               Tab(text: "Thành viên"),
             ],
             labelColor: Colors.blue,
-            labelStyle: TextStyle(fontSize: 18),
+            labelStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.blue,
           ),
@@ -122,7 +154,7 @@ class DetailClassPage extends StatelessWidget {
             child: TabBarView(
               children: [
                 folderTab(classModel.idFolder),
-                memberTab(classModel.idMember),
+                memberTab(classModel.idMember,classModel.idUser),
               ],
             ),
           ),
@@ -135,7 +167,6 @@ class DetailClassPage extends StatelessWidget {
     return "${time.day}-${time.month}-${time.year}";
   }
 
-  // Hàm xây dựng tab Thư mục
   Widget folderTab(List<String> listIdFolder) {
     if (listIdFolder.isEmpty) {
       return const Center(child: Text("Không có thư mục nào"));
@@ -168,7 +199,6 @@ class DetailClassPage extends StatelessWidget {
                   title: Text('Không thể tải thư mục.'),
                 );
               }
-
               return Folder(folderModel: folder);
             },
           );
@@ -177,8 +207,7 @@ class DetailClassPage extends StatelessWidget {
     }
   }
 
-
-  Widget memberTab(List<String> listIdMember) {
+  Widget memberTab(List<String> listIdMember,String idCreator) {
     if (listIdMember.isEmpty) {
       return const Center(child: Text("Không có thành viên nào"));
     } else {
@@ -210,7 +239,7 @@ class DetailClassPage extends StatelessWidget {
                   title: Text('Không thể tải danh sách thành viên.'),
                 );
               }
-              return  User(userModel: user);
+              return User(userModel: user,creator: idCreator,);
             },
           );
         },

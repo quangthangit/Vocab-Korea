@@ -45,7 +45,7 @@ class AddForm extends StatelessWidget {
           Navigator.of(context).pop();
         }
         if (title == "Học phần") {
-          await _showBottomSheet3(context);
+          await _showCreateVocabularyPage(context);
         } else if (title == "Tạo lớp học") {
           await _showBottomSheet2(context);
         } else if (title == "Thư mục") {
@@ -95,7 +95,7 @@ class AddForm extends StatelessWidget {
     );
   }
 
-  Future<void> _showBottomSheet3(BuildContext context) {
+  Future<void> _showCreateVocabularyPage(BuildContext context) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,

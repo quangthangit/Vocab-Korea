@@ -3,13 +3,15 @@ import 'package:vocabkpop/models/UserModel.dart';
 
 class User extends StatelessWidget {
   final UserModel userModel;
-  const User({super.key, required this.userModel});
+  final String creator;
+
+  const User({super.key, required this.userModel, required this.creator});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
-      margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -26,14 +28,30 @@ class User extends StatelessWidget {
         children: [
           const Align(
             alignment: Alignment.centerLeft,
-            child: Icon(Icons.account_circle,size: 20,),
+            child: Icon(
+              Icons.account_circle,
+              size: 20,
+            ),
           ),
-          const SizedBox(width: 10,),
+          const SizedBox(width: 10),
           Align(
             alignment: Alignment.centerLeft,
-            child: Text("${userModel.username}",style: TextStyle(fontSize: 20,fontFamily: 'Lobster')),
+            child: Expanded(
+              child: Text(
+                userModel.id == creator
+                    ? "${userModel.username} ( Người tạo )"
+                    : "${userModel.username}",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Lobster',
+                  color: userModel.id == creator ? Colors.red : null,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ),
-          const SizedBox(height: 20,)
+          const SizedBox(height: 20)
         ],
       ),
     );

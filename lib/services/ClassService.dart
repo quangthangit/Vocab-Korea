@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
 
 class ClassService {
-  final CollectionReference classCollection = FirebaseFirestore.instance.collection('classes');
+  final CollectionReference classCollection = FirebaseFirestore.instance.collection('class');
 
   Future<bool> createClass(ClassModel classModel) async {
     try {

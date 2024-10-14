@@ -9,7 +9,7 @@ class Folder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
-      margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
