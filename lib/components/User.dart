@@ -27,7 +27,7 @@ class User extends StatelessWidget {
       child: Row(
         children: [
           const Icon(
-            Icons.account_circle,
+            Icons.account_circle_outlined,
             size: 20,
           ),
           const SizedBox(width: 10),
