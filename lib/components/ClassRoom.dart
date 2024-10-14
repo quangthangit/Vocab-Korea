@@ -44,18 +44,18 @@ class ClassRoom extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Row(
+                 Row(
                   children: [
-                    Icon(Icons.collections_bookmark_outlined),
-                    SizedBox(width: 10,),
-                    Text('15 học phần',style: TextStyle(fontSize: 15,fontFamily: 'Lobster'))
+                    const Icon(Icons.collections_bookmark_outlined),
+                    const SizedBox(width: 10,),
+                    Text('${classModel.idFolder.length} Thư mục',style: const TextStyle(fontSize: 15,fontFamily: 'Lobster'))
                   ],
                 ),
                 Row(
                   children: [
-                    Icon(Icons.supervisor_account),
+                    const Icon(Icons.supervisor_account),
                     const SizedBox(width: 10,),
-                    Text('${classModel.idMember.length}',style: TextStyle(fontSize: 15,fontFamily: 'Lobster'))
+                    Text('${classModel.idMember.length}',style: const TextStyle(fontSize: 15,fontFamily: 'Lobster'))
                   ],
                 )
               ],

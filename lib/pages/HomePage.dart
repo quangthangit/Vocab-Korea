@@ -43,7 +43,6 @@ class HomePages extends StatelessWidget {
                   ],
                 ),
               ),
-              Folder(),
             ],
           ),
         ],

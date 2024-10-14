@@ -64,14 +64,14 @@ class _CreateClassPageState extends State<CreateClassPage> {
                 ClassModel classModel = ClassModel(
                   name: className,
                   description: description,
-                  numberCollection: 0,
                   password: password,
                   createdAt: DateTime.now(),
                   idUser: FirebaseAuth.instance.currentUser!.uid,
                   allowEdit: allowEdit,
                   idMember: [
                     FirebaseAuth.instance.currentUser!.uid,
-                  ]
+                  ],
+                  idFolder: []
                 );
 
                 bool isSuccess = await _classService.createClass(classModel);

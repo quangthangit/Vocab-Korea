@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vocabkpop/models/FolderModel.dart';
+import 'package:vocabkpop/models/UserModel.dart';
 
-class Folder extends StatelessWidget {
-  final FolderModel folderModel;
-  const Folder({super.key, required this.folderModel});
+class User extends StatelessWidget {
+  final UserModel userModel;
+  const User({super.key, required this.userModel});
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +22,16 @@ class Folder extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
+      child: Row(
         children: [
           const Align(
             alignment: Alignment.centerLeft,
-            child: Icon(Icons.save,size: 20,),
+            child: Icon(Icons.account_circle,size: 20,),
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(width: 10,),
           Align(
             alignment: Alignment.centerLeft,
-            child: Text("${folderModel.title}",style: TextStyle(fontSize: 20,fontFamily: 'Lobster')),
+            child: Text("${userModel.username}",style: TextStyle(fontSize: 20,fontFamily: 'Lobster')),
           ),
           const SizedBox(height: 20,)
         ],

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/components/ClassRoom.dart';
 import 'package:vocabkpop/services/ClassService.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
-import 'dart:developer' as dev;
 
 class LibraryClassRoom extends StatelessWidget {
   final ClassService _classService = ClassService();

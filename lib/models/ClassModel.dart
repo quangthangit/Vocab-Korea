@@ -4,7 +4,7 @@ class ClassModel {
   String id;
   String name;
   String description;
-  int numberCollection;
+  List<String> idFolder;
   String password;
   DateTime createdAt;
   String idUser;
@@ -16,7 +16,7 @@ class ClassModel {
     this.id = '',
     required this.name,
     required this.description,
-    required this.numberCollection,
+    required this.idFolder,
     required this.password,
     required this.createdAt,
     required this.idUser,
@@ -30,7 +30,7 @@ class ClassModel {
       id: doc.id,
       name: data['name'],
       description: data['description'],
-      numberCollection: data['number_collection'],
+      idFolder: List<String>.from(data['id_folder']),
       password: data['password'],
       createdAt: (data['created_at'] as Timestamp).toDate(),
       idUser: data['id_user'],
@@ -43,7 +43,7 @@ class ClassModel {
     return {
       'name': name,
       'description': description,
-      'number_collection': numberCollection,
+      'id_folder': idFolder,
       'password': password,
       'created_at': createdAt,
       'id_user': idUser,

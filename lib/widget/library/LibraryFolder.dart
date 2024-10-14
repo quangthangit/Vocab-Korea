@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/components/Folder.dart';
-
-import '../../components/Lesson.dart';
+import 'package:vocabkpop/models/FolderModel.dart';
 
 class LibraryFolder extends StatelessWidget {
   const LibraryFolder({super.key});
@@ -28,40 +27,40 @@ class LibraryFolder extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          const Column(
+          Column(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
                 ),
               ),
-              Folder()
+              Folder(folderModel: FolderModel(title: "Tiếng hàn sơ cấp", lessonList: [], createdAt: DateTime.now(),)),
             ],
           ),
-          const Column(
+          Column(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text('Tháng 10 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
                 ),
               ),
-              Folder()
+              Folder(folderModel: FolderModel(title: "Tiếng trung cấp", lessonList: [], createdAt: DateTime.now(),)),
             ],
           ),
-          const Column(
+          Column(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text('Tháng 9 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
                 ),
               ),
-              Folder()
+              Folder(folderModel: FolderModel(title: "Tiếng hàn sơ cấp", lessonList: [], createdAt: DateTime.now(),)),
             ],
           ),
         ],

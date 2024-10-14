@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AppUser {
+class UserModel {
   String id;
   String username;
   String email;
@@ -8,7 +8,7 @@ class AppUser {
   DateTime createdAt;
   DateTime lastLogin;
 
-  AppUser({
+  UserModel({
     required this.id,
     required this.username,
     required this.email,
@@ -17,9 +17,10 @@ class AppUser {
     required this.lastLogin,
   });
 
-  factory AppUser.fromFirestore(Map<String, dynamic> data) {
-    return AppUser(
-      id: data['id'],
+  factory UserModel.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return UserModel(
+      id: doc.id,
       username: data['username'],
       email: data['email'],
       passwordHash: data['password_hash'],
