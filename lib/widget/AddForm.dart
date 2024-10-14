@@ -47,9 +47,9 @@ class AddForm extends StatelessWidget {
         if (title == "Học phần") {
           await _showCreateVocabularyPage(context);
         } else if (title == "Tạo lớp học") {
-          await _showBottomSheet2(context);
+          await _showCreateClassPage(context);
         } else if (title == "Thư mục") {
-          await _showBottomSheet(context);
+          await _showCreateFolderPage(context);
         }
       },
       child: Container(
@@ -73,18 +73,18 @@ class AddForm extends StatelessWidget {
     );
   }
 
-  Future<void> _showBottomSheet(BuildContext context) {
+  Future<void> _showCreateFolderPage(BuildContext context) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
       builder: (BuildContext context) {
-        return AddFolderForm();
+        return CreateClassPage();
       },
     );
   }
 
-  Future<void> _showBottomSheet2(BuildContext context) {
+  Future<void> _showCreateClassPage(BuildContext context) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
