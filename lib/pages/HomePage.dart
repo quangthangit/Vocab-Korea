@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vocabkpop/components/ClassRoom.dart';
-import 'package:vocabkpop/components/Folder.dart';
-import 'package:vocabkpop/components/Lesson.dart';
 import 'package:vocabkpop/widget/bar/HomeBar.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
 

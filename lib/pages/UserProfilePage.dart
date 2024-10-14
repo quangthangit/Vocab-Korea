@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
+
 class UserProfilePage extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   @override

@@ -5,12 +5,12 @@ import 'package:vocabkpop/models/ClassModel.dart';
 import 'package:vocabkpop/services/ClassService.dart';
 import 'package:vocabkpop/widget/bar/CreateBar.dart';
 
-class CreateClassPage extends StatefulWidget {
+class CreateClassBottomSheet extends StatefulWidget {
   @override
-  _CreateClassPageState createState() => _CreateClassPageState();
+  _CreateClassBottomSheetPageState createState() => _CreateClassBottomSheetPageState();
 }
 
-class _CreateClassPageState extends State<CreateClassPage> {
+class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
   bool _isPasswordEnabled = false;
   bool _isEditable = false;
 

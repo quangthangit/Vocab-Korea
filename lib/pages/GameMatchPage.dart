@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
-import 'dart:math';
 import 'dart:async';
 import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/widget/bar/GameMatchBar.dart';

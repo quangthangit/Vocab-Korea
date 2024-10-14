@@ -8,14 +8,14 @@ import 'package:vocabkpop/services/LessonService.dart';
 import 'package:vocabkpop/services/TranslationService.dart';
 import 'package:vocabkpop/widget/bar/CreateBar.dart';
 
-class CreateVocabularyPage extends StatefulWidget {
-  const CreateVocabularyPage({super.key});
+class CreateVocabularyBottomSheet extends StatefulWidget {
+  const CreateVocabularyBottomSheet({super.key});
 
   @override
-  _CreateVocabularyPageState createState() => _CreateVocabularyPageState();
+  _CreateVocabularyBottomSheetState createState() => _CreateVocabularyBottomSheetState();
 }
 
-class _CreateVocabularyPageState extends State<CreateVocabularyPage> {
+class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomSheet> {
   bool _showDescriptionField = false;
   String lessonTitle = '';
   String lessonDescription = '';
