@@ -34,6 +34,13 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
   }
 
   void _navigateToPage(int index) {
+    if (index == 3 && _vocabularyList.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Cần ít nhất 6 từ vựng để ghép thẻ!')),
+      );
+      return;
+    }
+
     switch (index) {
       case 0:
         Navigator.push(
@@ -48,6 +55,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
         );
         break;
       case 2:
+
         break;
       case 3:
         Navigator.push(
@@ -113,7 +121,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
               margin: const EdgeInsets.only(left: 20),
               child: Text(
                 widget.lessonModel.title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
             Container(
@@ -173,12 +181,19 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
                             : index == 2
                             ? Icons.menu_book
                             : Icons.save_rounded,
-                        color: const Color(0xFF812AEF),
+                        color: index == 3 && _vocabularyList.length < 6
+                            ? Colors.grey
+                            : const Color(0xFF812AEF),
                       ),
                       const SizedBox(width: 10),
                       Text(
                         titles[index],
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: index == 3 && _vocabularyList.length < 6
+                              ? Colors.grey
+                              : Colors.black,
+                        ),
                       ),
                     ],
                   ),

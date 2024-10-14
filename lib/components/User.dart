@@ -26,32 +26,25 @@ class User extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Icon(
-              Icons.account_circle,
-              size: 20,
-            ),
+          const Icon(
+            Icons.account_circle,
+            size: 20,
           ),
           const SizedBox(width: 10),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Expanded(
-              child: Text(
-                userModel.id == creator
-                    ? "${userModel.username} ( Người tạo )"
-                    : "${userModel.username}",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'Lobster',
-                  color: userModel.id == creator ? Colors.red : null,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+          Expanded(
+            child: Text(
+              userModel.id == creator
+                  ? "${userModel.username} ( Người tạo )"
+                  : "${userModel.username}",
+              style: TextStyle(
+                fontSize: 15,
+                color: userModel.id == creator ? Colors.red : null,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          const SizedBox(height: 20)
+          const SizedBox(height: 20),
         ],
       ),
     );
