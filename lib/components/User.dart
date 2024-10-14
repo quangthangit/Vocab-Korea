@@ -38,7 +38,8 @@ class User extends StatelessWidget {
                   : "${userModel.username}",
               style: TextStyle(
                 fontSize: 15,
-                color: userModel.id == creator ? Colors.red : null,
+                fontWeight: FontWeight.bold,
+                color: userModel.id == creator ? Colors.blue : null,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
