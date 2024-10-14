@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/models/LessonModel.dart';
-import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/pages/HomeLessonPage.dart';
 
 class Lesson extends StatelessWidget {

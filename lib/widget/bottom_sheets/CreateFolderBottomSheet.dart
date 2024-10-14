@@ -6,16 +6,16 @@ import 'package:vocabkpop/services/ClassService.dart';
 import 'package:vocabkpop/services/FolderService.dart';
 import 'package:vocabkpop/widget/bar/CreateBar.dart';
 
-class CreateFolderPage extends StatefulWidget {
+class CreateFolderBottomSheet extends StatefulWidget {
   final String idClass;
 
-  CreateFolderPage({required this.idClass, Key? key}) : super(key: key);
+  CreateFolderBottomSheet({required this.idClass, Key? key}) : super(key: key);
 
   @override
-  _CreateFolderPageState createState() => _CreateFolderPageState();
+  _CreateFolderBottomSheetState createState() => _CreateFolderBottomSheetState();
 }
 
-class _CreateFolderPageState extends State<CreateFolderPage> {
+class _CreateFolderBottomSheetState extends State<CreateFolderBottomSheet> {
   final TextEditingController _folderNameController = TextEditingController();
   final FolderService _folderService = FolderService();
   final ClassService _classService = ClassService();

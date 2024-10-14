@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vocabkpop/pages/CreateClassPage.dart';
-import 'package:vocabkpop/pages/CreateVocabularyPage.dart';
+import 'package:vocabkpop/widget/bottom_sheets/CreateClassBottomSheet.dart';
+import 'package:vocabkpop/widget/bottom_sheets/CreateVocabularyBottomSheet.dart';
 
 
-class AddForm extends StatelessWidget {
-  const AddForm({super.key});
+class AddDataOptionsBottomSheet  extends StatelessWidget {
+  const AddDataOptionsBottomSheet ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class AddForm extends StatelessWidget {
       isScrollControlled: true,
       useSafeArea: true,
       builder: (BuildContext context) {
-        return CreateClassPage();
+        return CreateClassBottomSheet();
       },
     );
   }
@@ -89,7 +89,7 @@ class AddForm extends StatelessWidget {
       isScrollControlled: true,
       useSafeArea: true,
       builder: (BuildContext context) {
-        return CreateClassPage();
+        return CreateClassBottomSheet();
       },
     );
   }
@@ -100,7 +100,7 @@ class AddForm extends StatelessWidget {
       isScrollControlled: true,
       useSafeArea: true,
       builder: (BuildContext context) {
-        return CreateVocabularyPage();
+        return CreateVocabularyBottomSheet();
       },
     );
   }

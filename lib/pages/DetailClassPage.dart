@@ -4,12 +4,11 @@ import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/components/User.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
 import 'package:vocabkpop/models/UserModel.dart';
-import 'package:vocabkpop/pages/CreateFolderPage.dart';
+import 'package:vocabkpop/widget/bottom_sheets/CreateFolderBottomSheet.dart';
 import 'package:vocabkpop/services/ClassService.dart';
 import 'package:vocabkpop/services/FolderService.dart';
 import 'package:vocabkpop/services/UserService.dart';
 import 'package:vocabkpop/widget/bar/DetailClassBar.dart';
-
 import '../components/Folder.dart';
 import '../models/FolderModel.dart';
 
@@ -46,7 +45,7 @@ class _DetailClassPageState extends State<DetailClassPage> {
       isScrollControlled: true,
       useSafeArea: true,
       builder: (BuildContext context) {
-        return CreateFolderPage(idClass: widget.idClass);
+        return CreateFolderBottomSheet(idClass: widget.idClass);
       },
     ).then((_) {
       _refreshData();

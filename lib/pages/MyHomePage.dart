@@ -4,7 +4,7 @@ import 'package:vocabkpop/app_colors.dart' as app_color;
 import "package:curved_navigation_bar/curved_navigation_bar.dart" as curved_navigation_bar;
 import 'package:vocabkpop/pages/LibraryPage.dart';
 import 'package:vocabkpop/pages/UserProfilePage.dart';
-import 'package:vocabkpop/widget/AddForm.dart';
+import 'package:vocabkpop/widget/bottom_sheets/AddDataOptionsBottomSheet%20.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return const AddForm();
+        return const AddDataOptionsBottomSheet();
       },
     );
   }
