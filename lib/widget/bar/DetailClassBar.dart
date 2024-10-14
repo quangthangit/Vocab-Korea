@@ -33,7 +33,7 @@ class DetailClassBar extends StatelessWidget {
         ),
         PopupMenuButton<String>(
           color: AppColors.background,
-          icon: const Icon(Icons.more_outlined, color: AppColors.iconColor, size: 30),
+          icon: const Icon(Icons.more_vert, color: AppColors.iconColor, size: 30),
           onSelected: (value) {
 
             if (value == 'add_folder') {
