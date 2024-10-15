@@ -11,7 +11,7 @@ class User extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -35,7 +35,7 @@ class User extends StatelessWidget {
             child: Text(
               userModel.id == creator
                   ? "${userModel.username} ( Người tạo )"
-                  : "${userModel.username}",
+                  : userModel.username,
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,

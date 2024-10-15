@@ -20,7 +20,7 @@ class FolderService {
     }
   }
 
-  Future<FolderModel?> getFolderById(String docId) async {
+  Future<FolderModel?> getFolderById(String? docId) async {
     try {
       DocumentSnapshot docSnapshot = await folderCollection.doc(docId).get();
       if (docSnapshot.exists) {
@@ -32,7 +32,7 @@ class FolderService {
     return null;
   }
 
-  Future<void> updateFolder(String docId, FolderModel folderModel) async {
+  Future<void> updateFolder(String? docId, FolderModel folderModel) async {
     try {
       await folderCollection.doc(docId).update(folderModel.toMap());
     } catch (e) {
