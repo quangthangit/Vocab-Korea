@@ -78,74 +78,107 @@ class _QuizWidgetState extends State<QuizWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              child: Text(_questionText, style: const TextStyle(fontSize: 30)),
-            ),
-            _selectedAnswer == null
-                ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(_title),
-            )
-                : Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: _isCorrect == true
-                  ? Text(_title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.green))
-                  : Text(_title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red)),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: _options.map((vocab) {
-                  bool isSelected = _selectedAnswer == vocab;
-                  bool isCorrectOption = vocab == _correctAnswer;
-                  return GestureDetector(
-                    onTap: () => _checkAnswer(vocab),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: isSelected
-                              ? (_isCorrect == true ? Colors.green : Colors.red)
-                              : (isCorrectOption && _isCorrect == false ? Colors.green : const Color(0xFFD9D9D9)),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: Center(child: Text(vocab.korean, style: const TextStyle(fontSize: 15))),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Text(_questionText, style: const TextStyle(fontSize: 30)),
+                ),
+                _selectedAnswer == null
+                    ? Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(_title),
+                )
+                    : Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: _isCorrect == true
+                      ? Text(
+                    _title,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
                     ),
-                  );
-                }).toList(),
-              ),
+                  )
+                      : Text(
+                    _title,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: _options.map((vocab) {
+                      bool isSelected = _selectedAnswer == vocab;
+                      bool isCorrectOption = vocab == _correctAnswer;
+                      return GestureDetector(
+                        onTap: () => _checkAnswer(vocab),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: isSelected
+                                  ? (_isCorrect == true ? Colors.green : Colors.red)
+                                  : (isCorrectOption && _isCorrect == false
+                                  ? Colors.green
+                                  : const Color(0xFFD9D9D9)),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          child: Center(
+                            child: Text(
+                              vocab.korean,
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        if (_isCorrect == false)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.indigo,
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 120),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
+      ),
+      bottomNavigationBar: _isCorrect == false
+          ? Container(
+        padding: const EdgeInsets.all(20),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.indigo,
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 120),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-            onPressed: _nextQuestion,
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              child: const Text(
-                'Câu tiếp theo',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          onPressed: _nextQuestion,
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: const Text(
+              'Câu tiếp theo',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),
-      ],
+        ),
+      )
+          : null,
     );
   }
 }
