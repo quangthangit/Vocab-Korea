@@ -2,14 +2,17 @@ import 'dart:developer' as dev;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
+import 'package:vocabkpop/models/FolderModel.dart';
 import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
+import 'package:vocabkpop/services/FolderService.dart';
 import 'package:vocabkpop/services/LessonService.dart';
 import 'package:vocabkpop/services/TranslationService.dart';
 import 'package:vocabkpop/widget/bar/CreateBar.dart';
 
 class CreateVocabularyBottomSheet extends StatefulWidget {
-  const CreateVocabularyBottomSheet({super.key});
+  final String? idFolder;
+  const CreateVocabularyBottomSheet({super.key, this.idFolder});
 
   @override
   _CreateVocabularyBottomSheetState createState() => _CreateVocabularyBottomSheetState();
@@ -21,6 +24,7 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
   String lessonDescription = '';
   List<VocabularyModel> vocabularyList = [];
   final LessonService _lessonService = LessonService();
+  final FolderService _folderService = FolderService();
   final TranslationService _translationService = TranslationService();
 
   List<Map<String, dynamic>> numberForms = [
@@ -71,16 +75,39 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
       dateCreate: DateTime.now(),
       idMember: [
         FirebaseAuth.instance.currentUser!.uid,
-      ]
+      ],
     );
 
-    bool isSuccess = await _lessonService.createLesson(newLesson);
+    bool isSuccess;
+
+    if (widget.idFolder != null) {
+      isSuccess = await _createLessonWithFolder(newLesson);
+    } else {
+      isSuccess = await _lessonService.createLesson(newLesson);
+    }
     _showSnackBar(isSuccess ? 'Thêm bài học thành công' : 'Thêm bài học thất bại');
     reset();
   }
 
+  Future<bool> _createLessonWithFolder(LessonModel newLesson) async {
+    Map<String, dynamic> result = await _lessonService.createLessonWithFolder(newLesson);
+
+    if (result['success'] && result['id'] != null) {
+      FolderModel? folderModel = await _folderService.getFolderById(widget.idFolder);
+      folderModel?.lessonList.add(result['id']);
+      await _folderService.updateFolder(widget.idFolder, folderModel!);
+      return true;
+    }
+
+    return false;
+  }
+
   void _showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
   }
 
   void reset() {

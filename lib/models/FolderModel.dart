@@ -1,10 +1,9 @@
-import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FolderModel {
   final String id;
   final String title;
-  final List<LessonModel> lessonList;
+  final List<String> lessonList;
   final DateTime createdAt;
 
   FolderModel({
@@ -19,7 +18,7 @@ class FolderModel {
     return FolderModel(
       id: doc.id,
       title: data['title'],
-      lessonList: List<LessonModel>.from(data['lesson_list']),
+      lessonList: List<String>.from(data['lesson_list']),
       createdAt: (data['created_at'] as Timestamp).toDate(),
     );
   }

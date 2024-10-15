@@ -40,10 +40,8 @@ class _CreateFolderBottomSheetState extends State<CreateFolderBottomSheet> {
     Map<String, dynamic> result = await _folderService.createFolder(folderModel);
     if (result['success'] && result['id'] != null) {
       ClassModel? classCurrent = await _classService.getClassById(widget.idClass);
-
       classCurrent?.idFolder.add(result['id']);
       _classService.updateClass(widget.idClass, classCurrent!);
-
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Thêm thư mục thành công'),

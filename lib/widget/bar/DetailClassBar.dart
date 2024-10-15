@@ -3,8 +3,10 @@ import 'package:vocabkpop/app_colors.dart';
 
 class DetailClassBar extends StatelessWidget {
   final VoidCallback btn_addFolder;
+  final String title;
+  final List<String> item;
 
-  DetailClassBar({super.key, required this.btn_addFolder});
+  DetailClassBar({super.key, required this.btn_addFolder, required this.title, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +20,12 @@ class DetailClassBar extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        const Row(
+         Row(
           children: [
             Text(
-              'Lớp',
+              title,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.iconColor,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -36,24 +38,19 @@ class DetailClassBar extends StatelessWidget {
           icon: const Icon(Icons.more_vert, color: AppColors.iconColor, size: 30),
           onSelected: (value) {
 
-            if (value == 'add_folder') {
+            if (value == 'Thêm thư mục') {
               btn_addFolder();
             } else if (value == 'add_member') {
 
             }
           },
           itemBuilder: (BuildContext context) {
-            return [
-              const PopupMenuItem(
-                value: 'add_folder',
-                child: Text('Thêm thư mục'),
-
-              ),
-              const PopupMenuItem(
-                value: 'add_member',
-                child: Text('Thêm thành viên'),
-              ),
-            ];
+            return item.map((i) {
+              return PopupMenuItem<String>(
+                value: i, // Giá trị được trả về khi item được chọn
+                child: Text(i), // Hiển thị tên của item
+              );
+            }).toList();
           },
         ),
       ],
