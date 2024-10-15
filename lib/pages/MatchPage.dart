@@ -6,7 +6,13 @@ import 'package:vocabkpop/widget/bar/MatchBar.dart';
 
 class MatchPage extends StatelessWidget {
   final List<VocabularyModel> vocabularyModel;
-  const MatchPage({super.key, required this.vocabularyModel});
+  final String idLesson;
+
+  const MatchPage({
+    super.key,
+    required this.vocabularyModel,
+    required this.idLesson,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +52,12 @@ class MatchPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => GameMatchPage(
                             vocabularyModel: vocabularyModel,
+                            idLesson: idLesson,
                           ),
                         ),
                       );

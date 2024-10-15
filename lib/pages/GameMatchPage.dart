@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'dart:async';
 import 'package:vocabkpop/models/VocabularyModel.dart';
+import 'package:vocabkpop/pages/ResultMatchPage.dart';
 import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 
 class GameMatchPage extends StatefulWidget {
   final List<VocabularyModel> vocabularyModel;
-  const GameMatchPage({super.key, required this.vocabularyModel});
+  final String idLesson;
+
+  const GameMatchPage({
+    super.key,
+    required this.vocabularyModel,
+    required this.idLesson,
+  });
 
   @override
   _GameMatchState createState() => _GameMatchState();
@@ -14,7 +21,7 @@ class GameMatchPage extends StatefulWidget {
 
 class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStateMixin {
   late List<String> _listVocabulary;
-  late List<bool> _selectedIndices, _isCorrect;
+  late List<bool> _selectedIndices, _isCorrect, _isWrong;
   late AnimationController _controller;
   late Animation<double> _shakeAnimation;
   late List<VocabularyModel> _vocabularyList;
@@ -31,6 +38,7 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
 
     _selectedIndices = List.filled(_listVocabulary.length, false);
     _isCorrect = List.filled(_listVocabulary.length, false);
+    _isWrong = List.filled(_listVocabulary.length, false);
 
     _controller = AnimationController(
       duration: const Duration(milliseconds: 300),
@@ -65,7 +73,10 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
     setState(() {
       int selectedCount = _selectedIndices.where((isSelected) => isSelected).length;
 
+      _isWrong.fillRange(0, _isWrong.length, false);
+
       _selectedIndices[index] = !_selectedIndices[index];
+
       if (selectedCount == 1) {
         List<int> selectedIndices = _selectedIndices
             .asMap()
@@ -87,8 +98,10 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
           if (isCorrect) {
             _markCorrect(selectedIndices);
           } else {
-            _animateShake();
+            _markWrong(selectedIndices);
+            // _animateShake();
           }
+
           _selectedIndices.fillRange(0, _selectedIndices.length, false);
         }
       }
@@ -110,12 +123,21 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
     });
   }
 
+  void _markWrong(List<int> selectedIndices) {
+    setState(() {
+      _isWrong[selectedIndices[0]] = true;
+      _isWrong[selectedIndices[1]] = true;
+    });
+  }
+
   void _animateShake() {
     _controller.forward().then((_) => _controller.reverse());
   }
 
   bool _checkPair(String a, String b) {
-    return _vocabularyList.any((entry) => (entry.korean == a && entry.vietnamese == b) || (entry.korean == b && entry.vietnamese == a));
+    return _vocabularyList.any((entry) =>
+    (entry.korean == a && entry.vietnamese == b) ||
+        (entry.korean == b && entry.vietnamese == a));
   }
 
   List<String> _generateVocabularyList(List<VocabularyModel> vocabularyList) {
@@ -139,7 +161,15 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
           actions: [
             TextButton(
               child: const Text("Finish", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => ResultMatchPage(
+                    idLesson: widget.idLesson,
+                    seconds: _seconds,
+                  )),
+                );
+              },
             ),
           ],
         );
@@ -188,16 +218,20 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
                           child: Container(
                             margin: const EdgeInsets.symmetric(vertical: 4.0),
                             child: Card(
+                              shadowColor:  _isWrong[index] ? Colors.red : AppColors.iconColor,
                               color: _selectedIndices[index] ? const Color(0xFFBFC4FC) : Colors.white,
                               shape: RoundedRectangleBorder(
-                                side: const BorderSide(color: AppColors.iconColor, width: 1),
+                                side: BorderSide(
+                                  color: _isWrong[index] ? Colors.red : AppColors.iconColor,
+                                  width: 2,
+                                ),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Center(
                                 child: Text(
                                   _listVocabulary[index],
-                                  style: const TextStyle(
-                                    color: Colors.black,
+                                  style: TextStyle(
+                                    color: _isWrong[index] ? Colors.red : AppColors.iconColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
                                   ),
