@@ -26,4 +26,23 @@ class UserService {
     }
     return null;
   }
+
+  Future<bool> updateUserName(String userId, String userName) async {
+    try {
+      UserModel? user = await getUserById(userId);
+      if(user!=null) {
+        user.username = userName;
+        await userCollection.doc(userId).update(user.toMap());
+        return true;
+      }
+      else {
+        return false;
+      }
+
+    } catch (e) {
+      print('Error updating class: $e');
+      return false;
+    }
+  }
+
 }
