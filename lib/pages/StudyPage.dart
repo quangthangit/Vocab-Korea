@@ -72,7 +72,7 @@ class _StudyPageState extends State<StudyPage> {
                           'Thiết lập bài kiểm tra',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 15,
+                            fontSize: 20,
                           ),
                         ),
                       ],
@@ -96,7 +96,7 @@ class _StudyPageState extends State<StudyPage> {
                       ),
                     ),
                     Text(
-                      '${widget.lessonModel.vocabulary.length}',
+                      '${widget.lessonModel.vocabulary.length} câu',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
