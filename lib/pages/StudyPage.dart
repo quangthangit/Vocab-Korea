@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/LessonModel.dart';
+import 'package:vocabkpop/pages/StudyQuizPage.dart';
 import 'package:vocabkpop/widget/bar/StudyBar.dart';
 
 class StudyPage extends StatefulWidget {
@@ -233,7 +234,19 @@ class _StudyPageState extends State<StudyPage> {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            if (isMultipleChoice == true) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => QuizWidget(
+                    vocabularyModel: widget.lessonModel.vocabulary,
+                  ),
+                ),
+              );
+            }
+          },
+
           child: Container(
             padding: const EdgeInsets.all(10),
             child: const Text(
