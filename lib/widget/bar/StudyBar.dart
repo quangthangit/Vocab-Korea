@@ -16,26 +16,6 @@ class StudyBar extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        const Row(
-          children: [
-            Icon(Icons.menu_book_outlined,color: AppColors.iconColor),
-            SizedBox(width: 10,),
-            Text(
-              'Học',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.iconColor,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            )
-          ],
-        ),
-        IconButton(
-          icon: const Icon(Icons.settings, color: AppColors.iconColor, size: 30),
-          onPressed: () {
-          },
-        ),
       ],
     );
   }

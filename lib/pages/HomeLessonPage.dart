@@ -51,7 +51,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => StudyPage(vocabularyModel: _vocabularyList)),
+          MaterialPageRoute(builder: (context) => StudyPage(lessonModel: widget.lessonModel)),
         );
         break;
       case 2:
