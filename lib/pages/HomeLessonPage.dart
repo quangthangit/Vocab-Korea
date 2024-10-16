@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
-import 'package:vocabkpop/pages/FlashCardPage.dart';
-import 'package:vocabkpop/pages/MatchPage.dart';
-import 'package:vocabkpop/pages/StudyPage.dart';
+import 'package:vocabkpop/pages/FlashCard/FlashCardPage.dart';
+import 'package:vocabkpop/pages/GameMatch/MatchPage.dart';
+import 'package:vocabkpop/pages/Study/StudyPage.dart';
 import 'package:vocabkpop/widget/bar/HomeLessonBar.dart';
 
 class HomeLessonPage extends StatefulWidget {

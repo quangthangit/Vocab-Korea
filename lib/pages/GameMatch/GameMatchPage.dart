@@ -7,7 +7,7 @@ import 'package:vocabkpop/models/MatchGameResultModel.dart';
 import 'package:vocabkpop/models/UserCompletionTimesModel.dart';
 import 'dart:async';
 import 'package:vocabkpop/models/VocabularyModel.dart';
-import 'package:vocabkpop/pages/ResultMatchPage.dart';
+import 'package:vocabkpop/pages/GameMatch/ResultMatchPage.dart';
 import 'package:vocabkpop/services/MatchGameResultService.dart';
 import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 
