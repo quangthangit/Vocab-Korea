@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/api/GenerateVocabularyListMatchGame.dart';
 import 'package:vocabkpop/app_colors.dart';
+import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/MatchGameResultModel.dart';
 import 'package:vocabkpop/models/UserCompletionTimesModel.dart';
 import 'dart:async';
@@ -10,13 +12,11 @@ import 'package:vocabkpop/services/MatchGameResultService.dart';
 import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 
 class GameMatchPage extends StatefulWidget {
-  final List<VocabularyModel> vocabularyModel;
-  final String idLesson;
+  final LessonModel lessonModel;
 
   const GameMatchPage({
     super.key,
-    required this.vocabularyModel,
-    required this.idLesson,
+    required this.lessonModel,
   });
 
   @override
@@ -29,6 +29,7 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
   late AnimationController _controller;
   late Animation<double> _shakeAnimation;
   late List<VocabularyModel> _vocabularyList;
+  late GenerateVocabularyGameMatch _generateVocabularyList = GenerateVocabularyGameMatch();
   late MatchGameResultService matchGameResultService = MatchGameResultService();
   int _numberDone = 0;
   double _seconds = 0.0;
@@ -37,8 +38,9 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-    _vocabularyList = widget.vocabularyModel;
-    _listVocabulary = _generateVocabularyList(_vocabularyList);
+    _vocabularyList = widget.lessonModel.vocabulary;
+    // _listVocabulary = _generateVocabularyList(_vocabularyList);
+    _listVocabulary = _generateVocabularyList.generateVocabularyList(_vocabularyList);
     _startTimer();
 
     _selectedIndices = List.filled(_listVocabulary.length, false);
@@ -145,16 +147,16 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
         (entry.korean == b && entry.vietnamese == a));
   }
 
-  List<String> _generateVocabularyList(List<VocabularyModel> vocabularyList) {
-    List<VocabularyModel> selectedWords = (vocabularyList.length > 6)
-        ? (vocabularyList..shuffle()).take(6).toList()
-        : vocabularyList;
-
-    List<String> koreanWords = selectedWords.map((item) => item.korean).toList();
-    List<String> vietnameseWords = selectedWords.map((item) => item.vietnamese).toList();
-
-    return koreanWords + vietnameseWords;
-  }
+  // List<String> _generateVocabularyList(List<VocabularyModel> vocabularyList) {
+  //   List<VocabularyModel> selectedWords = (vocabularyList.length > 6)
+  //       ? (vocabularyList..shuffle()).take(6).toList()
+  //       : vocabularyList;
+  //
+  //   List<String> koreanWords = selectedWords.map((item) => item.korean).toList();
+  //   List<String> vietnameseWords = selectedWords.map((item) => item.vietnamese).toList();
+  //
+  //   return koreanWords + vietnameseWords;
+  // }
 
   void _showCompletionMessage() {
     showDialog(
@@ -165,11 +167,11 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
           content: Text("You completed the game in ${_seconds.toStringAsFixed(1)} seconds.", style: const TextStyle(fontSize: 16)),
           actions: [
             TextButton(
-              child: const Text("Finish", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text("Finish", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,)),
               onPressed: () async {
                 String _uid = FirebaseAuth.instance.currentUser!.uid;
                 MatchGameResultModel matchGameResultModel = MatchGameResultModel(
-                    idLesson: widget.idLesson,
+                    idLesson: widget.lessonModel.id,
                     createdAt: DateTime.now(),
                     userCompletionTimesModel : [
                       UserCompletionTimesModel(idUser: _uid, userTimes: _seconds)
@@ -179,10 +181,11 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
                 if(!isSuccess) {
                   return;
                 }
+                Navigator.pop(context);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => ResultMatchPage(
-                    idLesson: widget.idLesson,
+                    lessonModel: widget.lessonModel,
                     seconds: _seconds,
                   )),
                 );

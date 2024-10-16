@@ -42,14 +42,12 @@ class _QuizWidgetState extends State<QuizWidget> {
     _questionText = _correctAnswer.vietnamese;
 
     Set<VocabularyModel> optionsSet = {_correctAnswer};
-
     while (optionsSet.length < 4) {
       VocabularyModel randomOption = _vocabularyList[random.nextInt(_vocabularyList.length)];
       if (randomOption != _correctAnswer && !_usedWords.contains(randomOption)) {
         optionsSet.add(randomOption);
       }
     }
-
     _options = optionsSet.toList()..shuffle();
   }
 
@@ -155,7 +153,7 @@ class _QuizWidgetState extends State<QuizWidget> {
       ),
       bottomNavigationBar: _isCorrect == false
           ? Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.indigo,
@@ -166,7 +164,7 @@ class _QuizWidgetState extends State<QuizWidget> {
           ),
           onPressed: _nextQuestion,
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             child: const Text(
               'Câu tiếp theo',
               style: TextStyle(

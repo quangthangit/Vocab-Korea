@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
+import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/pages/GameMatchPage.dart';
 import 'package:vocabkpop/widget/bar/MatchBar.dart';
 
 class MatchPage extends StatelessWidget {
-  final List<VocabularyModel> vocabularyModel;
-  final String idLesson;
+  final LessonModel lessonModel;
 
   const MatchPage({
     super.key,
-    required this.vocabularyModel,
-    required this.idLesson,
+    required this.lessonModel,
   });
 
   @override
@@ -56,8 +55,7 @@ class MatchPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => GameMatchPage(
-                            vocabularyModel: vocabularyModel,
-                            idLesson: idLesson,
+                            lessonModel: lessonModel,
                           ),
                         ),
                       );
