@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/UserCompletionTimesModel.dart';
@@ -75,16 +76,10 @@ class _ResultMatchPageState extends State<ResultMatchPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Center(
-                      child: Text(
-                        'Kỉ lục cá nhân là ',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ),
                     const SizedBox(height: 20),
                     const Center(
                       child: Text(
-                        'BẢNG XẾP HẠNG',
+                        'TOP 10 BẢNG XẾP HẠNG',
                         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -117,7 +112,17 @@ class _ResultMatchPageState extends State<ResultMatchPage> {
       rankColor = Colors.blue;
     } else {
       rankColor = Colors.grey;
+    };
+    Color colorUser;
+    String checkUser;
+    if(FirebaseAuth.instance.currentUser!.uid == user.idUser) {
+      checkUser = "Bản thân";
+      colorUser = Colors.blue;
+    } else {
+      checkUser = user.idUser;
+      colorUser = Colors.black;
     }
+
     return Container(
       margin: const EdgeInsets.only(top: 20),
       color: Colors.white,
@@ -141,13 +146,14 @@ class _ResultMatchPageState extends State<ResultMatchPage> {
           Expanded(
             child: Row(
               children: [
-                const Icon(Icons.account_circle),
+                Icon(Icons.account_circle,color: colorUser,),
                 const SizedBox(width: 5),
                 Expanded(
                   child: Text(
-                    user.idUser,
-                    style: const TextStyle(
+                    checkUser,
+                    style: TextStyle(
                       fontSize: 15,
+                      color: colorUser,
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,
