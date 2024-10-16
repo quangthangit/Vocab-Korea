@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
+import 'package:vocabkpop/models/UserCompletionTimesModel.dart';
+import 'package:vocabkpop/services/MatchGameResultService.dart';
 import 'package:vocabkpop/widget/bar/ResultMatchBar.dart';
 
-class ResultMatchPage extends StatelessWidget {
+class ResultMatchPage extends StatefulWidget {
   final double seconds;
   final String idLesson;
 
@@ -11,6 +13,31 @@ class ResultMatchPage extends StatelessWidget {
     required this.seconds,
     required this.idLesson,
   });
+
+  @override
+  _ResultMatchPageState createState() => _ResultMatchPageState();
+}
+
+class _ResultMatchPageState extends State<ResultMatchPage> {
+  List<UserCompletionTimesModel> topUsers = [];
+  bool isLoading = true;
+  late double score;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchTopUsers();
+  }
+
+  Future<void> _fetchTopUsers() async {
+    MatchGameResultService service = MatchGameResultService();
+    List<UserCompletionTimesModel> users = await service.getTop10FastestUsers(widget.idLesson);
+
+    setState(() {
+      topUsers = users;
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,19 +70,17 @@ class ResultMatchPage extends StatelessWidget {
                     const SizedBox(height: 10),
                     Center(
                       child: Text(
-                        '${seconds.toStringAsFixed(1)} giây',
+                        '${widget.seconds.toStringAsFixed(1)} giây',
                         style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
                       ),
                     ),
                     const SizedBox(height: 10),
                     const Center(
                       child: Text(
-                        'Kỉ lục cá nhân là 14.4 giây',
+                        'Kỉ lục cá nhân là ',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    _buildRankingItem(1, seconds),
                     const SizedBox(height: 20),
                     const Center(
                       child: Text(
@@ -63,7 +88,15 @@ class ResultMatchPage extends StatelessWidget {
                         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    for (int i = 1; i <= 4; i++) _buildRankingItem(i, seconds),
+                    const SizedBox(height: 10),
+                    isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : Column(
+                      children: List.generate(
+                        topUsers.length,
+                            (index) => _buildRankingItem(index + 1, topUsers[index]),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -74,7 +107,17 @@ class ResultMatchPage extends StatelessWidget {
     );
   }
 
-  Widget _buildRankingItem(int rank, double seconds) {
+  Widget _buildRankingItem(int rank, UserCompletionTimesModel user) {
+    Color rankColor;
+    if (rank == 1) {
+      rankColor = Colors.red;
+    } else if (rank == 2) {
+      rankColor = Colors.amber;
+    } else if (rank == 3) {
+      rankColor = Colors.blue;
+    } else {
+      rankColor = Colors.grey;
+    }
     return Container(
       margin: const EdgeInsets.only(top: 20),
       color: Colors.white,
@@ -83,29 +126,41 @@ class ResultMatchPage extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-            color: Colors.blue,
+            color: rankColor,
             child: Text(
               '$rank',
               style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w900),
             ),
           ),
+          const SizedBox(width: 20),
           Text(
-            '${seconds.toStringAsFixed(1)} giây',
+            '${user.userTimes.toStringAsFixed(1)} giây',
             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
           ),
-          const Row(
-            children: [
-              Icon(Icons.account_circle),
-              SizedBox(width: 5),
-              Text(
-                'user232723',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, fontFamily: 'KayPhoDu'),
-              ),
-            ],
+          const SizedBox(width: 20),
+          Expanded(
+            child: Row(
+              children: [
+                const Icon(Icons.account_circle),
+                const SizedBox(width: 5),
+                Expanded(
+                  child: Text(
+                    user.idUser,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(width: 20),
         ],
       ),
     );
   }
+
 }
