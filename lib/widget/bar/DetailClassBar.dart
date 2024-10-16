@@ -38,10 +38,10 @@ class DetailClassBar extends StatelessWidget {
           icon: const Icon(Icons.more_vert, color: AppColors.iconColor, size: 30),
           onSelected: (value) {
 
-            if (value == 'Thêm thư mục') {
+            if (value == 'Thêm bài học') {
               btn_addFolder();
-            } else if (value == 'add_member') {
-
+            } else if (value == 'Thêm thư mục') {
+              btn_addFolder();
             }
           },
           itemBuilder: (BuildContext context) {

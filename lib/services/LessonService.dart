@@ -15,6 +15,31 @@ class LessonService {
     }
   }
 
+  Future<List<LessonModel>> searchLesson(String value) async {
+    List<LessonModel> lessonList = [];
+    String valueLowerCase = value.toLowerCase();
+
+    try {
+      QuerySnapshot querySnapshot = await lessonCollection.get();
+
+      for (var doc in querySnapshot.docs) {
+        LessonModel lessonModel = LessonModel.fromFirestore(doc);
+
+        String titleLowerCase = lessonModel.title.toLowerCase();
+        String descriptionLowerCase = lessonModel.description.toLowerCase();
+
+        if (titleLowerCase.contains(valueLowerCase) || descriptionLowerCase.contains(valueLowerCase)) {
+          lessonList.add(lessonModel);
+        }
+      }
+    } catch (e) {
+      print('Error searching for lesson: $e');
+    }
+
+    return lessonList;
+  }
+
+
   Future<Map<String, dynamic>> createLessonWithFolder(LessonModel lesson) async {
     try {
       DocumentReference docRef = await lessonCollection.add(lesson.toMap());

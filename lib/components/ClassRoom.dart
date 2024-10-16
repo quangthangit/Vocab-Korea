@@ -36,9 +36,9 @@ class ClassRoom extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(classModel.name,style: const TextStyle(fontSize: 15,fontFamily: 'Lobster')),
             ),
-            const Align(
+            Align(
               alignment: Alignment.centerLeft,
-              child: Text('Lớp học tiếng hàn VKU',style: TextStyle(fontSize: 12,fontFamily: 'Lobster')),
+              child: Text(classModel.description,style: const TextStyle(fontSize: 12,fontFamily: 'Lobster')),
             ),
             const SizedBox(height: 20,),
             Row(

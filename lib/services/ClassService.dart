@@ -54,6 +54,31 @@ class ClassService {
     }
   }
 
+  Future<List<ClassModel>> searchClass(String value) async {
+    List<ClassModel> classList = [];
+    String lowercaseValue = value.toLowerCase();
+    try {
+      QuerySnapshot querySnapshot = await classCollection.get();
+
+      for (var doc in querySnapshot.docs) {
+        ClassModel classModel = ClassModel.fromFirestore(doc);
+
+        String nameLowercase = classModel.name.toLowerCase();
+        String descriptionLowercase = classModel.description.toLowerCase();
+
+        if (nameLowercase.contains(lowercaseValue) || descriptionLowercase.contains(lowercaseValue)) {
+          classList.add(classModel);
+        }
+      }
+    } catch (e) {
+      print('Error searching for class: $e');
+    }
+    return classList;
+  }
+
+
+
+
   Future<List<ClassModel>> getClassesExcludingUserId(String userId) async {
     try {
       QuerySnapshot querySnapshot = await classCollection
@@ -70,4 +95,7 @@ class ClassService {
       return [];
     }
   }
+
+
+
 }

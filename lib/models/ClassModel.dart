@@ -5,7 +5,7 @@ class ClassModel {
   String name;
   String description;
   List<String> idFolder;
-  String password;
+  int key;
   DateTime createdAt;
   String idUser;
   int allowEdit;
@@ -17,7 +17,7 @@ class ClassModel {
     required this.name,
     required this.description,
     required this.idFolder,
-    required this.password,
+    required this.key,
     required this.createdAt,
     required this.idUser,
     required this.allowEdit,
@@ -31,7 +31,7 @@ class ClassModel {
       name: data['name'],
       description: data['description'],
       idFolder: List<String>.from(data['id_folder']),
-      password: data['password'],
+      key: data['key'],
       createdAt: (data['created_at'] as Timestamp).toDate(),
       idUser: data['id_user'],
       allowEdit: data['allow_edit'],
@@ -44,7 +44,7 @@ class ClassModel {
       'name': name,
       'description': description,
       'id_folder': idFolder,
-      'password': password,
+      'key': key,
       'created_at': createdAt,
       'id_user': idUser,
       'allow_edit': allowEdit,

@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/pages/ResultSearchPage.dart';
 import 'package:vocabkpop/widget/bar/HomeBar.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
 
-class HomePages extends StatelessWidget {
+class HomePages extends StatefulWidget {
   const HomePages({super.key});
+
+  @override
+  _HomePagesState createState() => _HomePagesState();
+}
+
+class _HomePagesState extends State<HomePages> {
+  String _searchText = '';
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: const [
-          HomeBar(),
-          SizedBox(height: 20),
-          Column(
+        children: [
+          // Truyền callback cho HomeBar
+          HomeBar(
+          ),
+          const SizedBox(height: 20),
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(

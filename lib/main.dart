@@ -4,6 +4,7 @@ import 'package:vocabkpop/pages/CheckLoginPage.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:vocabkpop/pages/ResultSearchPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
