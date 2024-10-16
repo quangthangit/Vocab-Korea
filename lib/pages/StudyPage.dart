@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/LessonModel.dart';
-import 'package:vocabkpop/pages/Study/StudyQuizPage.dart';
+import 'package:vocabkpop/pages/StudyQuizPage.dart';
 import 'package:vocabkpop/widget/bar/StudyBar.dart';
 
 class StudyPage extends StatefulWidget {
