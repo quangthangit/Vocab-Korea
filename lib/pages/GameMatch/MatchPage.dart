@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
-import 'package:vocabkpop/pages/GameMatchPage.dart';
+import 'package:vocabkpop/pages/GameMatch/GameMatchPage.dart';
 import 'package:vocabkpop/widget/bar/MatchBar.dart';
 
 class MatchPage extends StatelessWidget {
