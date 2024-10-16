@@ -1,18 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
+import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/UserCompletionTimesModel.dart';
+import 'package:vocabkpop/pages/GameMatchPage.dart';
 import 'package:vocabkpop/services/MatchGameResultService.dart';
 import 'package:vocabkpop/widget/bar/ResultMatchBar.dart';
 
 class ResultMatchPage extends StatefulWidget {
   final double seconds;
-  final String idLesson;
-
+  final LessonModel lessonModel;
   const ResultMatchPage({
     super.key,
     required this.seconds,
-    required this.idLesson,
+    required this.lessonModel,
   });
 
   @override
@@ -32,7 +33,7 @@ class _ResultMatchPageState extends State<ResultMatchPage> {
 
   Future<void> _fetchTopUsers() async {
     MatchGameResultService service = MatchGameResultService();
-    List<UserCompletionTimesModel> users = await service.getTop10FastestUsers(widget.idLesson);
+    List<UserCompletionTimesModel> users = await service.getTop10FastestUsers(widget.lessonModel.id);
 
     setState(() {
       topUsers = users;
@@ -97,6 +98,39 @@ class _ResultMatchPageState extends State<ResultMatchPage> {
               ),
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(10),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.indigo,
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 120),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GameMatchPage(
+                  lessonModel: widget.lessonModel,
+                ),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Text(
+              'Chơi lại',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -168,5 +202,4 @@ class _ResultMatchPageState extends State<ResultMatchPage> {
       ),
     );
   }
-
 }

@@ -1,6 +1,6 @@
 import 'package:vocabkpop/models/VocabularyModel.dart';
 
-class GenerateVocabularyList {
+class GenerateVocabularyGameMatch {
   List<String> generateVocabularyList(List<VocabularyModel> vocabularyList) {
     List<VocabularyModel> selectedWords = (vocabularyList.length > 6)
         ? (vocabularyList..shuffle()).take(6).toList()

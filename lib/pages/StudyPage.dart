@@ -65,14 +65,15 @@ class _StudyPageState extends State<StudyPage> {
                           style: const TextStyle(
                             color: Color(0xFF526481),
                             fontWeight: FontWeight.bold,
-                            fontSize: 25,
+                            fontSize: 30,
                           ),
                         ),
+                        const SizedBox(height: 20),
                         const Text(
                           'Thiết lập bài kiểm tra',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 15,
                           ),
                         ),
                       ],
@@ -92,14 +93,14 @@ class _StudyPageState extends State<StudyPage> {
                       'Số câu hỏi',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                       ),
                     ),
                     Text(
                       '${widget.lessonModel.vocabulary.length} câu',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                       ),
                     ),
                   ],
@@ -112,13 +113,13 @@ class _StudyPageState extends State<StudyPage> {
                       'Trả lời bằng :',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                       ),
                     ),
                     Text(
                       'Thuật ngữ',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 15,
                       ),
                     ),
                   ],
@@ -128,7 +129,6 @@ class _StudyPageState extends State<StudyPage> {
                   color: Colors.black,
                   thickness: 1,
                 ),
-                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -136,29 +136,31 @@ class _StudyPageState extends State<StudyPage> {
                       'Đúng / Sai',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                       ),
                     ),
-                    Switch(
-                      value: isCorrectWrong,
-                      onChanged: (bool value) {
-                        _onSwitchChanged('correctWrong');
-                      },
-                      inactiveTrackColor: const Color(0xFF919BB4),
-                      activeTrackColor: const Color(0xFF4254FE),
-                      activeColor: Colors.lightBlue,
-                      thumbColor: WidgetStateProperty.resolveWith<Color>(
-                            (Set<WidgetState> states) {
-                          if (states.contains(WidgetState.disabled)) {
-                            return Colors.grey;
-                          }
-                          return Colors.white;
+                    Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: isCorrectWrong,
+                        onChanged: (bool value) {
+                          _onSwitchChanged('correctWrong');
                         },
+                        inactiveTrackColor: const Color(0xFF919BB4),
+                        activeTrackColor: const Color(0xFF4254FE),
+                        activeColor: Colors.lightBlue,
+                        thumbColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return Colors.white;
+                          },
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
-                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -166,29 +168,32 @@ class _StudyPageState extends State<StudyPage> {
                       'Trắc nghiệm',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                       ),
                     ),
-                    Switch(
-                      value: isMultipleChoice,
-                      onChanged: (bool value) {
-                        _onSwitchChanged('multipleChoice');
-                      },
-                      inactiveTrackColor: const Color(0xFF919BB4),
-                      activeTrackColor: const Color(0xFF4254FE),
-                      activeColor: Colors.lightBlue,
-                      thumbColor: WidgetStateProperty.resolveWith<Color>(
-                            (Set<WidgetState> states) {
-                          if (states.contains(WidgetState.disabled)) {
-                            return Colors.grey;
-                          }
-                          return Colors.white;
+                    Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: isMultipleChoice,
+                        onChanged: (bool value) {
+                          _onSwitchChanged('multipleChoice');
                         },
+
+                        inactiveTrackColor: const Color(0xFF919BB4),
+                        activeTrackColor: const Color(0xFF4254FE),
+                        activeColor: Colors.lightBlue,
+                        thumbColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return Colors.white;
+                          },
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
-                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -196,26 +201,29 @@ class _StudyPageState extends State<StudyPage> {
                       'Tự luận',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                       ),
                     ),
-                    Switch(
-                      value: isSelfStudy,
-                      onChanged: (bool value) {
-                        _onSwitchChanged('selfStudy');
-                      },
-                      inactiveTrackColor: const Color(0xFF919BB4),
-                      activeTrackColor: const Color(0xFF4254FE),
-                      activeColor: Colors.lightBlue,
-                      thumbColor: WidgetStateProperty.resolveWith<Color>(
-                            (Set<WidgetState> states) {
-                          if (states.contains(WidgetState.disabled)) {
-                            return Colors.grey;
-                          }
-                          return Colors.white;
+                    Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: isSelfStudy,
+                        onChanged: (bool value) {
+                          _onSwitchChanged('selfStudy');
                         },
+                        inactiveTrackColor: const Color(0xFF919BB4),
+                        activeTrackColor: const Color(0xFF4254FE),
+                        activeColor: Colors.lightBlue,
+                        thumbColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return Colors.white;
+                          },
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ],
