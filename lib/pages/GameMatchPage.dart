@@ -93,12 +93,12 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
         if (selectedIndices.length == 2) {
           bool isCorrect = _checkPair(_listVocabulary[selectedIndices[0]], _listVocabulary[selectedIndices[1]]);
 
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(isCorrect ? "Correct!" : "Try Again!"),
-              duration: const Duration(seconds: 1),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     content: Text(isCorrect ? "Correct!" : "Try Again!"),
+          //     duration: const Duration(seconds: 1),
+          //   ),
+          // );
 
           if (isCorrect) {
             _markCorrect(selectedIndices);
@@ -176,6 +176,9 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
                     ]
                 );
                 bool isSuccess = await matchGameResultService.createOrUpdateMatchGameResultModel(matchGameResultModel);
+                if(!isSuccess) {
+                  return;
+                }
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => ResultMatchPage(
