@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
+import 'package:vocabkpop/models/MatchGameResultModel.dart';
+import 'package:vocabkpop/models/UserCompletionTimesModel.dart';
 import 'dart:async';
 import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/pages/ResultMatchPage.dart';
+import 'package:vocabkpop/services/MatchGameResultService.dart';
 import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 
 class GameMatchPage extends StatefulWidget {
@@ -25,6 +29,7 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
   late AnimationController _controller;
   late Animation<double> _shakeAnimation;
   late List<VocabularyModel> _vocabularyList;
+  late MatchGameResultService matchGameResultService = MatchGameResultService();
   int _numberDone = 0;
   double _seconds = 0.0;
   bool _isRunning = false;
@@ -161,7 +166,16 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
           actions: [
             TextButton(
               child: const Text("Finish", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              onPressed: () {
+              onPressed: () async {
+                String _uid = FirebaseAuth.instance.currentUser!.uid;
+                MatchGameResultModel matchGameResultModel = MatchGameResultModel(
+                    idLesson: widget.idLesson,
+                    createdAt: DateTime.now(),
+                    userCompletionTimesModel : [
+                      UserCompletionTimesModel(idUser: _uid, userTimes: _seconds)
+                    ]
+                );
+                bool isSuccess = await matchGameResultService.createOrUpdateMatchGameResultModel(matchGameResultModel);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => ResultMatchPage(

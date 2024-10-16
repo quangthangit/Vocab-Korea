@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
-import 'package:vocabkpop/widget/bar/CreateBar.dart';
 import 'package:vocabkpop/widget/bar/ResultMatchBar.dart';
 
 class ResultMatchPage extends StatelessWidget {
@@ -25,9 +24,9 @@ class ResultMatchPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            LinearProgressIndicator(
+            const LinearProgressIndicator(
               value: 100,
-              backgroundColor: const Color(0xFFD7DEE5),
+              backgroundColor: Color(0xFFD7DEE5),
               color: AppColors.iconColor,
             ),
             Expanded(
@@ -35,8 +34,8 @@ class ResultMatchPage extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: ListView(
                   children: [
-                    Center(
-                      child: const Text(
+                    const Center(
+                      child: Text(
                         'Hoàn thành trong',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -49,8 +48,8 @@ class ResultMatchPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Center(
-                      child: const Text(
+                    const Center(
+                      child: Text(
                         'Kỉ lục cá nhân là 14.4 giây',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -58,8 +57,8 @@ class ResultMatchPage extends StatelessWidget {
                     const SizedBox(height: 10),
                     _buildRankingItem(1, seconds),
                     const SizedBox(height: 20),
-                    Center(
-                      child: const Text(
+                    const Center(
+                      child: Text(
                         'BẢNG XẾP HẠNG',
                         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                       ),

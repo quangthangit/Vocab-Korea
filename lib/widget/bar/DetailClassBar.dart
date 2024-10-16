@@ -20,7 +20,7 @@ class DetailClassBar extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-         Row(
+        Row(
           children: [
             Text(
               title,
@@ -38,17 +38,17 @@ class DetailClassBar extends StatelessWidget {
           icon: const Icon(Icons.more_vert, color: AppColors.iconColor, size: 30),
           onSelected: (value) {
 
-            if (value == 'Thêm thư mục') {
+            if (value == 'Thêm bài học') {
               btn_addFolder();
-            } else if (value == 'add_member') {
-
+            } else if (value == 'Thêm thư mục') {
+              btn_addFolder();
             }
           },
           itemBuilder: (BuildContext context) {
             return item.map((i) {
               return PopupMenuItem<String>(
-                value: i, // Giá trị được trả về khi item được chọn
-                child: Text(i), // Hiển thị tên của item
+                value: i,
+                child: Text(i),
               );
             }).toList();
           },
