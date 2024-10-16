@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart' as app_color;
 
+import '../../pages/ResultSearchPage.dart';
+
 class HomeBar extends StatelessWidget {
   const HomeBar({super.key});
+
+  // Cập nhật hàm _handleSubmit để nhận tham số context và text
+  void _handleSubmit(BuildContext context, String text) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ResultSearchPage(text: text)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +51,7 @@ class HomeBar extends StatelessWidget {
                     ],
                   ),
                   child: TextFormField(
+                    onFieldSubmitted: (text) => _handleSubmit(context, text), // Gọi hàm khi nhấn submit
                     decoration: const InputDecoration(
                       hintText: 'Học phần, câu hỏi, sách giáo khoa',
                       border: InputBorder.none,
