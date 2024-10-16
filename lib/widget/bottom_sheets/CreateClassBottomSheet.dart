@@ -13,6 +13,7 @@ class CreateClassBottomSheet extends StatefulWidget {
 class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
   bool _isPasswordEnabled = false;
   bool _isEditable = false;
+  bool _key = false;
 
   final TextEditingController _classNameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -23,9 +24,8 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
   void _submitData() async {
     String className = _classNameController.text;
     String description = _descriptionController.text;
-    String password = _isPasswordEnabled ? _passwordController.text : '';
 
-    if (className.isEmpty || description.isEmpty || (_isPasswordEnabled && password.isEmpty)) {
+    if (className.isEmpty || description.isEmpty ) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Vui lòng không để trống dữ liệu!'),
@@ -45,8 +45,8 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
             children: [
               Text('Tên lớp: $className'),
               Text('Mô tả: $description'),
-              if (_isPasswordEnabled) Text('Mật khẩu: $password'),
               Text('Cho phép chỉnh sửa: ${_isEditable ? 'Có' : 'Không'}'),
+              Text('Cho phép công khai: ${_key ? 'Có' : 'Không'}'),
             ],
           ),
           actions: [
@@ -62,16 +62,16 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
                 int allowEdit = _isEditable ? 1 : 0;
 
                 ClassModel classModel = ClassModel(
-                  name: className,
-                  description: description,
-                  password: password,
-                  createdAt: DateTime.now(),
-                  idUser: FirebaseAuth.instance.currentUser!.uid,
-                  allowEdit: allowEdit,
-                  idMember: [
-                    FirebaseAuth.instance.currentUser!.uid,
-                  ],
-                  idFolder: []
+                    name: className,
+                    description: description,
+                    key: allowEdit,
+                    createdAt: DateTime.now(),
+                    idUser: FirebaseAuth.instance.currentUser!.uid,
+                    allowEdit: allowEdit,
+                    idMember: [
+                      FirebaseAuth.instance.currentUser!.uid,
+                    ],
+                    idFolder: []
                 );
 
                 bool isSuccess = await _classService.createClass(classModel);
@@ -88,7 +88,7 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
                 _descriptionController.clear();
                 setState(() {
                   _isEditable = false;
-                  _isPasswordEnabled = false;
+                  _key = false;
                 });
                 Navigator.of(context).pop();
               },
@@ -154,26 +154,17 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
                 Transform.scale(
                   scale: 1.5,
                   child: Checkbox(
-                    value: _isPasswordEnabled,
+                    value: _key,
                     onChanged: (bool? value) {
                       setState(() {
-                        _isPasswordEnabled = value ?? false;
+                        _key = value ?? false;
                       });
                     },
                   ),
                 ),
-                const Text("Cài mật khẩu"),
+                const Text("Cho phép người khác điều chỉnh lớp học"),
               ],
             ),
-            if (_isPasswordEnabled)
-              TextField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                  labelText: 'Nhập mật khẩu',
-                  border: OutlineInputBorder(),
-                ),
-                obscureText: true,
-              ),
           ],
         ),
       ),

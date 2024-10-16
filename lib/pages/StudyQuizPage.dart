@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
+import 'package:vocabkpop/widget/bar/FlashCardBar.dart';
 
 class QuizWidget extends StatefulWidget {
   final List<VocabularyModel> vocabularyModel;
@@ -77,6 +78,10 @@ class _QuizWidgetState extends State<QuizWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: FlashCardBar(currentIndex: 0, vocabularyList: _vocabularyList),
+      ),
       body: SafeArea(
         child: Column(
           children: [
