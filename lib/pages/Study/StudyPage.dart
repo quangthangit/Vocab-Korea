@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/LessonModel.dart';
+import 'package:vocabkpop/pages/Study/StudyEssayPage.dart';
 import 'package:vocabkpop/pages/Study/StudyQuizPage.dart';
 import 'package:vocabkpop/widget/bar/StudyBar.dart';
 
@@ -248,6 +249,17 @@ class _StudyPageState extends State<StudyPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => QuizWidget(
+                    vocabularyModel: widget.lessonModel.vocabulary,
+                  ),
+                ),
+              );
+            }
+
+            if (isSelfStudy == true) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StudyEssayPage(
                     vocabularyModel: widget.lessonModel.vocabulary,
                   ),
                 ),

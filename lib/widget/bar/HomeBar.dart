@@ -6,7 +6,6 @@ import '../../pages/ResultSearchPage.dart';
 class HomeBar extends StatelessWidget {
   const HomeBar({super.key});
 
-  // Cập nhật hàm _handleSubmit để nhận tham số context và text
   void _handleSubmit(BuildContext context, String text) {
     Navigator.push(
       context,
@@ -51,7 +50,7 @@ class HomeBar extends StatelessWidget {
                     ],
                   ),
                   child: TextFormField(
-                    onFieldSubmitted: (text) => _handleSubmit(context, text), // Gọi hàm khi nhấn submit
+                    onFieldSubmitted: (text) => _handleSubmit(context, text),
                     decoration: const InputDecoration(
                       hintText: 'Học phần, câu hỏi, sách giáo khoa',
                       border: InputBorder.none,
