@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
         controller: _pageController,
         onPageChanged: _onPageChanged,
         pageSnapping: true,
-        physics: const ClampingScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: _pages,
       ),
       bottomNavigationBar: curved_navigation_bar.CurvedNavigationBar(
