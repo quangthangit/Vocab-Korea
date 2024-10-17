@@ -20,6 +20,7 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
   bool _isAnswerWrong = false;
   bool _isAnswerCorrect = false;
   bool _showAnswer = false;
+  late String _answer ;
 
   @override
   void dispose() {
@@ -52,6 +53,7 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
     _isAnswerWrong = false;
     _isAnswerCorrect = false;
     _showAnswer = false;
+    _answer = "";
   }
 
   void _validateAnswer(String correctAnswer, String userAnswer) {
@@ -59,10 +61,13 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
       setState(() {
         _isAnswerWrong = true;
         _showAnswer = true;
+        _answer = userAnswer;
       });
     } else {
       setState(() {
         _isAnswerCorrect = true;
+        _showAnswer = true;
+        _answer = userAnswer;
       });
     }
   }
@@ -177,14 +182,32 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
   Widget _buildWrongAnswerDisplay(VocabularyModel vocabulary) {
     return Column(
       children: [
-        _buildFeedbackBox(Icons.close, Colors.red, 'Đừng nản chí, học là một quá trình!'),
+        Container(
+          padding: const EdgeInsets.all(20),
+          child: const Align(
+            alignment: Alignment.centerLeft,
+            child: Text('Học là cả một quá trình đừng nản!!',style: TextStyle(color: Colors.red),),
+          ),
+        ),
+        _buildFeedbackBox(Icons.close, Colors.red, _answer),
         _buildFeedbackBox(Icons.check, Colors.green, vocabulary.korean),
       ],
     );
   }
 
   Widget _buildCorrectAnswerDisplay(VocabularyModel vocabulary) {
-    return _buildFeedbackBox(Icons.check, Colors.green, 'Câu trả lời của bạn đã đúng!');
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(20),
+          child: const Align(
+            alignment: Alignment.centerLeft,
+            child: Text('Câu trả lời của bạn đã đúng!',style: TextStyle(color: Colors.green),),
+          ),
+        ),
+        _buildFeedbackBox(Icons.check, Colors.green, _answer)
+      ],
+    );
   }
 
   Widget _buildFeedbackBox(IconData icon, Color color, String message) {
