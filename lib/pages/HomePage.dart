@@ -19,12 +19,10 @@ class _HomePagesState extends State<HomePages> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: [
-          // Truyền callback cho HomeBar
-          HomeBar(
-          ),
-          const SizedBox(height: 20),
-          const Column(
+        children: const [
+          HomeBar(),
+          SizedBox(height: 20),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(

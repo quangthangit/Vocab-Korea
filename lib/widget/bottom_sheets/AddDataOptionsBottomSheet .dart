@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/widget/bottom_sheets/CreateClassBottomSheet.dart';
 import 'package:vocabkpop/widget/bottom_sheets/CreateVocabularyBottomSheet.dart';
 
-
-class AddDataOptionsBottomSheet  extends StatelessWidget {
-  const AddDataOptionsBottomSheet ({super.key});
+class AddDataOptionsBottomSheet extends StatelessWidget {
+  const AddDataOptionsBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class AddDataOptionsBottomSheet  extends StatelessWidget {
   }
 
   Widget _buildItem(BuildContext context, IconData icon, String title) {
-    return GestureDetector(
+    return InkWell(
       onTap: () async {
         if (ModalRoute.of(context)?.isCurrent == true) {
           Navigator.of(context).pop();
@@ -51,6 +50,8 @@ class AddDataOptionsBottomSheet  extends StatelessWidget {
           await _showCreateFolderPage(context);
         }
       },
+      splashColor: Theme.of(context).primaryColor.withOpacity(0.2), 
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xFFE6E6E6),
