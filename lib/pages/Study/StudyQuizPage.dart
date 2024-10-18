@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
 import 'package:vocabkpop/widget/bar/FlashCardBar.dart';
+import 'package:vocabkpop/app_colors.dart' as AppColor;
 
 class QuizWidget extends StatefulWidget {
   final List<VocabularyModel> vocabularyModel;
@@ -78,6 +79,7 @@ class _QuizWidgetState extends State<QuizWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: FlashCardBar(currentIndex: 0, vocabularyList: _vocabularyList),
@@ -85,6 +87,11 @@ class _QuizWidgetState extends State<QuizWidget> {
       body: SafeArea(
         child: Column(
           children: [
+            const LinearProgressIndicator(
+              value: 100,
+              backgroundColor: Color(0xFFD7DEE5),
+              color: AppColor.AppColors.iconColor,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

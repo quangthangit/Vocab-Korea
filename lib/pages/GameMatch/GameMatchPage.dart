@@ -202,7 +202,7 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
     double progress = _numberDone / 6;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColors.background,
         automaticallyImplyLeading: false,
