@@ -69,7 +69,7 @@ class _FlashCardPageState extends State<FlashCardPage> {
     final double progress = (_currentIndex + 1) / _vocabularyList.length;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColors.background,
         automaticallyImplyLeading: false,

@@ -84,16 +84,29 @@ class _DetailClassPageState extends State<DetailClassPage> {
             backgroundColor: AppColors.background,
             title: DetailClassBar(btn_addFolder: () => showFormCreateFolder(context), title: "Lớp", item: ["Thêm thư mục"],),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                infoClass(classData),
-                const SizedBox(height: 20),
-                Expanded(child: buildTabView(classData)),
-              ],
-            ),
+          body: Column(
+            children: [
+              const LinearProgressIndicator(
+                value: 100,
+                backgroundColor: Color(0xFFD7DEE5),
+                color: AppColors.iconColor,
+              ),
+              // Wrap the inner Column inside Flexible
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      infoClass(classData),
+                      const SizedBox(height: 20),
+                      Expanded(child: buildTabView(classData)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
+
         );
       },
     );

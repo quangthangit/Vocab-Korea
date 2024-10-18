@@ -11,7 +11,8 @@ class StudyEssayPage extends StatefulWidget {
   _StudyEssayPageState createState() => _StudyEssayPageState();
 }
 
-class _StudyEssayPageState extends State<StudyEssayPage> {
+class _StudyEssayPageState extends State<StudyEssayPage>
+    with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _answerController = TextEditingController();
   int _currentIndex = 0;
@@ -20,11 +21,14 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
   bool _isAnswerWrong = false;
   bool _isAnswerCorrect = false;
   bool _showAnswer = false;
-  late String _answer ;
+  late String _answer;
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
 
   @override
   void dispose() {
     _answerController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -38,14 +42,25 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
         _currentIndex = _pageController.page!.round();
       });
     });
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+
+    _animationController.forward();
   }
 
   void _goToNextPage() {
+    _animationController.reset();
     _pageController.nextPage(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
     _resetState();
+    _animationController.forward();
   }
 
   void _resetState() {
@@ -79,7 +94,10 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: StudyEssayBar(currentIndex: _currentIndex, vocabularyList: widget.vocabularyModel),
+        title: StudyEssayBar(
+          currentIndex: _currentIndex,
+          vocabularyList: widget.vocabularyModel,
+        ),
       ),
       body: SafeArea(
         child: Form(
@@ -92,31 +110,45 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
                 color: AppColors.iconColor,
               ),
               Expanded(
-                child: PageView.builder(
-                  controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: _vocabularyList.length,
-                  itemBuilder: (context, index) {
-                    final vocabulary = _vocabularyList[index];
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              vocabulary.vietnamese,
-                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                child: AnimatedBuilder(
+                  animation: _fadeAnimation,
+                  builder: (context, child) {
+                    return FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: _vocabularyList.length,
+                        itemBuilder: (context, index) {
+                          final vocabulary = _vocabularyList[index];
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: Column(
+                              key: ValueKey(vocabulary),
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      vocabulary.vietnamese,
+                                      style: const TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ),
+                                if (_isAnswerCorrect)
+                                  _buildCorrectAnswerDisplay(vocabulary)
+                                else if (!_isAnswerWrong)
+                                  _buildAnswerInput(vocabulary)
+                                else
+                                  _buildWrongAnswerDisplay(vocabulary),
+                              ],
                             ),
-                          ),
-                        ),
-                        if (_isAnswerCorrect)
-                          _buildCorrectAnswerDisplay(vocabulary)
-                        else if (!_isAnswerWrong)
-                          _buildAnswerInput(vocabulary)
-                        else
-                          _buildWrongAnswerDisplay(vocabulary),
-                      ],
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
@@ -125,9 +157,7 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
           ),
         ),
       ),
-      bottomNavigationBar: _showAnswer
-          ? _buildNextButton()
-          : null,
+      bottomNavigationBar: _showAnswer ? _buildNextButton() : null,
     );
   }
 
@@ -186,7 +216,10 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
           padding: const EdgeInsets.all(20),
           child: const Align(
             alignment: Alignment.centerLeft,
-            child: Text('Học là cả một quá trình đừng nản!!',style: TextStyle(color: Colors.red),),
+            child: Text(
+              'Học là cả một quá trình đừng nản!!',
+              style: TextStyle(color: Colors.red),
+            ),
           ),
         ),
         _buildFeedbackBox(Icons.close, Colors.red, _answer),
@@ -202,7 +235,10 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
           padding: const EdgeInsets.all(20),
           child: const Align(
             alignment: Alignment.centerLeft,
-            child: Text('Câu trả lời của bạn đã đúng!',style: TextStyle(color: Colors.green),),
+            child: Text(
+              'Câu trả lời của bạn đã đúng!',
+              style: TextStyle(color: Colors.green),
+            ),
           ),
         ),
         _buildFeedbackBox(Icons.check, Colors.green, _answer)
@@ -213,7 +249,7 @@ class _StudyEssayPageState extends State<StudyEssayPage> {
   Widget _buildFeedbackBox(IconData icon, Color color, String message) {
     return Container(
       padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         border: Border.all(color: color),

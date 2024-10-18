@@ -142,7 +142,7 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
