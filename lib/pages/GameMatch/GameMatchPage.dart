@@ -7,7 +7,7 @@ import 'package:vocabkpop/models/MatchGameResultModel.dart';
 import 'package:vocabkpop/models/UserCompletionTimesModel.dart';
 import 'dart:async';
 import 'package:vocabkpop/models/VocabularyModel.dart';
-import 'package:vocabkpop/pages/GameMatch/ResultMatchPage.dart';
+import 'package:vocabkpop/pages/GameMatch/MatchResultPage.dart';
 import 'package:vocabkpop/services/MatchGameResultService.dart';
 import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 
@@ -184,7 +184,7 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
                 Navigator.pop(context);
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => ResultMatchPage(
+                  MaterialPageRoute(builder: (context) => MatchResultPage(
                     lessonModel: widget.lessonModel,
                     seconds: _seconds,
                   )),

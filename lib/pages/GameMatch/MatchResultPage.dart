@@ -5,22 +5,22 @@ import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/UserCompletionTimesModel.dart';
 import 'package:vocabkpop/pages/GameMatch/GameMatchPage.dart';
 import 'package:vocabkpop/services/MatchGameResultService.dart';
-import 'package:vocabkpop/widget/bar/ResultMatchBar.dart';
+import 'package:vocabkpop/widget/bar/ResultBar.dart';
 
-class ResultMatchPage extends StatefulWidget {
+class MatchResultPage extends StatefulWidget {
   final double seconds;
   final LessonModel lessonModel;
-  const ResultMatchPage({
+  const MatchResultPage({
     super.key,
     required this.seconds,
     required this.lessonModel,
   });
 
   @override
-  _ResultMatchPageState createState() => _ResultMatchPageState();
+  _MatchResultPageState createState() => _MatchResultPageState();
 }
 
-class _ResultMatchPageState extends State<ResultMatchPage> {
+class _MatchResultPageState extends State<MatchResultPage> {
   List<UserCompletionTimesModel> topUsers = [];
   bool isLoading = true;
   late double score;
@@ -48,7 +48,7 @@ class _ResultMatchPageState extends State<ResultMatchPage> {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         automaticallyImplyLeading: false,
-        title: ResultMatchbar(submit: () {}, title: 'Ghép thẻ'),
+        title: ResultBar(submit: () {}, title: 'Ghép thẻ'),
       ),
       body: SafeArea(
         child: Column(

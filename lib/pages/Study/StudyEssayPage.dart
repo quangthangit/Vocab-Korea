@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
+import 'package:vocabkpop/models/ResultModel.dart';
+import 'package:vocabkpop/models/StudyResultModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
+import 'package:vocabkpop/pages/Study/StudyResultPage.dart';
+import 'package:vocabkpop/services/StudyResultService.dart';
 import 'package:vocabkpop/widget/bar/StudyEssayBar.dart';
 
 class StudyEssayPage extends StatefulWidget {
@@ -24,6 +29,10 @@ class _StudyEssayPageState extends State<StudyEssayPage>
   late String _answer;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  late List<ResultModel> _listResultModel = [];
+  late int countCorrect = 0;
+  late int countWrong = 0;
+  final StudyResultService _studyResultService = StudyResultService();
 
   @override
   void dispose() {
@@ -49,18 +58,20 @@ class _StudyEssayPageState extends State<StudyEssayPage>
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
-
     _animationController.forward();
   }
 
   void _goToNextPage() {
-    _animationController.reset();
-    _pageController.nextPage(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
+    if (_currentIndex >= _vocabularyList.length - 1) {
+      _saveStudyResult();
+    } else {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+
     _resetState();
-    _animationController.forward();
   }
 
   void _resetState() {
@@ -71,19 +82,48 @@ class _StudyEssayPageState extends State<StudyEssayPage>
     _answer = "";
   }
 
-  void _validateAnswer(String correctAnswer, String userAnswer) {
-    if (correctAnswer != userAnswer) {
-      setState(() {
-        _isAnswerWrong = true;
-        _showAnswer = true;
-        _answer = userAnswer;
-      });
-    } else {
-      setState(() {
-        _isAnswerCorrect = true;
-        _showAnswer = true;
-        _answer = userAnswer;
-      });
+  void _validateAnswer(String question, String correctAnswer, String userAnswer) {
+    if (userAnswer.isEmpty) return;
+
+    ResultModel resultModel = ResultModel(
+      answerUser: userAnswer,
+      answer: correctAnswer,
+      question: question,
+    );
+
+    setState(() {
+      _listResultModel.add(resultModel);
+      _isAnswerWrong = correctAnswer != userAnswer;
+      _isAnswerCorrect = !_isAnswerWrong;
+      _showAnswer = true;
+      _answer = userAnswer;
+
+      if (_isAnswerWrong) countWrong++;
+      if (_isAnswerCorrect) countCorrect++;
+    });
+  }
+
+  Future<void> _saveStudyResult() async {
+    try {
+      StudyResultModel studyResult = StudyResultModel(
+        idUser: FirebaseAuth.instance.currentUser!.uid,
+        totalQuestions: _listResultModel.length,
+        correctAnswers: countCorrect,
+        wrongAnswers: countWrong,
+        dateStudy: DateTime.now(),
+        timeTaken: 10,
+        listResultModel: _listResultModel,
+      );
+
+      await _studyResultService.createStudyResult(studyResult);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StudyResultPage(studyResultModel: studyResult),
+        ),
+      );
+    } catch (error) {
+      print('Error saving study result: $error');
     }
   }
 
@@ -139,7 +179,7 @@ class _StudyEssayPageState extends State<StudyEssayPage>
                                   ),
                                 ),
                                 if (_isAnswerCorrect)
-                                  _buildCorrectAnswerDisplay(vocabulary)
+                                  _buildFeedbackBox(Icons.check, Colors.green, _answer)
                                 else if (!_isAnswerWrong)
                                   _buildAnswerInput(vocabulary)
                                 else
@@ -162,59 +202,53 @@ class _StudyEssayPageState extends State<StudyEssayPage>
   }
 
   Widget _buildAnswerInput(VocabularyModel vocabulary) {
-    return Container(
-      child: Column(
-        children: [
-          const Divider(color: Colors.grey, height: 2),
-          Row(
-            children: [
-              const SizedBox(width: 20),
-              Expanded(
-                child: TextFormField(
-                  onFieldSubmitted: (text) {
-                    _validateAnswer(vocabulary.korean, text);
-                  },
-                  controller: _answerController,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Nhập đáp án',
-                  ),
-                  maxLines: 1,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.done,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _showAnswer = true;
-                  });
+    return Column(
+      children: [
+        const Divider(color: Colors.grey, height: 2),
+        Row(
+          children: [
+            const SizedBox(width: 20),
+            Expanded(
+              child: TextFormField(
+                onFieldSubmitted: (text) {
+                  _validateAnswer(vocabulary.vietnamese, vocabulary.korean, text);
                 },
-                child: const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text(
-                    'Không biết',
-                    style: TextStyle(
-                      color: AppColors.backgroundColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+                controller: _answerController,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Nhập đáp án',
+                ),
+                maxLines: 1,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+              ),
+            ),
+            GestureDetector(
+              onTap: () => setState(() => _showAnswer = true),
+              child: const Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Không biết',
+                  style: TextStyle(
+                    color: AppColors.backgroundColor,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ],
-          ),
-          const Divider(color: Colors.grey, height: 2),
-        ],
-      ),
+            ),
+          ],
+        ),
+        const Divider(color: Colors.grey, height: 2),
+      ],
     );
   }
 
   Widget _buildWrongAnswerDisplay(VocabularyModel vocabulary) {
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: const Align(
+        const Padding(
+          padding: EdgeInsets.all(20),
+          child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
               'Học là cả một quá trình đừng nản!!',
@@ -224,24 +258,6 @@ class _StudyEssayPageState extends State<StudyEssayPage>
         ),
         _buildFeedbackBox(Icons.close, Colors.red, _answer),
         _buildFeedbackBox(Icons.check, Colors.green, vocabulary.korean),
-      ],
-    );
-  }
-
-  Widget _buildCorrectAnswerDisplay(VocabularyModel vocabulary) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Câu trả lời của bạn đã đúng!',
-              style: TextStyle(color: Colors.green),
-            ),
-          ),
-        ),
-        _buildFeedbackBox(Icons.check, Colors.green, _answer)
       ],
     );
   }
@@ -256,43 +272,32 @@ class _StudyEssayPageState extends State<StudyEssayPage>
       ),
       child: Row(
         children: [
-          Expanded(
-            flex: 2,
-            child: Icon(icon, color: color),
-          ),
-          Expanded(
-            flex: 7,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(message),
-            ),
-          ),
+          Icon(icon, color: color),
+          const SizedBox(width: 10),
+          Text(message),
         ],
       ),
     );
   }
 
   Widget _buildNextButton() {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.indigo,
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 120),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 120),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
         ),
         onPressed: _goToNextPage,
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: const Text(
-            'Câu tiếp theo',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+        child: const Text(
+          'Câu tiếp theo',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ),

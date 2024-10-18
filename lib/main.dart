@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:vocabkpop/models/StudyResultModel.dart';
 import 'package:vocabkpop/pages/CheckLoginPage.dart';
-import 'package:vocabkpop/app_colors.dart' as app_color;
-
 import 'package:firebase_core/firebase_core.dart';
-import 'package:vocabkpop/pages/ResultSearchPage.dart';
+import 'package:vocabkpop/pages/Study/StudyResultPage.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: CheckLoginPage(),
+      home: CheckLoginPage()
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 
-class ResultMatchbar extends StatelessWidget {
+class ResultBar extends StatelessWidget {
   final VoidCallback submit;
   final String title;
-  ResultMatchbar({super.key, required this.submit,required this.title});
+  ResultBar({super.key, required this.submit,required this.title});
 
   @override
   Widget build(BuildContext context) {
