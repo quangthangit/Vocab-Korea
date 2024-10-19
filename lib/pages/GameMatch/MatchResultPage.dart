@@ -4,6 +4,7 @@ import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/LessonModel.dart';
 import 'package:vocabkpop/models/UserCompletionTimesModel.dart';
 import 'package:vocabkpop/pages/GameMatch/GameMatchPage.dart';
+import 'package:vocabkpop/pages/GameMatch/MatchPage.dart';
 import 'package:vocabkpop/services/MatchGameResultService.dart';
 import 'package:vocabkpop/widget/bar/ResultBar.dart';
 
@@ -114,7 +115,7 @@ class _MatchResultPageState extends State<MatchResultPage> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => GameMatchPage(
+                builder: (context) => MatchPage(
                   lessonModel: widget.lessonModel,
                 ),
               ),

@@ -35,13 +35,24 @@ class _LibraryPageState extends State<LibraryPage> {
         content = LibraryLesson();
     }
 
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Column(
           children: [
-            LibraryBar(onItemTapped: _onItemTapped),
-            Expanded(child: content),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Thư viện',
+                    style: TextStyle(fontSize: 25, fontFamily: 'Lobster'),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(child: LibraryBar()),
           ],
         ),
       ),

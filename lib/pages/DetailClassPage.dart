@@ -161,6 +161,7 @@ class _DetailClassPageState extends State<DetailClassPage> {
             labelStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.blue,
+            indicatorSize: TabBarIndicatorSize.tab,
           ),
           Expanded(
             child: TabBarView(

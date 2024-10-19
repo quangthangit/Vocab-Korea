@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/Algorithm/RandomVocabularyAlgorithm.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/ResultModel.dart';
 import 'package:vocabkpop/models/StudyResultModel.dart';
@@ -11,7 +12,8 @@ import 'package:vocabkpop/widget/bar/StudyEssayBar.dart';
 class StudyEssayPage extends StatefulWidget {
   final List<VocabularyModel> vocabularyModel;
   final int language;
-  const StudyEssayPage({super.key, required this.vocabularyModel, required this.language});
+  final bool isDisturbance;
+  const StudyEssayPage({super.key, required this.vocabularyModel, required this.language, required this.isDisturbance});
 
   @override
   _StudyEssayPageState createState() => _StudyEssayPageState();
@@ -44,7 +46,10 @@ class _StudyEssayPageState extends State<StudyEssayPage> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    _vocabularyList = widget.vocabularyModel;
+    _vocabularyList = List.from(widget.vocabularyModel);
+    if (widget.isDisturbance) {
+      RandomVocabularyAlgorithm().randomListVocabulary(_vocabularyList);
+    }
     _pageController = PageController();
     _pageController.addListener(() {
       setState(() {
