@@ -56,6 +56,7 @@ class MatchPage extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => GameMatchPage(
                             lessonModel: lessonModel,
+                            number : 6,
                           ),
                         ),
                       );
@@ -66,7 +67,33 @@ class MatchPage extends StatelessWidget {
                       foregroundColor: Colors.white,
                     ),
                     child: const Text(
-                      "Bắt đầu chơi",
+                      "Bắt đầu chơi với 6 thẻ",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GameMatchPage(
+                            lessonModel: lessonModel,
+                            number : 12,
+                          ),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(370, 60),
+                      backgroundColor: AppColors.backgroundColor,
+                      foregroundColor: Colors.white,
+                    ),
+                    child: const Text(
+                      "Bắt đầu chơi với 12 thẻ",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

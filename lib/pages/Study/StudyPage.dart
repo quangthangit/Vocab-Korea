@@ -19,6 +19,7 @@ class _StudyPageState extends State<StudyPage> {
   bool isSelfStudy = false;
   bool isKorea = true;
   bool isVn = false;
+  bool isDisturbance = false;
   int language = 0;
 
   void _onSwitchChanged(String switchType) {
@@ -202,6 +203,40 @@ class _StudyPageState extends State<StudyPage> {
                     )
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Xáo trộn',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                    Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: isDisturbance,
+                        onChanged: (bool value) {
+                          setState(() {
+                            isDisturbance = value;
+                          });
+                        },
+                        inactiveTrackColor: const Color(0xFF919BB4),
+                        activeTrackColor: const Color(0xFF4254FE),
+                        activeColor: Colors.lightBlue,
+                        thumbColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return Colors.white;
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 const SizedBox(height: 20),
                 const Divider(
                   color: Colors.black,
@@ -339,6 +374,7 @@ class _StudyPageState extends State<StudyPage> {
                   builder: (context) => StudyEssayPage(
                     vocabularyModel: widget.lessonModel.vocabulary,
                     language: language,
+                    isDisturbance : isDisturbance,
                   ),
                 ),
               );

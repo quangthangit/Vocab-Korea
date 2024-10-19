@@ -13,10 +13,10 @@ import 'package:vocabkpop/widget/bar/GameMatchBar.dart';
 
 class GameMatchPage extends StatefulWidget {
   final LessonModel lessonModel;
-
+  final int number;
   const GameMatchPage({
     super.key,
-    required this.lessonModel,
+    required this.lessonModel, required this.number,
   });
 
   @override
@@ -34,15 +34,18 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
   int _numberDone = 0;
   double _seconds = 0.0;
   bool _isRunning = false;
-
+  late int row;
   @override
   void initState() {
     super.initState();
+    if(widget.number == 6) {
+      row = 3;
+    } else {
+      row = 4;
+    }
     _vocabularyList = widget.lessonModel.vocabulary;
-    // _listVocabulary = _generateVocabularyList(_vocabularyList);
-    _listVocabulary = _generateVocabularyList.generateVocabularyList(_vocabularyList);
+    _listVocabulary = _generateVocabularyList.generateVocabularyList(_vocabularyList,widget.number);
     _startTimer();
-
     _selectedIndices = List.filled(_listVocabulary.length, false);
     _isCorrect = List.filled(_listVocabulary.length, false);
     _isWrong = List.filled(_listVocabulary.length, false);
@@ -220,8 +223,8 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
             child: GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               itemCount: _listVocabulary.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: row,
                 childAspectRatio: 120 / 150,
               ),
               itemBuilder: (context, index) {
@@ -247,13 +250,16 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
                                 ),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              child: Center(
-                                child: Text(
-                                  _listVocabulary[index],
-                                  style: TextStyle(
-                                    color: _isWrong[index] ? Colors.red : AppColors.iconColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Center(
+                                  child: Text(
+                                    _listVocabulary[index],
+                                    style: TextStyle(
+                                      color: _isWrong[index] ? Colors.red : AppColors.iconColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ),
                               ),
