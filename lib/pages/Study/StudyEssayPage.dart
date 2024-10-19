@@ -10,14 +10,14 @@ import 'package:vocabkpop/widget/bar/StudyEssayBar.dart';
 
 class StudyEssayPage extends StatefulWidget {
   final List<VocabularyModel> vocabularyModel;
-  const StudyEssayPage({super.key, required this.vocabularyModel});
+  final int language;
+  const StudyEssayPage({super.key, required this.vocabularyModel, required this.language});
 
   @override
   _StudyEssayPageState createState() => _StudyEssayPageState();
 }
 
-class _StudyEssayPageState extends State<StudyEssayPage>
-    with SingleTickerProviderStateMixin {
+class _StudyEssayPageState extends State<StudyEssayPage> with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _answerController = TextEditingController();
   int _currentIndex = 0;
@@ -171,7 +171,9 @@ class _StudyEssayPageState extends State<StudyEssayPage>
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      vocabulary.vietnamese,
+                                        widget.language == 0
+                                            ? vocabulary.korean
+                                            : vocabulary.vietnamese,
                                       style: const TextStyle(
                                           fontSize: 25,
                                           fontWeight: FontWeight.w500),
@@ -211,7 +213,9 @@ class _StudyEssayPageState extends State<StudyEssayPage>
             Expanded(
               child: TextFormField(
                 onFieldSubmitted: (text) {
-                  _validateAnswer(vocabulary.vietnamese, vocabulary.korean, text);
+                  widget.language == 0
+                      ? _validateAnswer(vocabulary.korean, vocabulary.vietnamese, text)
+                      : _validateAnswer(vocabulary.vietnamese, vocabulary.korean, text);
                 },
                 controller: _answerController,
                 decoration: const InputDecoration(
@@ -224,7 +228,21 @@ class _StudyEssayPageState extends State<StudyEssayPage>
               ),
             ),
             GestureDetector(
-              onTap: () => setState(() => _showAnswer = true),
+              onTap: () {
+                setState(() {
+                  _showAnswer = true;
+                  _isAnswerWrong = true;
+                  _answer = "Đã bỏ qua!";
+                  countWrong ++;
+                  _listResultModel.add(
+                    ResultModel(
+                        answerUser: _answer,
+                        answer: widget.language == 0 ? vocabulary.vietnamese : vocabulary.korean,
+                        question: widget.language == 0 ? vocabulary.korean : vocabulary.vietnamese
+                    )
+                  );
+                });
+              },
               child: const Padding(
                 padding: EdgeInsets.all(20),
                 child: Text(
@@ -257,7 +275,8 @@ class _StudyEssayPageState extends State<StudyEssayPage>
           ),
         ),
         _buildFeedbackBox(Icons.close, Colors.red, _answer),
-        _buildFeedbackBox(Icons.check, Colors.green, vocabulary.korean),
+        _buildFeedbackBox(Icons.check, Colors.green, widget.language == 0 ? vocabulary.vietnamese : vocabulary.korean
+        ),
       ],
     );
   }

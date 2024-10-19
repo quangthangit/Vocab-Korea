@@ -17,6 +17,9 @@ class _StudyPageState extends State<StudyPage> {
   bool isCorrectWrong = false;
   bool isMultipleChoice = false;
   bool isSelfStudy = false;
+  bool isKorea = true;
+  bool isVn = false;
+  int language = 0;
 
   void _onSwitchChanged(String switchType) {
     setState(() {
@@ -30,6 +33,21 @@ class _StudyPageState extends State<StudyPage> {
         isMultipleChoice = true;
       } else if (switchType == 'selfStudy') {
         isSelfStudy = true;
+      }
+    });
+  }
+
+  void _onSwitchlanguage(String switchType) {
+    setState(() {
+      isKorea = false;
+      isVn = false;
+
+      if (switchType == 'Korea') {
+        isKorea = true;
+        language = 0;
+      } else if (switchType == 'VN') {
+        isVn = true;
+        language = 1;
       }
     });
   }
@@ -117,12 +135,71 @@ class _StudyPageState extends State<StudyPage> {
                         fontSize: 15,
                       ),
                     ),
-                    Text(
-                      'Thuật ngữ',
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Tiếng Hàn',
                       style: TextStyle(
+                        fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
                     ),
+                    Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: isKorea,
+                        onChanged: (bool value) {
+                          _onSwitchlanguage('Korea');
+                        },
+                        inactiveTrackColor: const Color(0xFF919BB4),
+                        activeTrackColor: const Color(0xFF4254FE),
+                        activeColor: Colors.lightBlue,
+                        thumbColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return Colors.white;
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Tiếng Việt',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                    Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: isVn,
+                        onChanged: (bool value) {
+                          _onSwitchlanguage('VN');
+                        },
+                        inactiveTrackColor: const Color(0xFF919BB4),
+                        activeTrackColor: const Color(0xFF4254FE),
+                        activeColor: Colors.lightBlue,
+                        thumbColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return Colors.white;
+                          },
+                        ),
+                      ),
+                    )
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -261,6 +338,7 @@ class _StudyPageState extends State<StudyPage> {
                 MaterialPageRoute(
                   builder: (context) => StudyEssayPage(
                     vocabularyModel: widget.lessonModel.vocabulary,
+                    language: language,
                   ),
                 ),
               );
