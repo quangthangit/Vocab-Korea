@@ -6,6 +6,7 @@ class LessonModel {
   String title;
   String description;
   String creator;
+  String imageUser;
   List<VocabularyModel> vocabulary;
   DateTime dateCreate;
   List<String> idMember;
@@ -15,6 +16,7 @@ class LessonModel {
     required this.title,
     required this.description,
     required this.creator,
+    required this.imageUser,
     required this.vocabulary,
     required this.dateCreate,
     required this.idMember,
@@ -27,6 +29,7 @@ class LessonModel {
       title: data['title'] ?? '',
       description: data['description'] ?? '',
       creator: data['creator'] ?? '',
+      imageUser : data['imageUser'],
       vocabulary: List<VocabularyModel>.from(
         (data['vocabulary'] as List<dynamic>).map((v) => VocabularyModel.fromMap(v)),
       ),
@@ -40,6 +43,7 @@ class LessonModel {
       'title': title,
       'description': description,
       'creator': creator,
+      'imageUser' : imageUser,
       'vocabulary': vocabulary.map((v) => v.toMap()).toList(),
       'dateCreate': Timestamp.fromDate(dateCreate),
       'idMember' : idMember

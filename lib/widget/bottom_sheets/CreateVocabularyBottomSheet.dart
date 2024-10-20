@@ -71,6 +71,7 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
       title: lessonTitle,
       description: lessonDescription,
       creator: FirebaseAuth.instance.currentUser!.uid,
+      imageUser: FirebaseAuth.instance.currentUser!.photoURL!,
       vocabulary: vocabularyList,
       dateCreate: DateTime.now(),
       idMember: [

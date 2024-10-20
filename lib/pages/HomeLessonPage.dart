@@ -36,7 +36,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
   void _navigateToPage(int index) {
     if (index == 3 && _vocabularyList.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cần ít nhất 6 từ vựng để ghép thẻ!')),
+        const SnackBar(content: Text('Cần ít nhất 6 từ vựng để ghép thẻ!')),
       );
       return;
     }
@@ -69,11 +69,15 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const HomeLessonBar(),
+        backgroundColor: Colors.white,
+      ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: ListView(
           children: [
-            const HomeLessonBar(),
             Container(
               height: 300,
               margin: const EdgeInsets.all(20),
@@ -128,15 +132,18 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
               margin: const EdgeInsets.all(20),
               child: Row(
                 children: [
-                  const Row(
+                   Row(
                     children: [
-                      Icon(Icons.account_circle_outlined),
-                      SizedBox(width: 5),
-                      Text(
+                      CircleAvatar(
+                        radius: 15,
+                        backgroundImage: NetworkImage(widget.lessonModel.imageUser),
+                      ),
+                      const SizedBox(width: 5),
+                      const Text(
                         'user09217662',
                         style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'KayPhoDu',
+                          fontSize: 10,
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
                         ),
                       ),

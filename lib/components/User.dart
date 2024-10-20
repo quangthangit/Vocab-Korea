@@ -26,9 +26,9 @@ class User extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.account_circle_outlined,
-            size: 20,
+          const CircleAvatar(
+            radius: 15,
+            backgroundImage: NetworkImage('https://d1hjkbq40fs2x4.cloudfront.net/2017-08-21/files/landscape-photography_1645-t.jpg'),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -37,9 +37,10 @@ class User extends StatelessWidget {
                   ? "${userModel.username} ( Người tạo )"
                   : userModel.username,
               style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
                 color: userModel.id == creator ? Colors.blue : null,
+                fontFamily: 'Lobster'
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
