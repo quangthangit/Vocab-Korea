@@ -362,6 +362,7 @@ class _StudyPageState extends State<StudyPage> {
                 MaterialPageRoute(
                   builder: (context) => QuizWidget(
                     vocabularyModel: widget.lessonModel.vocabulary,
+                    language: language,
                   ),
                 ),
               );

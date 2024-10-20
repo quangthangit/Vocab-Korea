@@ -177,8 +177,8 @@ class _StudyEssayPageState extends State<StudyEssayPage> with SingleTickerProvid
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                         widget.language == 0
-                                            ? vocabulary.korean
-                                            : vocabulary.vietnamese,
+                                            ? vocabulary.vietnamese
+                                            : vocabulary.korean,
                                       style: const TextStyle(
                                           fontSize: 25,
                                           fontWeight: FontWeight.w500),
@@ -219,8 +219,8 @@ class _StudyEssayPageState extends State<StudyEssayPage> with SingleTickerProvid
               child: TextFormField(
                 onFieldSubmitted: (text) {
                   widget.language == 0
-                      ? _validateAnswer(vocabulary.korean, vocabulary.vietnamese, text)
-                      : _validateAnswer(vocabulary.vietnamese, vocabulary.korean, text);
+                      ? _validateAnswer(vocabulary.vietnamese, vocabulary.korean, text)
+                      : _validateAnswer(vocabulary.korean, vocabulary.vietnamese, text);
                 },
                 controller: _answerController,
                 decoration: const InputDecoration(
@@ -242,8 +242,8 @@ class _StudyEssayPageState extends State<StudyEssayPage> with SingleTickerProvid
                   _listResultModel.add(
                     ResultModel(
                         answerUser: _answer,
-                        answer: widget.language == 0 ? vocabulary.vietnamese : vocabulary.korean,
-                        question: widget.language == 0 ? vocabulary.korean : vocabulary.vietnamese
+                        answer: widget.language == 0 ? vocabulary.korean : vocabulary.vietnamese,
+                        question: widget.language == 0 ? vocabulary.vietnamese : vocabulary.korean
                     )
                   );
                 });
@@ -280,7 +280,7 @@ class _StudyEssayPageState extends State<StudyEssayPage> with SingleTickerProvid
           ),
         ),
         _buildFeedbackBox(Icons.close, Colors.red, _answer),
-        _buildFeedbackBox(Icons.check, Colors.green, widget.language == 0 ? vocabulary.vietnamese : vocabulary.korean
+        _buildFeedbackBox(Icons.check, Colors.green, widget.language == 0 ? vocabulary.korean : vocabulary.vietnamese
         ),
       ],
     );
