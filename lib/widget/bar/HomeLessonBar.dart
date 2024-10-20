@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
 
+import '../../app_colors.dart';
+
 class HomeLessonBar extends StatelessWidget {
   const HomeLessonBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new,),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.share)
-              ),
-              const SizedBox(width: 10,),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.more_vert)
-              )
-            ],
-          )
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.iconColor, size: 20),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.share, color: AppColors.iconColor, size: 20),
+              onPressed: () {
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.more_vert, color: AppColors.iconColor, size: 20),
+              onPressed: () {
+              },
+            ),
+          ],
+        )
+      ],
     );
   }
 }

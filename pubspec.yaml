@@ -48,6 +48,7 @@ dependencies:
   logging: ^1.0.2
   provider: ^6.0.0
   syncfusion_flutter_charts: ^22.1.34
+  string_similarity: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -94,15 +95,16 @@ flutter:
          - asset: fonts/Lobster-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
-     - family: Inter
+
+
+     - family: Poppins
        fonts:
-         - asset: fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf
-         - asset: fonts/Inter/Inter-VariableFont_opsz,wght.ttf
-  #         weight: 700
-  #
+         - asset: fonts/Poppins/Poppins-MediumItalic.ttf
+
+
      - family: RobotoCondensed
        fonts:
-         - asset: fonts/RobotoCondensed/RobotoCondensed-Bold.ttf
+         - asset: fonts/RobotoCondensed/Roboto-Regular.ttf
            weight: 900
      - family: Anton
        fonts:

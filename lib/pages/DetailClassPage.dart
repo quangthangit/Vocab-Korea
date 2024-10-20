@@ -126,23 +126,29 @@ class _DetailClassPageState extends State<DetailClassPage> {
             const SizedBox(width: 8),
             Text(
               '${classData.idMember.length} thành viên',
-              style: const TextStyle(fontSize: 15),
+              style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
             ),
           ],
         ),
+        // const SizedBox(height: 10),
+        // Row(
+        //   children: [
+        //     const Icon(Icons.access_time),
+        //     const SizedBox(width: 5),
+        //     Text('Ngày tạo ${convertTime(classData.createdAt)}'),
+        //   ],
+        // ),
         const SizedBox(height: 10),
         Row(
           children: [
-            const Icon(Icons.access_time),
-            const SizedBox(width: 5),
-            Text('Ngày tạo ${convertTime(classData.createdAt)}'),
+            Icon(Icons.description),
+            SizedBox(width: 10,),
+            Text(
+              '${classData.description}',
+              style: const TextStyle(fontSize: 16),
+            ),
           ],
-        ),
-        const SizedBox(height: 10),
-        Text(
-          classData.description,
-          style: const TextStyle(fontSize: 16),
-        ),
+        )
       ],
     );
   }

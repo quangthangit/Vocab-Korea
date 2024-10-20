@@ -8,6 +8,7 @@ class ClassModel {
   int key;
   DateTime createdAt;
   String idUser;
+  String imageUser;
   int allowEdit;
   List<String> idMember;
 
@@ -20,6 +21,7 @@ class ClassModel {
     required this.key,
     required this.createdAt,
     required this.idUser,
+    required this.imageUser,
     required this.allowEdit,
     required this.idMember,
   });
@@ -34,6 +36,7 @@ class ClassModel {
       key: data['key'],
       createdAt: (data['created_at'] as Timestamp).toDate(),
       idUser: data['id_user'],
+      imageUser : data['imageUser'],
       allowEdit: data['allow_edit'],
       idMember: List<String>.from(data['idMember'] ?? []),
     );
@@ -47,6 +50,7 @@ class ClassModel {
       'key': key,
       'created_at': createdAt,
       'id_user': idUser,
+      'imageUser' : imageUser,
       'allow_edit': allowEdit,
       'idMember': idMember,
     };

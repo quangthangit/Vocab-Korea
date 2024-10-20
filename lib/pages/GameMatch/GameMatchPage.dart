@@ -126,7 +126,7 @@ class _GameMatchState extends State<GameMatchPage> with SingleTickerProviderStat
       _listVocabulary[selectedIndices[1]] = "";
       _numberDone++;
 
-      if (_numberDone == 6) {
+      if (_numberDone == widget.number) {
         _stopTimer();
         _showCompletionMessage();
       }

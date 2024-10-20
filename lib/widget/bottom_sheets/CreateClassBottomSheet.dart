@@ -68,6 +68,7 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
                     createdAt: DateTime.now(),
                     idUser: FirebaseAuth.instance.currentUser!.uid,
                     allowEdit: allowEdit,
+                    imageUser: FirebaseAuth.instance.currentUser!.photoURL!,
                     idMember: [
                       FirebaseAuth.instance.currentUser!.uid,
                     ],
