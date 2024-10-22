@@ -1,8 +1,12 @@
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/Algorithm/Levenshtein.dart';
+import 'package:vocabkpop/models/ResultModel.dart';
+import 'package:vocabkpop/models/StudyResultModel.dart';
 import 'package:vocabkpop/models/VocabularyModel.dart';
-import 'package:vocabkpop/widget/bar/FlashCardBar.dart';
+import 'package:vocabkpop/pages/Study/StudyResultPage.dart';
+import 'package:vocabkpop/services/StudyResultService.dart';
 import 'package:vocabkpop/app_colors.dart' as AppColor;
 import 'package:vocabkpop/widget/bar/StudyEssayBar.dart';
 
@@ -22,6 +26,11 @@ class _QuizWidgetState extends State<QuizWidget> {
   VocabularyModel? _selectedAnswer;
   bool? _isCorrect;
   int _currentIndex = 0;
+  late int countCorrect = 0;
+  late int countWrong = 0;
+  final StudyResultService _studyResultService = StudyResultService();
+  late List<ResultModel> _listResultModel = [];
+
   @override
   void initState() {
     super.initState();
@@ -35,11 +44,21 @@ class _QuizWidgetState extends State<QuizWidget> {
   }
 
   void _checkAnswer(VocabularyModel selectedAnswer, VocabularyModel correctAnswer) {
+
     if (_selectedAnswer != null) return;
 
+    ResultModel resultModel = ResultModel(
+      answerUser: widget.language == 0 ? selectedAnswer.korean : selectedAnswer.vietnamese,
+      answer: widget.language == 0 ? correctAnswer.korean : selectedAnswer.vietnamese,
+      question: widget.language == 0 ? correctAnswer.vietnamese : selectedAnswer.korean,
+    );
+
+
     setState(() {
+      _listResultModel.add(resultModel);
       _selectedAnswer = selectedAnswer;
       _isCorrect = selectedAnswer == correctAnswer;
+      _isCorrect! ? countCorrect++ : countWrong++;
       _title = _isCorrect! ? 'Bạn đang làm rất tuyệt !' : 'Chưa đúng hãy cố gắng nhé !';
     });
 
@@ -60,6 +79,30 @@ class _QuizWidgetState extends State<QuizWidget> {
         curve: Curves.easeInOut,
       );
     });
+  }
+
+  Future<void> _saveStudyResult() async {
+    try {
+      StudyResultModel studyResult = StudyResultModel(
+        idUser: FirebaseAuth.instance.currentUser!.uid,
+        totalQuestions: _vocabularyList.length,
+        correctAnswers: countCorrect,
+        wrongAnswers: countWrong,
+        dateStudy: DateTime.now(),
+        timeTaken: 10,
+        listResultModel: _listResultModel,
+      );
+
+      // await _studyResultService.createStudyResult(studyResult);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StudyResultPage(studyResultModel: studyResult),
+        ),
+      );
+    } catch (error) {
+      print('Error saving study result: $error');
+    }
   }
 
   @override

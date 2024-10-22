@@ -23,11 +23,8 @@ class _CheckLoginPageState extends State<CheckLoginPage> {
       stream: _userStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.red,
-              color: Colors.white,
-            ),
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         }
         return AnimatedSwitcher(
@@ -44,10 +41,7 @@ class _CheckLoginPageState extends State<CheckLoginPage> {
             builder: (context, futureSnapshot) {
               if (futureSnapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.green,
-                    color: Colors.white,
-                  ),
+                  child: CircularProgressIndicator(),
                 );
               } else {
                 return MyHomePage();

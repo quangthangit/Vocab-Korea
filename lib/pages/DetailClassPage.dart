@@ -139,16 +139,16 @@ class _DetailClassPageState extends State<DetailClassPage> {
         //   ],
         // ),
         const SizedBox(height: 10),
-        Row(
-          children: [
-            Icon(Icons.description),
-            SizedBox(width: 10,),
-            Text(
-              '${classData.description}',
-              style: const TextStyle(fontSize: 16),
-            ),
-          ],
-        )
+        // Row(
+        //   children: [
+        //     Icon(Icons.description),
+        //     SizedBox(width: 10,),
+        //     Text(
+        //       '${classData.description}',
+        //       style: const TextStyle(fontSize: 16),
+        //     ),
+        //   ],
+        // )
       ],
     );
   }

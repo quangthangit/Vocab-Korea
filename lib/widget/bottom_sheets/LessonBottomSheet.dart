@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/widget/bottom_sheets/CreateClassBottomSheet.dart';
 import 'package:vocabkpop/widget/bottom_sheets/CreateVocabularyBottomSheet.dart';
+import 'package:vocabkpop/widget/bottom_sheets/ListFolderBottomSheet.dart';
 
-class AddDataOptionsBottomSheet extends StatelessWidget {
-  const AddDataOptionsBottomSheet({super.key});
+class LessonBottomSheet extends StatelessWidget {
+  const LessonBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,13 @@ class AddDataOptionsBottomSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          _buildItem(context, Icons.bookmarks_outlined, 'Học phần'),
+          _buildItem(context, Icons.add_chart, 'Thêm vào thư mục'),
           const SizedBox(height: 16),
-          _buildItem(context, Icons.folder_copy_outlined, 'Thư mục'),
+          _buildItem(context, Icons.bookmarks_outlined, 'Chia sẻ bài học'),
           const SizedBox(height: 16),
-          _buildItem(context, Icons.supervisor_account, 'Tạo lớp học'),
+          _buildItem(context, Icons.folder_copy_outlined, 'Lưu và chỉnh sửa'),
+          const SizedBox(height: 16),
+          _buildItem(context, Icons.info_outline, 'Thông tin bài học'),
         ],
       ),
     );
@@ -42,30 +46,26 @@ class AddDataOptionsBottomSheet extends StatelessWidget {
         if (ModalRoute.of(context)?.isCurrent == true) {
           Navigator.of(context).pop();
         }
-        if (title == "Học phần") {
-          await _showCreateVocabularyPage(context);
-        } else if (title == "Tạo lớp học") {
-          await _showCreateClassPage(context);
-        } else if (title == "Thư mục") {
-          await _showCreateFolderPage(context);
+        if (title == "Thêm vào thư mục") {
+          await _showListFolder(context);
         }
       },
-      splashColor: Theme.of(context).primaryColor.withOpacity(0.2), 
+      splashColor: Theme.of(context).primaryColor.withOpacity(0.2),
       borderRadius: BorderRadius.circular(10),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFD7DEE5),
+          color: const Color(0xFFE8E8E8),
           borderRadius: BorderRadius.circular(10),
         ),
         padding: const EdgeInsets.all(15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Icon(icon),
-            const SizedBox(width: 8),
+            Icon(icon,color: AppColors.iconColor,),
+            const SizedBox(width: 10),
             Text(
               title,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              style: const TextStyle(color: AppColors.iconColor,fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -73,35 +73,13 @@ class AddDataOptionsBottomSheet extends StatelessWidget {
     );
   }
 
-  Future<void> _showCreateFolderPage(BuildContext context) {
+  Future<void> _showListFolder(BuildContext context) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
       builder: (BuildContext context) {
-        return CreateClassBottomSheet();
-      },
-    );
-  }
-
-  Future<void> _showCreateClassPage(BuildContext context) {
-    return showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      builder: (BuildContext context) {
-        return CreateClassBottomSheet();
-      },
-    );
-  }
-
-  Future<void> _showCreateVocabularyPage(BuildContext context) {
-    return showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      builder: (BuildContext context) {
-        return CreateVocabularyBottomSheet();
+        return ListFolderBottomSheet();
       },
     );
   }

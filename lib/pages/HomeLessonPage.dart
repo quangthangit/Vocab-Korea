@@ -6,6 +6,9 @@ import 'package:vocabkpop/pages/FlashCard/FlashCardPage.dart';
 import 'package:vocabkpop/pages/GameMatch/MatchPage.dart';
 import 'package:vocabkpop/pages/Study/StudyPage.dart';
 import 'package:vocabkpop/widget/bar/HomeLessonBar.dart';
+import 'package:vocabkpop/widget/bottom_sheets/AddDataOptionsBottomSheet%20.dart';
+import 'package:vocabkpop/widget/bottom_sheets/CreateFolderBottomSheet.dart';
+import 'package:vocabkpop/widget/bottom_sheets/LessonBottomSheet.dart';
 
 class HomeLessonPage extends StatefulWidget {
   final LessonModel lessonModel;
@@ -32,6 +35,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
       selectedContainer = index;
     });
   }
+
 
   void _navigateToPage(int index) {
     if (index == 3 && _vocabularyList.length < 6) {
@@ -66,12 +70,21 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
     }
   }
 
+  void moreVert() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return const LessonBottomSheet();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const HomeLessonBar(),
+        title: HomeLessonBar(btnShare: () {}, moreVert: moreVert,),
         backgroundColor: Colors.white,
       ),
       backgroundColor: const Color(0xFFF5F5F5),

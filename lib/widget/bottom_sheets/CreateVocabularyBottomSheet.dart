@@ -154,6 +154,11 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
       ),
       body: ListView(
         children: [
+          const LinearProgressIndicator(
+            value: 0,
+            backgroundColor: Color(0xFFD7DEE5),
+            color: AppColors.iconColor,
+          ),
           _buildLessonTitleField(),
           _buildDescriptionToggle(),
           if (_showDescriptionField) _buildLessonDescriptionField(),
