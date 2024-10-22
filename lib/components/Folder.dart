@@ -34,12 +34,12 @@ class Folder extends StatelessWidget {
           children: [
             const Align(
               alignment: Alignment.centerLeft,
-              child: Icon(Icons.save,size: 20,),
+              child: Icon(Icons.folder_copy_rounded,size: 20,),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(height: 20,),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("${folderModel.title}",style: TextStyle(fontSize: 20,fontFamily: 'Lobster')),
+              child: Text("${folderModel.title}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
             ),
           ],
         ),

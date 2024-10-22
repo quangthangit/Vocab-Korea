@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../app_colors.dart';
 
 class HomeLessonBar extends StatelessWidget {
-  const HomeLessonBar({super.key});
+  final VoidCallback btnShare;
+  final VoidCallback moreVert;
+  const HomeLessonBar({super.key, required this.btnShare, required this.moreVert});
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +23,17 @@ class HomeLessonBar extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.share, color: AppColors.iconColor, size: 20),
               onPressed: () {
+                btnShare();
               },
             ),
             IconButton(
               icon: const Icon(Icons.more_vert, color: AppColors.iconColor, size: 20),
               onPressed: () {
+                moreVert();
               },
             ),
           ],
-        )
+        ),
       ],
     );
   }

@@ -112,62 +112,72 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
           title: 'Tạo lớp học mới',
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: _classNameController,
-              decoration: const InputDecoration(
-                labelText: 'Tên lớp',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: _descriptionController,
-              decoration: const InputDecoration(
-                labelText: 'Mô tả',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
+      body: Column(
+        children: [
+          const LinearProgressIndicator(
+            value: 0,
+            backgroundColor: Color(0xFFD7DEE5),
+            color: AppColors.iconColor,
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+            margin: EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Transform.scale(
-                  scale: 1.5,
-                  child: Checkbox(
-                    value: _isEditable,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _isEditable = value ?? false;
-                      });
-                    },
+                TextField(
+                  controller: _classNameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Tên lớp',
+                    border: OutlineInputBorder(),
                   ),
                 ),
-                const Text("Cho phép người khác điều chỉnh lớp học"),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Transform.scale(
-                  scale: 1.5,
-                  child: Checkbox(
-                    value: _key,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _key = value ?? false;
-                      });
-                    },
+                const SizedBox(height: 20),
+                TextField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(
+                    labelText: 'Mô tả',
+                    border: OutlineInputBorder(),
                   ),
                 ),
-                const Text("Cho phép người khác điều chỉnh lớp học"),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Transform.scale(
+                      scale: 1.5,
+                      child: Checkbox(
+                        value: _isEditable,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isEditable = value ?? false;
+                          });
+                        },
+                      ),
+                    ),
+                    const Text("Cho phép người khác điều chỉnh lớp học"),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Transform.scale(
+                      scale: 1.5,
+                      child: Checkbox(
+                        value: _key,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _key = value ?? false;
+                          });
+                        },
+                      ),
+                    ),
+                    const Text("Cho phép người khác điều chỉnh lớp học"),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

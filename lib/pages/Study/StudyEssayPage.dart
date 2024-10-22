@@ -119,8 +119,8 @@ class _StudyEssayPageState extends State<StudyEssayPage> with SingleTickerProvid
         timeTaken: 10,
         listResultModel: _listResultModel,
       );
-
-      await _studyResultService.createStudyResult(studyResult);
+  
+      // await _studyResultService.createStudyResult(studyResult);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

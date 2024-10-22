@@ -36,7 +36,7 @@ class LibraryFolder extends StatelessWidget {
                   child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
                 ),
               ),
-              Folder(folderModel: FolderModel(title: "Tiếng hàn sơ cấp", lessonList: [], createdAt: DateTime.now(),)),
+              Folder(folderModel: FolderModel(title: "Tiếng hàn sơ cấp", lessonList: [], createdAt: DateTime.now(), idUser: '',)),
             ],
           ),
           Column(
@@ -48,7 +48,7 @@ class LibraryFolder extends StatelessWidget {
                   child: Text('Tháng 10 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
                 ),
               ),
-              Folder(folderModel: FolderModel(title: "Tiếng trung cấp", lessonList: [], createdAt: DateTime.now(),)),
+              Folder(folderModel: FolderModel(title: "Tiếng trung cấp", lessonList: [], createdAt: DateTime.now(), idUser: '',)),
             ],
           ),
           Column(
@@ -60,7 +60,7 @@ class LibraryFolder extends StatelessWidget {
                   child: Text('Tháng 9 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
                 ),
               ),
-              Folder(folderModel: FolderModel(title: "Tiếng hàn sơ cấp", lessonList: [], createdAt: DateTime.now(),)),
+              Folder(folderModel: FolderModel(title: "Tiếng hàn sơ cấp", lessonList: [], createdAt: DateTime.now(), idUser: '',)),
             ],
           ),
         ],

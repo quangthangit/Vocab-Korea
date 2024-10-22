@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
@@ -35,6 +36,7 @@ class _CreateFolderBottomSheetState extends State<CreateFolderBottomSheet> {
       title: folderName,
       createdAt: DateTime.now(),
       lessonList: [],
+      idUser: FirebaseAuth.instance.currentUser!.uid,
     );
 
     Map<String, dynamic> result = await _folderService.createFolder(folderModel);
@@ -66,20 +68,29 @@ class _CreateFolderBottomSheetState extends State<CreateFolderBottomSheet> {
           title: 'Tạo thư mục mới',
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: _folderNameController,
-              decoration: const InputDecoration(
-                labelText: 'Tên thư mục',
-                border: OutlineInputBorder(),
-              ),
+      body: Column(
+        children: [
+          const LinearProgressIndicator(
+            value: 0,
+            backgroundColor: Color(0xFFD7DEE5),
+            color: AppColors.iconColor,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  controller: _folderNameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Tên thư mục',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
