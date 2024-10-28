@@ -5,7 +5,7 @@ class ClassModel {
   String name;
   String description;
   List<String> idFolder;
-  int key;
+  int status;
   DateTime createdAt;
   String idUser;
   String imageUser;
@@ -18,7 +18,7 @@ class ClassModel {
     required this.name,
     required this.description,
     required this.idFolder,
-    required this.key,
+    required this.status,
     required this.createdAt,
     required this.idUser,
     required this.imageUser,
@@ -33,7 +33,7 @@ class ClassModel {
       name: data['name'],
       description: data['description'],
       idFolder: List<String>.from(data['id_folder']),
-      key: data['key'],
+      status: data['status'],
       createdAt: (data['created_at'] as Timestamp).toDate(),
       idUser: data['id_user'],
       imageUser : data['imageUser'],
@@ -47,7 +47,7 @@ class ClassModel {
       'name': name,
       'description': description,
       'id_folder': idFolder,
-      'key': key,
+      'status': status,
       'created_at': createdAt,
       'id_user': idUser,
       'imageUser' : imageUser,
