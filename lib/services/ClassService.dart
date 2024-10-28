@@ -26,13 +26,16 @@ class ClassService {
     return null;
   }
 
-  Future<void> updateClass(String docId, ClassModel classModel) async {
+  Future<bool> updateClass(String docId, ClassModel classModel) async {
     try {
       await classCollection.doc(docId).update(classModel.toMap());
+      return true;
     } catch (e) {
       print('Error updating class: $e');
+      return false;
     }
   }
+
 
   Future<void> deleteClass(String docId) async {
     try {
@@ -76,9 +79,6 @@ class ClassService {
     return classList;
   }
 
-
-
-
   Future<List<ClassModel>> getClassesExcludingUserId(String userId) async {
     try {
       QuerySnapshot querySnapshot = await classCollection
@@ -96,6 +96,17 @@ class ClassService {
     }
   }
 
-
+  Future<bool> checkExistUser(String classId, String userId) async {
+    try {
+      DocumentSnapshot docSnapshot = await classCollection.doc(classId).get();
+      if (docSnapshot.exists) {
+        ClassModel classModel = ClassModel.fromFirestore(docSnapshot);
+        return classModel.idMember.contains(userId);
+      }
+    } catch (e) {
+      print('Error checking user existence in class: $e');
+    }
+    return false;
+  }
 
 }
