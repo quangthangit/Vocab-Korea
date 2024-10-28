@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/pages/LoginPage.dart';
 import 'package:vocabkpop/pages/MyHomePage.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import '../app_colors.dart';
 
 class CheckLoginPage extends StatefulWidget {
   @override
@@ -23,32 +25,64 @@ class _CheckLoginPageState extends State<CheckLoginPage> {
       stream: _userStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(
+              child: LoadingAnimationWidget.threeRotatingDots(
+                color: AppColors.backgroundColor,
+                size: 50,
+              ),
+            ),
           );
         }
-        return AnimatedSwitcher(
-          duration: const Duration(seconds: 2),
-          transitionBuilder: (Widget child, Animation<double> animation) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-          child: snapshot.hasData
-              ? FutureBuilder(
-            future: Future.delayed(Duration(milliseconds: 1500)),
-            builder: (context, futureSnapshot) {
-              if (futureSnapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+
+        return Stack(
+          children: [
+            AnimatedSwitcher(
+              duration: const Duration(seconds: 2),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
                 );
-              } else {
-                return MyHomePage();
-              }
-            },
-          )
-              : LoginPage(),
+              },
+              child: snapshot.hasData
+                  ? FutureBuilder(
+                future: Future.delayed(Duration(milliseconds: 2000)),
+                builder: (context, futureSnapshot) {
+                  if (futureSnapshot.connectionState == ConnectionState.waiting) {
+                    return Scaffold(
+                      body: Center(
+                        child: LoadingAnimationWidget.threeRotatingDots(
+                          color: AppColors.backgroundColor,
+                          size: 50,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return MyHomePage();
+                  }
+                },
+              )
+                  : FutureBuilder(
+                future: Future.delayed(Duration(milliseconds: 1500)),
+                builder: (context, futureSnapshot) {
+                  if (futureSnapshot.connectionState == ConnectionState.waiting) {
+                    return Scaffold(
+                      body: Center(
+                        child: LoadingAnimationWidget.threeRotatingDots(
+                          color: AppColors.backgroundColor,
+                          size: 50,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return LoginPage();
+                  }
+                },
+              ),
+            ),
+          ],
         );
       },
     );

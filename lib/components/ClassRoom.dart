@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
 import 'package:vocabkpop/pages/DetailClassPage.dart';
 
+import '../app_colors.dart';
+
 class ClassRoom extends StatelessWidget {
   final ClassModel classModel;
   const ClassRoom({super.key, required this.classModel});
@@ -46,14 +48,14 @@ class ClassRoom extends StatelessWidget {
               children: [
                  Row(
                   children: [
-                    const Icon(Icons.collections_bookmark_outlined),
+                    const Icon(Icons.collections_bookmark_outlined,color: AppColors.iconColor,),
                     const SizedBox(width: 10,),
                     Text('${classModel.idFolder.length} Thư mục',style: const TextStyle(fontSize: 15,fontFamily: 'Lobster'))
                   ],
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.supervisor_account),
+                    const Icon(Icons.supervisor_account,color: AppColors.iconColor),
                     const SizedBox(width: 10,),
                     Text('${classModel.idMember.length}',style: const TextStyle(fontSize: 15,fontFamily: 'Lobster'))
                   ],

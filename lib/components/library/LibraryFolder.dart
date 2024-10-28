@@ -1,70 +1,37 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/components/Folder.dart';
 import 'package:vocabkpop/models/FolderModel.dart';
+import 'package:vocabkpop/services/FolderService.dart';
 
 class LibraryFolder extends StatelessWidget {
-  const LibraryFolder({super.key});
-
+  final FolderService _folderService = FolderService();
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        children: [
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 30),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Bộ lọc',
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('Tuần này', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-                ),
-              ),
-              Folder(folderModel: FolderModel(title: "Tiếng hàn sơ cấp", lessonList: [], createdAt: DateTime.now(), idUser: '',)),
-            ],
-          ),
-          Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('Tháng 10 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-                ),
-              ),
-              Folder(folderModel: FolderModel(title: "Tiếng trung cấp", lessonList: [], createdAt: DateTime.now(), idUser: '',)),
-            ],
-          ),
-          Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('Tháng 9 2024', style: TextStyle(fontSize: 20, fontFamily: 'Lobster')),
-                ),
-              ),
-              Folder(folderModel: FolderModel(title: "Tiếng hàn sơ cấp", lessonList: [], createdAt: DateTime.now(), idUser: '',)),
-            ],
-          ),
-        ],
-      ),
+    final String? userId = FirebaseAuth.instance.currentUser?.uid;
+    return ListView(
+      children: [
+        const SizedBox(height: 10),
+        FutureBuilder<List<FolderModel>>(
+          future: userId != null ? _folderService.getFolderByUser(userId) : Future.value([]),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No lesson found.'));
+            }
+            final folderModel = snapshot.data!;
+
+            return Column(
+              children: [
+                ...folderModel.map((folderModel) => Folder(folderModel: folderModel)).toList(),
+              ],
+            );
+          },
+        ),
+      ],
     );
   }
 }

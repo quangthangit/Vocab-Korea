@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vocabkpop/models/FolderModel.dart';
 import 'package:vocabkpop/pages/DetailFolderPage.dart';
 
+import '../app_colors.dart';
+
 class Folder extends StatelessWidget {
   final FolderModel folderModel;
   const Folder({super.key, required this.folderModel});
@@ -34,7 +36,7 @@ class Folder extends StatelessWidget {
           children: [
             const Align(
               alignment: Alignment.centerLeft,
-              child: Icon(Icons.folder_copy_rounded,size: 20,),
+              child: Icon(Icons.folder_copy_rounded,size: 20),
             ),
             const SizedBox(height: 20,),
             Align(

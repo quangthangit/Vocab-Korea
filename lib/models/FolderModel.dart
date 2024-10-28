@@ -6,6 +6,7 @@ class FolderModel {
   final List<String> lessonList;
   final DateTime createdAt;
   final String idUser;
+  List<String> idMember;
 
   FolderModel( {
     this.id = '',
@@ -13,6 +14,7 @@ class FolderModel {
     required this.lessonList,
     required this.createdAt,
     required this.idUser,
+    required this.idMember,
   });
 
   factory FolderModel.fromFirestore(DocumentSnapshot doc) {
@@ -23,6 +25,7 @@ class FolderModel {
       lessonList: List<String>.from(data['lesson_list']),
       createdAt: (data['created_at'] as Timestamp).toDate(),
       idUser: data['idUser'],
+      idMember: List<String>.from(data['idMember'] ?? []),
     );
   }
 
@@ -32,6 +35,7 @@ class FolderModel {
       'created_at': Timestamp.fromDate(createdAt),
       'lesson_list': lessonList,
       'idUser' : idUser,
+      'idMember': idMember,
     };
   }
 
