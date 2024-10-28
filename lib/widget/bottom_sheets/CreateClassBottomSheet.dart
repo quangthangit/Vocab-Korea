@@ -13,7 +13,7 @@ class CreateClassBottomSheet extends StatefulWidget {
 class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
   bool _isPasswordEnabled = false;
   bool _isEditable = false;
-  bool _key = false;
+  bool _status = false;
 
   final TextEditingController _classNameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -46,7 +46,7 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
               Text('Tên lớp: $className'),
               Text('Mô tả: $description'),
               Text('Cho phép chỉnh sửa: ${_isEditable ? 'Có' : 'Không'}'),
-              Text('Cho phép công khai: ${_key ? 'Có' : 'Không'}'),
+              Text('Cho phép công khai: ${_status ? 'Có' : 'Không'}'),
             ],
           ),
           actions: [
@@ -60,11 +60,11 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
               child: const Text('Xác nhận'),
               onPressed: () async {
                 int allowEdit = _isEditable ? 1 : 0;
-
+                int statusEdit = _status ? 1 : 0;
                 ClassModel classModel = ClassModel(
                     name: className,
                     description: description,
-                    key: allowEdit,
+                    status : statusEdit,
                     createdAt: DateTime.now(),
                     idUser: FirebaseAuth.instance.currentUser!.uid,
                     allowEdit: allowEdit,
@@ -89,7 +89,7 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
                 _descriptionController.clear();
                 setState(() {
                   _isEditable = false;
-                  _key = false;
+                  _status = false;
                 });
                 Navigator.of(context).pop();
               },
@@ -163,15 +163,15 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
                     Transform.scale(
                       scale: 1.5,
                       child: Checkbox(
-                        value: _key,
+                        value: _status,
                         onChanged: (bool? value) {
                           setState(() {
-                            _key = value ?? false;
+                            _status = value ?? false;
                           });
                         },
                       ),
                     ),
-                    const Text("Cho phép người khác điều chỉnh lớp học"),
+                    const Text("Cho phép lớp học công khai"),
                   ],
                 ),
               ],
