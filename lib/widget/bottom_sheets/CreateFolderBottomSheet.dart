@@ -37,6 +37,9 @@ class _CreateFolderBottomSheetState extends State<CreateFolderBottomSheet> {
       createdAt: DateTime.now(),
       lessonList: [],
       idUser: FirebaseAuth.instance.currentUser!.uid,
+      idMember: [
+        FirebaseAuth.instance.currentUser!.uid
+      ]
     );
 
     Map<String, dynamic> result = await _folderService.createFolder(folderModel);

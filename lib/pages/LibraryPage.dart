@@ -26,7 +26,7 @@ class _LibraryPageState extends State<LibraryPage> {
     Widget content;
     switch (_selectedIndex) {
       case 1:
-        content = const LibraryFolder();
+        content = LibraryFolder();
         break;
       case 2:
         content = LibraryClassRoom();

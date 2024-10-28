@@ -20,6 +20,24 @@ class FolderService {
     }
   }
 
+  Future<List<FolderModel>> getFolderByUser(String userId) async {
+    try {
+      QuerySnapshot querySnapshot = await folderCollection
+          .where('idMember', arrayContains: userId)
+          .get();
+
+      List<FolderModel> lesson = querySnapshot.docs.map((doc) {
+        return FolderModel.fromFirestore(doc);
+      }).toList();
+
+      return lesson;
+    } catch (e) {
+      print('Error getting classes: $e');
+      return [];
+    }
+  }
+
+
   Future<FolderModel?> getFolderById(String? docId) async {
     try {
       DocumentSnapshot docSnapshot = await folderCollection.doc(docId).get();
