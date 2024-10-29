@@ -6,8 +6,6 @@ import 'package:vocabkpop/pages/FlashCard/FlashCardPage.dart';
 import 'package:vocabkpop/pages/GameMatch/MatchPage.dart';
 import 'package:vocabkpop/pages/Study/StudyPage.dart';
 import 'package:vocabkpop/widget/bar/HomeLessonBar.dart';
-import 'package:vocabkpop/widget/bottom_sheets/AddDataOptionsBottomSheet%20.dart';
-import 'package:vocabkpop/widget/bottom_sheets/CreateFolderBottomSheet.dart';
 import 'package:vocabkpop/widget/bottom_sheets/LessonBottomSheet.dart';
 
 class HomeLessonPage extends StatefulWidget {
@@ -74,7 +72,7 @@ class _HomeLessonPageState extends State<HomeLessonPage> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return const LessonBottomSheet();
+        return LessonBottomSheet(idLesson: widget.lessonModel.id,);
       },
     );
   }

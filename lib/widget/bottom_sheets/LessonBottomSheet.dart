@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocabkpop/app_colors.dart';
-import 'package:vocabkpop/widget/bottom_sheets/CreateClassBottomSheet.dart';
-import 'package:vocabkpop/widget/bottom_sheets/CreateVocabularyBottomSheet.dart';
 import 'package:vocabkpop/widget/bottom_sheets/ListFolderBottomSheet.dart';
 
 class LessonBottomSheet extends StatelessWidget {
-  const LessonBottomSheet({super.key});
+  final String idLesson;
+  const LessonBottomSheet({super.key, required this.idLesson});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +78,7 @@ class LessonBottomSheet extends StatelessWidget {
       isScrollControlled: true,
       useSafeArea: true,
       builder: (BuildContext context) {
-        return ListFolderBottomSheet();
+        return ListFolderBottomSheet(idLesson: idLesson,);
       },
     );
   }

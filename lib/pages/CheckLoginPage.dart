@@ -52,6 +52,7 @@ class _CheckLoginPageState extends State<CheckLoginPage> {
                 builder: (context, futureSnapshot) {
                   if (futureSnapshot.connectionState == ConnectionState.waiting) {
                     return Scaffold(
+                      backgroundColor: Colors.white,
                       body: Center(
                         child: LoadingAnimationWidget.threeRotatingDots(
                           color: AppColors.backgroundColor,
@@ -69,6 +70,7 @@ class _CheckLoginPageState extends State<CheckLoginPage> {
                 builder: (context, futureSnapshot) {
                   if (futureSnapshot.connectionState == ConnectionState.waiting) {
                     return Scaffold(
+                      backgroundColor: Colors.white,
                       body: Center(
                         child: LoadingAnimationWidget.threeRotatingDots(
                           color: AppColors.backgroundColor,
