@@ -1,21 +1,122 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vocabkpop/models/ApproveUserModel.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
 import 'package:vocabkpop/pages/DetailClassPage.dart';
 
 import '../app_colors.dart';
+import '../services/ClassService.dart';
 
 class ClassRoom extends StatelessWidget {
   final ClassModel classModel;
-  const ClassRoom({super.key, required this.classModel});
+  final User? _user = FirebaseAuth.instance.currentUser;
+  ClassRoom({super.key, required this.classModel});
+
+  Future<void> _navigateToDetailPage(BuildContext context) async {
+    final String userId = _user!.uid;
+    final String userPhotoURL = _user!.photoURL ?? '';
+
+    ClassService classService = ClassService();
+    bool userExistsInClass = await classService.checkExistUser(classModel.id, userId);
+
+    if (userExistsInClass) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DetailClassPage(idClass: classModel.id)),
+      );
+    } else {
+      if (classModel.status == 0) { // private class
+
+        if(checkApprove(userId)) {
+          showNotificationDialog(context, "Bạn đã yêu cầu tham gia lớp học và cần chờ phê duyệt.");
+        } else {
+          showConfirmationDialog(context, () async {
+
+            ApproveUserModel approveUser = ApproveUserModel(uId: userId, urlAvt: userPhotoURL);
+            ClassModel newClass = classModel;
+            newClass.listApprove.add(approveUser);
+
+            bool result = await classService.updateClass(classModel.id, newClass);
+            if(result) {
+              showNotificationDialog(context, "Đã yêu cầu vào lớp học thành công.");
+            }
+          });
+        }
+
+      } else if (classModel.status == 1) { // public class
+
+        showConfirmationDialog(context, () async {
+
+          ClassModel newClass = classModel;
+          newClass.idMember.add(userId);
+
+          bool result = await classService.updateClass(classModel.id, newClass);
+          if(result) {
+            showNotificationDialog(context, "Đã tham gia lớp học thành công.");
+          }
+        });
+      }
+    }
+  }
+
+  bool checkApprove(String idUser) {
+    return classModel.listApprove.any((approveUser) => approveUser.uId == idUser);
+  }
+
+  void showNotificationDialog(BuildContext context, String title) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context)
+    {
+      return AlertDialog(
+        title: const Text("Thông báo"),
+        content: Text(title),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text("OK"),
+          ),
+        ],
+      );
+    });
+  }
+
+  void showConfirmationDialog(BuildContext context, VoidCallback onConfirmed) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Xác nhận tham gia lớp học"),
+          content: const Text("Bạn có chắc chắn muốn tham gia lớp học này không?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Hủy"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                onConfirmed();
+              },
+              child: Text("Xác nhận"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DetailClassPage(idClass: classModel.id)),
-        );
+        _navigateToDetailPage(context);
       },
       child: Container(
         padding: const EdgeInsets.all(20),
