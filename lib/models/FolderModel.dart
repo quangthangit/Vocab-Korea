@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FolderModel {
   final String id;
   final String title;
-  final List<String> lessonList;
+  List<String> lessonList;
   final DateTime createdAt;
   final String idUser;
   List<String> idMember;
