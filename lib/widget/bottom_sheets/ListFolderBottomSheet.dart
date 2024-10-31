@@ -105,7 +105,7 @@ class _ListFolderBottomSheetState extends State<ListFolderBottomSheet> {
     );
   }
 
-    Widget createToast(String message,Color color,IconData icon) {
+  Widget createToast(String message,Color color,IconData icon) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(

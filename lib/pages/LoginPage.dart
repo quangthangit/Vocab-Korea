@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,6 +36,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: AppColors.backgroundColor,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

@@ -78,7 +78,7 @@ class _DetailFolderPageState extends State<DetailFolderPage> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: AppColors.background,
-            title: DetailClassBar(btn_addFolder: () => showFormCreateFolder(context), title: "Thư mục", item: ["Thêm bài học"],),
+            title: DetailClassBar(btn_addFolder: () => showFormCreateFolder(context), title: "Thư mục", item: ["Thêm bài học"], btn_browse: () {  },),
           ),
           body: Padding(
             padding: const EdgeInsets.all(20),

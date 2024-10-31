@@ -3,10 +3,11 @@ import 'package:vocabkpop/app_colors.dart';
 
 class DetailClassBar extends StatelessWidget {
   final VoidCallback btn_addFolder;
+  final VoidCallback btn_browse;
   final String title;
   final List<String> item;
 
-  DetailClassBar({super.key, required this.btn_addFolder, required this.title, required this.item});
+  DetailClassBar({super.key, required this.btn_addFolder, required this.title, required this.item, required this.btn_browse});
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,8 @@ class DetailClassBar extends StatelessWidget {
               btn_addFolder();
             } else if (value == 'Thêm thư mục') {
               btn_addFolder();
+            } else if (value == "Duyệt thành viên") {
+              btn_browse();
             }
           },
           itemBuilder: (BuildContext context) {

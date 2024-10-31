@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vocabkpop/pages/CheckLoginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'app_colors.dart';
 
 
 void main() async {
@@ -14,6 +16,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: AppColors.backgroundColor,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
