@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vocabkpop/models/ApproveUserModel.dart';
+import 'package:vocabkpop/models/BasicUserInfo.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
 import 'package:vocabkpop/pages/DetailClassPage.dart';
 
@@ -32,9 +32,9 @@ class ClassRoom extends StatelessWidget {
         } else {
           showConfirmationDialog(context, () async {
 
-            ApproveUserModel approveUser = ApproveUserModel(uId: userId, urlAvt: userPhotoURL);
+            BasicUserInfo approveUser = BasicUserInfo(idUser: userId, urlAvt: userPhotoURL);
             ClassModel newClass = classModel;
-            newClass.listApprove.add(approveUser);
+            newClass.listUser.add(approveUser);
 
             bool result = await classService.updateClass(classModel.id, newClass);
             if(result) {
@@ -60,7 +60,7 @@ class ClassRoom extends StatelessWidget {
   }
 
   bool checkApprove(String idUser) {
-    return classModel.listApprove.any((approveUser) => approveUser.uId == idUser);
+    return classModel.listUser.any((approveUser) => approveUser.idUser == idUser);
   }
 
   void showNotificationDialog(BuildContext context, String title) {

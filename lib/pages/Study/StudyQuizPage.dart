@@ -21,6 +21,7 @@ class QuizWidget extends StatefulWidget {
 
 class _QuizWidgetState extends State<QuizWidget> {
   late List<VocabularyModel> _vocabularyList;
+  late List<List<VocabularyModel>> _questionOptions;
   late String _title = 'Chọn câu trả lời';
   late PageController _pageController;
   VocabularyModel? _selectedAnswer;
@@ -41,25 +42,39 @@ class _QuizWidgetState extends State<QuizWidget> {
         _currentIndex = _pageController.page!.round();
       });
     });
+    _generateOptionsForAllQuestions();
+  }
+
+  void _generateOptionsForAllQuestions() {
+
+    _questionOptions = _vocabularyList.map((vocabulary) {
+      List<VocabularyModel> optionsSet = Levenshtein().selectQuestion(
+        widget.language,
+        widget.language == 0 ? vocabulary.korean : vocabulary.vietnamese,
+        _vocabularyList,
+      );
+
+
+      optionsSet.insert(Random().nextInt(4), vocabulary);
+      return optionsSet;
+    }).toList();
   }
 
   void _checkAnswer(VocabularyModel selectedAnswer, VocabularyModel correctAnswer) {
-
     if (_selectedAnswer != null) return;
 
     ResultModel resultModel = ResultModel(
       answerUser: widget.language == 0 ? selectedAnswer.korean : selectedAnswer.vietnamese,
-      answer: widget.language == 0 ? correctAnswer.korean : selectedAnswer.vietnamese,
+      answer: widget.language == 0 ? correctAnswer.korean : correctAnswer.vietnamese,
       question: widget.language == 0 ? correctAnswer.vietnamese : selectedAnswer.korean,
     );
-
 
     setState(() {
       _listResultModel.add(resultModel);
       _selectedAnswer = selectedAnswer;
       _isCorrect = selectedAnswer == correctAnswer;
       _isCorrect! ? countCorrect++ : countWrong++;
-      _title = _isCorrect! ? 'Bạn đang làm rất tuyệt !' : 'Chưa đúng hãy cố gắng nhé !';
+      _title = _isCorrect! ? 'Bạn đang làm rất tuyệt!' : 'Chưa đúng hãy cố gắng nhé!';
     });
 
     if (_isCorrect == true) {
@@ -93,7 +108,6 @@ class _QuizWidgetState extends State<QuizWidget> {
         listResultModel: _listResultModel,
       );
 
-      // await _studyResultService.createStudyResult(studyResult);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -107,23 +121,20 @@ class _QuizWidgetState extends State<QuizWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     final double progress = (_currentIndex + 1) / _vocabularyList.length;
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: StudyEssayBar(
-            currentIndex: _currentIndex,
-            vocabularyList: _vocabularyList),
+        title: StudyEssayBar(currentIndex: _currentIndex, vocabularyList: _vocabularyList),
       ),
       body: SafeArea(
         child: Column(
           children: [
             LinearProgressIndicator(
               value: progress,
-              backgroundColor: Color(0xFFD7DEE5),
+              backgroundColor: const Color(0xFFD7DEE5),
               color: AppColor.AppColors.iconColor,
             ),
             Expanded(
@@ -135,16 +146,8 @@ class _QuizWidgetState extends State<QuizWidget> {
                   final vocabulary = _vocabularyList[index];
                   final VocabularyModel correctAnswer = vocabulary;
 
-                  // Generate options for the current question
-                  List<VocabularyModel> optionsSet = [correctAnswer];
-                  optionsSet.addAll(Levenshtein().selectQuestion(
-                    widget.language,
-                    widget.language == 0 ? correctAnswer.korean : correctAnswer.vietnamese,
-                    _vocabularyList,
-                  ));
-
-                  // No need to shuffle since we want them in order
-                  final List<VocabularyModel> options = optionsSet.toList();
+                  // Get stable options for the current question
+                  final List<VocabularyModel> options = _questionOptions[index];
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

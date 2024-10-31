@@ -108,5 +108,4 @@ class ClassService {
     }
     return false;
   }
-
 }

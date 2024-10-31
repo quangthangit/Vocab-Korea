@@ -73,7 +73,7 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
                       FirebaseAuth.instance.currentUser!.uid,
                     ],
                     idFolder: [],
-                    listApprove: []
+                    listUser: []
                 );
 
                 bool isSuccess = await _classService.createClass(classModel);

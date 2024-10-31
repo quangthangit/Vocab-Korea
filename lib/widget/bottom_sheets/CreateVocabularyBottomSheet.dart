@@ -1,6 +1,7 @@
 import 'dart:developer' as dev;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/models/FolderModel.dart';
 import 'package:vocabkpop/models/LessonModel.dart';
@@ -22,6 +23,7 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
   bool _showDescriptionField = false;
   String lessonTitle = '';
   String lessonDescription = '';
+  late FToast fToast;
   List<VocabularyModel> vocabularyList = [];
   final LessonService _lessonService = LessonService();
   final FolderService _folderService = FolderService();
@@ -38,7 +40,28 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
     setState(() {
       lessonTitle = title;
       lessonDescription = description;
+      fToast = FToast();
+      fToast.init(context);
     });
+  }
+
+  Widget createToast(String message,Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: color,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            width: 12.0,
+          ),
+          Text(message,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        ],
+      ),
+    );
   }
 
   Future<void> changeTrans(int index, String value) async {
@@ -86,7 +109,11 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
     } else {
       isSuccess = await _lessonService.createLesson(newLesson);
     }
-    _showSnackBar(isSuccess ? 'Thêm bài học thành công' : 'Thêm bài học thất bại');
+    fToast.showToast(
+      child: createToast(isSuccess ? 'Thêm bài học thành công' : 'Thêm bài học thất bại',isSuccess ? Colors.green : Colors.red),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 1,),
+    );
     reset();
   }
 
@@ -112,10 +139,9 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
   }
 
   void reset() {
+    vocabularyList.clear();
     lessonTitle = '';
     lessonDescription = '';
-    vocabularyList.clear();
-
     for (var form in numberForms) {
       form['termController'].dispose();
       form['definitionController'].dispose();
@@ -154,10 +180,10 @@ class _CreateVocabularyBottomSheetState extends State<CreateVocabularyBottomShee
       ),
       body: ListView(
         children: [
-          const LinearProgressIndicator(
-            value: 0,
-            backgroundColor: Color(0xFFD7DEE5),
+          const Divider(
             color: AppColors.iconColor,
+            height: 1,
+            thickness: 15,
           ),
           _buildLessonTitleField(),
           _buildDescriptionToggle(),

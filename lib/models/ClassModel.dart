@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:vocabkpop/models/ApproveUserModel.dart';
+import 'package:vocabkpop/models/BasicUserInfo.dart';
 
 class ClassModel {
   String id;
@@ -12,7 +12,7 @@ class ClassModel {
   String imageUser;
   int allowEdit;
   List<String> idMember;
-  List<ApproveUserModel> listApprove;
+  List<BasicUserInfo> listUser;
 
 
   ClassModel({
@@ -26,7 +26,7 @@ class ClassModel {
     required this.imageUser,
     required this.allowEdit,
     required this.idMember,
-    required this.listApprove,
+    required this.listUser,
   });
 
   factory ClassModel.fromFirestore(DocumentSnapshot doc) {
@@ -42,8 +42,8 @@ class ClassModel {
       imageUser : data['imageUser'],
       allowEdit: data['allow_edit'],
       idMember: List<String>.from(data['idMember'] ?? []),
-      listApprove: List<ApproveUserModel>.from(
-        (data['listApprove'] as List<dynamic>).map((v) => ApproveUserModel.fromMap(v)),
+      listUser: List<BasicUserInfo>.from(
+        (data['listUser'] as List<dynamic>).map((v) => BasicUserInfo.fromMap(v)),
       ),
     );
   }
@@ -59,7 +59,7 @@ class ClassModel {
       'imageUser' : imageUser,
       'allow_edit': allowEdit,
       'idMember': idMember,
-      'listApprove': listApprove.map((v) => v.toMap()).toList(),
+      'listUser': listUser.map((v) => v.toMap()).toList(),
     };
   }
 }

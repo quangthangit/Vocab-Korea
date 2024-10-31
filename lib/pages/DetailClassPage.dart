@@ -4,6 +4,7 @@ import 'package:vocabkpop/app_colors.dart';
 import 'package:vocabkpop/components/User.dart';
 import 'package:vocabkpop/models/ClassModel.dart';
 import 'package:vocabkpop/models/UserModel.dart';
+import 'package:vocabkpop/widget/bottom_sheets/BrowseBottomSheet.dart';
 import 'package:vocabkpop/widget/bottom_sheets/CreateFolderBottomSheet.dart';
 import 'package:vocabkpop/services/ClassService.dart';
 import 'package:vocabkpop/services/FolderService.dart';
@@ -52,6 +53,19 @@ class _DetailClassPageState extends State<DetailClassPage> {
     });
   }
 
+  Future<void> showFormBrowse(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return BrowseBottomSheet(idClass: widget.idClass);
+      },
+    ).then((_) {
+      _refreshData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<ClassModel?>(
@@ -82,16 +96,18 @@ class _DetailClassPageState extends State<DetailClassPage> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: AppColors.background,
-            title: DetailClassBar(btn_addFolder: () => showFormCreateFolder(context), title: "Lớp", item: ["Thêm thư mục"],),
+            title: DetailClassBar(
+              btn_addFolder: () => showFormCreateFolder(context),
+              title: "Lớp", item: ["Thêm thư mục","Duyệt thành viên"],
+              btn_browse: () => showFormBrowse(context),),
           ),
           body: Column(
             children: [
-              const LinearProgressIndicator(
-                value: 100,
-                backgroundColor: Color(0xFFD7DEE5),
+              const Divider(
                 color: AppColors.iconColor,
+                height: 1,
+                thickness: 15,
               ),
-              // Wrap the inner Column inside Flexible
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.all(20),

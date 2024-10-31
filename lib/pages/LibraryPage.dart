@@ -34,7 +34,6 @@ class _LibraryPageState extends State<LibraryPage> {
       default:
         content = LibraryLesson();
     }
-
     return const Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
