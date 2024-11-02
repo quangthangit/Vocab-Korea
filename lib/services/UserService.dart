@@ -44,5 +44,4 @@ class UserService {
       return false;
     }
   }
-
 }

@@ -36,7 +36,7 @@ class _ResultSearchWidgetState extends State<ResultSearchPage> {
 
   void _handleSubmit(String text) {
     setState(() {
-      _searchText = text; // Cập nhật giá trị tìm kiếm
+      _searchText = text;
     });
   }
 
@@ -52,35 +52,46 @@ class _ResultSearchWidgetState extends State<ResultSearchPage> {
           child: Row(
             children: [
               IconButton(
-                icon: Icon(Icons.arrow_back, color: AppColors.iconColor, size: 30),
+                icon: const Icon(Icons.arrow_back, color: AppColors.iconColor, size: 30),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: TextFormField(
-                  initialValue: _searchText, // Đặt giá trị mặc định
+                  initialValue: _searchText,
                   onChanged: _handleTextChanged,
                   onFieldSubmitted: _handleSubmit,
                   decoration: InputDecoration(
                     hintText: 'Học phần, lớp học',
+                    hintStyle: const TextStyle(
+                      color: Colors.grey,
+                    ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(
-                        color: Colors.brown,
-                        width: 2.0, // Độ dày viền
+                        color: Colors.brown.withOpacity(0.5),
+                        width: 1.0,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
                         color: AppColors.iconColor,
                         width: 2.0,
                       ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
-                    prefixIcon: Icon(Icons.search_sharp, color: AppColors.iconColor),
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 16.0,
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                  ),
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -112,8 +123,9 @@ class _ResultSearchWidgetState extends State<ResultSearchPage> {
             labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.blue,
+            indicatorSize: TabBarIndicatorSize.tab,
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Expanded(
             child: TabBarView(
               children: [

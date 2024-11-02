@@ -43,7 +43,7 @@ class ClassRoom extends StatelessWidget {
           });
         }
 
-      } else if (classModel.status == 1) { // public class
+      } else if (classModel.status == 1) {
 
         showConfirmationDialog(context, () async {
 
@@ -139,10 +139,10 @@ class ClassRoom extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(classModel.name,style: const TextStyle(fontSize: 15,fontFamily: 'Lobster')),
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(classModel.description,style: const TextStyle(fontSize: 12,fontFamily: 'Lobster')),
-            ),
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Text(classModel.description,style: const TextStyle(fontSize: 12,)),
+            // ),
             const SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

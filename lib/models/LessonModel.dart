@@ -49,4 +49,19 @@ class LessonModel {
       'idMember' : idMember
     };
   }
+  factory LessonModel.fromMap(Map<String, dynamic> map) {
+    return LessonModel(
+      id: map['id'],
+      dateCreate: map['creator'],
+      vocabulary: List<VocabularyModel>.from(
+        (map['vocabulary'] as List<dynamic>).map((v) => VocabularyModel.fromMap(v)),
+      ),
+      imageUser : map['imageUser'],
+      creator: map['creator'],
+      title: map['title'],
+      description: map['description'],
+      idMember: map['idMember'],
+    );
+  }
+
 }

@@ -63,6 +63,10 @@ class _QuizWidgetState extends State<QuizWidget> {
   void _checkAnswer(VocabularyModel selectedAnswer, VocabularyModel correctAnswer) {
     if (_selectedAnswer != null) return;
 
+    if (_currentIndex >= _vocabularyList.length - 1) {
+      _saveStudyResult();
+    }
+
     ResultModel resultModel = ResultModel(
       answerUser: widget.language == 0 ? selectedAnswer.korean : selectedAnswer.vietnamese,
       answer: widget.language == 0 ? correctAnswer.korean : correctAnswer.vietnamese,
