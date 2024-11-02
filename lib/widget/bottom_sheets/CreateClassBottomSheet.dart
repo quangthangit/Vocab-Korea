@@ -115,10 +115,10 @@ class _CreateClassBottomSheetPageState extends State<CreateClassBottomSheet> {
       ),
       body: Column(
         children: [
-          const LinearProgressIndicator(
-            value: 0,
-            backgroundColor: Color(0xFFD7DEE5),
+          const Divider(
             color: AppColors.iconColor,
+            height: 1,
+            thickness: 15,
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),

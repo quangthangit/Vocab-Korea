@@ -29,10 +29,11 @@ class HomeBar extends StatelessWidget {
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('KOREA', style: TextStyle(fontSize: 30, color: Colors.white, fontFamily: 'Lobster')),
+              Text('VOCAB-KOREA', style: TextStyle(fontSize: 20, color: Colors.white, fontFamily: 'Lobster')),
               Icon(Icons.notifications_none, color: Colors.white, size: 30),
             ],
           ),
+          SizedBox(height: 20,),
           Row(
             children: [
               Expanded(
