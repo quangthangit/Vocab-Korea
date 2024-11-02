@@ -3,11 +3,5 @@
          the Flutter tool needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
-    <resources>
-        <string name="app_name">vocabkpop</string>
-        <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
-        <string name="fb_login_protocol_scheme">fbYOUR_FACEBOOK_APP_ID</string>
-    </resources>
-
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

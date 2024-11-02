@@ -34,7 +34,6 @@ dependencies:
   table_calendar: ^3.0.8
   firebase_auth: ^5.3.1
   google_sign_in: ^6.2.1
-  flutter_facebook_auth: ^7.1.1
   loading_animation_widget:
   sqflite: ^2.0.0
   path_provider: ^2.0.0
