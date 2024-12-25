@@ -19,7 +19,7 @@ class Folder extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
-        margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -33,15 +33,42 @@ class Folder extends StatelessWidget {
           ],
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Icon(Icons.folder_open,size: 30),
-            ),
-            const SizedBox(height: 20,),
+            // const Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Icon(Icons.folder_copy_outlined,size: 25),
+            // ),
+            // const SizedBox(height: 20,),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("${folderModel.title}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700)),
+              child: Text("${folderModel.title}",style: TextStyle(fontSize: 15,fontFamily: 'Lobster')),
+            ),
+            const SizedBox(height: 20,),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: const Color(0xFFEEEEEE),
+              ),
+              child: Text(
+                '${folderModel.lessonList.length} Học phần',
+                style: const TextStyle(fontSize: 15, fontFamily: 'Lobster'),
+              ),
+            ),
+            const SizedBox(height: 20,),
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 15,
+                  backgroundImage: NetworkImage("https://d1hjkbq40fs2x4.cloudfront.net/2017-08-21/files/landscape-photography_1645-t.jpg"),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  folderModel.idUser,
+                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+                ),
+              ],
             ),
           ],
         ),

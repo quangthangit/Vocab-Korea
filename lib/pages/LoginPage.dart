@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vocabkpop/app_colors.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vocabkpop/services/loginWithSocialNetwork.dart';
@@ -26,7 +25,7 @@ class LoginPage extends StatelessWidget {
     }
 
     if (user != null) {
-      // Navigate to the next page or perform any additional actions on success
+      // Handle successful login here
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Đăng nhập thất bại')),
@@ -37,118 +36,60 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: AppColors.backgroundColor,
+      statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
     ));
+
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            size: 40,
-            color: AppColors.iconColor,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Unification_flag_of_Korea.svg/800px-Unification_flag_of_Korea.svg.png'),
+            fit: BoxFit.cover,
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 35),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                'Quickly log in with',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              SocialLoginButton(
-                buttons: Buttons.Google,
-                onPressed: () {
-                  _handleLoginWithSocialNetwork(context, "Google");
-                },
-              ),
-              SocialLoginButton(
-                buttons: Buttons.Facebook,
-                onPressed: () {
-                  _handleLoginWithSocialNetwork(context, "Facebook");
-                },
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'or login with your email or username',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Email or username',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Align(
-                alignment: Alignment.center,
-                child: TextButton(
-                  onPressed: () {
+        child: Stack(
+          children: [
+            Container(
 
-                  },
-                  child: RichText(
-                    text: const TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Forgot ',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        TextSpan(
-                          text: 'username ',
-                          style: TextStyle(color: AppColors.backgroundColor),
-                        ),
-                        TextSpan(
-                          text: 'or ',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        TextSpan(
-                          text: 'password',
-                          style: TextStyle(color: AppColors.backgroundColor),
-                        ),
-                      ],
+            ),
+            const SizedBox(width: 50),
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 35),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 200),
+                    const Text('Chào mừng bạn đến với Vocab Korea',style: TextStyle(
+                      fontSize: 35,fontWeight: FontWeight.w700,fontFamily: 'Lobster',color: Colors.black
+                    ),),
+                    const SizedBox(height: 50),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SocialLoginButton(
+                            buttons: Buttons.Google,
+                            onPressed: () {
+                              _handleLoginWithSocialNetwork(context, "Google");
+                            },
+                          ),
+                          SocialLoginButton(
+                            buttons: Buttons.Facebook,
+                            onPressed: () {
+                              _handleLoginWithSocialNetwork(context, "Facebook");
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.backgroundColor,
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-                ),
-                onPressed: () {
-
-                },
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -169,10 +110,24 @@ class SocialLoginButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
-        width: 370,
+        width: double.infinity,
         height: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 6,
+            ),
+          ],
+        ),
         child: SignInButton(
           buttons,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           onPressed: onPressed,
         ),
       ),

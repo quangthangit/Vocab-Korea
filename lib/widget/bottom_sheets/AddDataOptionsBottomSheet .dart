@@ -9,6 +9,7 @@ class AddDataOptionsBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(5),
           bottomRight: Radius.circular(5),
@@ -53,11 +54,19 @@ class AddDataOptionsBottomSheet extends StatelessWidget {
       splashColor: Theme.of(context).primaryColor.withOpacity(0.2), 
       borderRadius: BorderRadius.circular(10),
       child: Container(
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: const Color(0xFFD7DEE5),
-          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 2,
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        padding: const EdgeInsets.all(15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
