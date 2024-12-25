@@ -80,15 +80,16 @@ class _DetailFolderPageState extends State<DetailFolderPage> {
             backgroundColor: AppColors.background,
             title: DetailClassBar(btn_addFolder: () => showFormCreateFolder(context), title: "Thư mục", item: ["Thêm bài học"], btn_browse: () {  },),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                infoFolder(folderData),
-                const SizedBox(height: 20),
-                Expanded(child: buildTabView(folderData)),
-              ],
-            ),
+          body: Column(
+            children: [
+              const Divider(
+                color: AppColors.iconColor,
+                height: 1,
+                thickness: 15,
+              ),
+              infoFolder(folderData),
+              Expanded(child: buildTabView(folderData)),
+            ],
           ),
         );
       },
@@ -96,32 +97,35 @@ class _DetailFolderPageState extends State<DetailFolderPage> {
   }
 
   Widget infoFolder(FolderModel folderData) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              folderData.title,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              '${folderData.lessonList.length} bài học',
-              style: const TextStyle(fontSize: 15),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            const Icon(Icons.access_time),
-            const SizedBox(width: 5),
-            Text('Ngày tạo ${convertTime(folderData.createdAt)}'),
-          ],
-        ),
-      ],
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                folderData.title,
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                '${folderData.lessonList.length} bài học',
+                style: const TextStyle(fontSize: 15),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              const Icon(Icons.access_time),
+              const SizedBox(width: 5),
+              Text('Ngày tạo ${convertTime(folderData.createdAt)}'),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -132,12 +136,13 @@ class _DetailFolderPageState extends State<DetailFolderPage> {
         children: [
           const TabBar(
             tabs: [
-              Tab(text: "Thư mục"),
+              Tab(text: "Thư mục",),
             ],
             labelColor: Colors.blue,
             labelStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.blue,
+            indicatorSize: TabBarIndicatorSize.tab,
           ),
           Expanded(
             child: TabBarView(

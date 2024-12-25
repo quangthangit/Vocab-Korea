@@ -120,7 +120,7 @@ class ClassRoom extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -145,21 +145,49 @@ class ClassRoom extends StatelessWidget {
             // ),
             const SizedBox(height: 20,),
             Row(
+              children: [
+                CircleAvatar(
+                  radius: 15,
+                  backgroundImage: NetworkImage(classModel.imageUser),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  classModel.idUser,
+                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20,),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                 Row(
-                  children: [
-                    const Icon(Icons.collections_bookmark_outlined,color: AppColors.iconColor,),
-                    const SizedBox(width: 10,),
-                    Text('${classModel.idFolder.length} Thư mục',style: const TextStyle(fontSize: 15,fontFamily: 'Lobster'))
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.supervisor_account,color: AppColors.iconColor),
-                    const SizedBox(width: 10,),
-                    Text('${classModel.idMember.length}',style: const TextStyle(fontSize: 15,fontFamily: 'Lobster'))
-                  ],
+                 Container(
+                   padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                   decoration: BoxDecoration(
+                     borderRadius: BorderRadius.circular(10),
+                     color: const Color(0xFFEEEEEE),
+                   ),
+                   child: Row(
+                    children: [
+                      const Icon(Icons.collections_bookmark_outlined,color: AppColors.iconColor,),
+                      const SizedBox(width: 10,),
+                      Text('${classModel.idFolder.length} Thư mục',style: const TextStyle(fontSize: 15,fontFamily: 'Lobster'))
+                    ],
+                                   ),
+                 ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color(0xFFEEEEEE),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.supervisor_account,color: AppColors.iconColor),
+                      const SizedBox(width: 10,),
+                      Text('${classModel.idMember.length}',style: const TextStyle(fontSize: 15,fontFamily: 'Lobster'))
+                    ],
+                  ),
                 )
               ],
             )
